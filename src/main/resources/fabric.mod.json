@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "copperworks",
+  "version": "${version}",
+  "name": "Copperworks",
+  "description": "Expand uses for copper with new redstone components and items.",
+  "authors": [
+    "uhmbyee / Mariany Pinkston"
+  ],
+  "contact": {
+    "homepage": "https://www.mariany.dev/"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/copperworks/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.mariany.copperworks.Copperworks"
+    ],
+    "fabric-datagen": [
+      "dev.mariany.copperworks.CopperworksDataGenerator"
+    ]
+  },
+  "mixins": [
+    "copperworks.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+  }
+}
