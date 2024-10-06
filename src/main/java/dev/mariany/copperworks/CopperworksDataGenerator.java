@@ -1,9 +1,6 @@
 package dev.mariany.copperworks;
 
-import dev.mariany.copperworks.datagen.ModBlockTagProvider;
-import dev.mariany.copperworks.datagen.ModItemTagProvider;
-import dev.mariany.copperworks.datagen.ModLootTableProvider;
-import dev.mariany.copperworks.datagen.ModRecipeProvider;
+import dev.mariany.copperworks.datagen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -15,5 +12,6 @@ public class CopperworksDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
+        pack.addProvider(ModModelProvider::new);
     }
 }
