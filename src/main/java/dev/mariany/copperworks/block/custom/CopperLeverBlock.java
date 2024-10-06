@@ -3,13 +3,19 @@ package dev.mariany.copperworks.block.custom;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class CopperLeverBlock extends ButtonBlock {
@@ -26,6 +32,46 @@ public class CopperLeverBlock extends ButtonBlock {
 
     public CopperLeverBlock(Settings settings) {
         super(BlockSetType.COPPER, PRESS_TICKS, settings);
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (state.get(POWERED)) {
+            this.togglePower(state, world, pos, player);
+            return ActionResult.SUCCESS;
+        }
+
+        if (world.isClient) {
+            spawnParticles(state, world, pos, 1F);
+        }
+
+        return super.onUse(state, world, pos, player, hit);
+    }
+
+    public void togglePower(BlockState state, World world, BlockPos pos, @Nullable PlayerEntity player) {
+        state = state.cycle(POWERED);
+        world.setBlockState(pos, state, Block.NOTIFY_ALL);
+        this.updateNeighbors(state, world, pos);
+
+        boolean powered = state.get(POWERED);
+        playClickSound(player, world, pos, powered);
+        world.emitGameEvent(player, powered ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pos);
+    }
+
+    private static void spawnParticles(BlockState state, WorldAccess world, BlockPos pos, float alpha) {
+        Direction direction = state.get(FACING).getOpposite();
+        Direction direction2 = getDirection(state).getOpposite();
+        double d = (double) pos.getX() + 0.5 + 0.1 * (double) direction.getOffsetX() + 0.2 * (double) direction2.getOffsetX();
+        double e = (double) pos.getY() + 0.5 + 0.1 * (double) direction.getOffsetY() + 0.2 * (double) direction2.getOffsetY();
+        double f = (double) pos.getZ() + 0.5 + 0.1 * (double) direction.getOffsetZ() + 0.2 * (double) direction2.getOffsetZ();
+        world.addParticle(new DustParticleEffect(DustParticleEffect.RED, alpha), d, e, f, 0.0, 0.0, 0.0);
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (state.get(POWERED) && random.nextFloat() < 0.25F) {
+            spawnParticles(state, world, pos, 0.5F);
+        }
     }
 
     @Override
