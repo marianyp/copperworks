@@ -2,11 +2,9 @@ package dev.mariany.copperworks.block;
 
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.custom.ClockBlock;
+import dev.mariany.copperworks.block.custom.CopperLeverBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -19,6 +17,9 @@ public class ModBlocks {
     public static final Block COPPER_CLOCK = registerBlock("copper_clock", new ClockBlock(
             AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                     .requiresTool().solidBlock(Blocks::never)));
+
+    public static final Block COPPER_LEVER = registerBlock("copper_lever",
+            new CopperLeverBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.COPPER).noCollision().strength(2).requiresTool()));
 
     private static Block registerBlock(String name, Block block) {
         return registerBlock(name, block, Rarity.COMMON);
@@ -40,6 +41,7 @@ public class ModBlocks {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
             entries.add(COPPER_CLOCK);
+            entries.add(COPPER_LEVER);
         });
     }
 }

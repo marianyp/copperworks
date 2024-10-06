@@ -24,6 +24,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createPlateRecipe(ModItems.COPPER_PLATE, Items.COPPER_INGOT, exporter);
         createPlateRecipe(ModItems.IRON_PLATE, Items.IRON_INGOT, exporter);
         createCopperClockRecipe(exporter);
+        createCopperLeverRecipe(exporter);
     }
 
     private static void createPlateRecipe(Item plate, Item ingot, RecipeExporter exporter) {
@@ -32,8 +33,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void createCopperClockRecipe(RecipeExporter exporter) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.COPPER_CLOCK).pattern(" P ").pattern("PCP")
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_CLOCK).pattern(" P ").pattern("PCP")
                 .pattern(" P ").input('P', ModItems.COPPER_PLATE).input('C', Items.CLOCK)
                 .criterion(hasItem(Items.CLOCK), conditionsFromItem(Items.CLOCK)).offerTo(exporter);
+    }
+
+    private void createCopperLeverRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_LEVER).pattern("R").pattern("D")
+                .input('R', Items.LIGHTNING_ROD).input('D', Items.COBBLED_DEEPSLATE)
+                .criterion(hasItem(ModBlocks.COPPER_LEVER), conditionsFromItem(ModBlocks.COPPER_LEVER))
+                .offerTo(exporter);
     }
 }

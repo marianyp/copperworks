@@ -2,6 +2,5 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "copperworks:item/copper_lever"
-  },
-  "render_type": "translucent"
+  }
 }
