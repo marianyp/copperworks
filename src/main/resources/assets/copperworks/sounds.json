@@ -1,0 +1,38 @@
+{
+	"charge": {
+		"subtitle": "subtitles.charge",
+		"sounds": [
+			{
+				"name": "copperworks:charge",
+				"stream": false
+			}
+		]
+	},
+	"drill": {
+		"subtitle": "subtitles.drill",
+		"sounds": [
+			{
+				"name": "copperworks:drill",
+				"stream": false
+			}
+		]
+	},
+	"radio_bound": {
+		"subtitle": "subtitles.radio_bound",
+		"sounds": [
+			{
+				"name": "copperworks:radio_bound",
+				"stream": false
+			}
+		]
+	},
+	"radio_fail": {
+		"subtitle": "subtitles.radio_fail",
+		"sounds": [
+			{
+				"name": "copperworks:radio_fail",
+				"stream": false
+			}
+		]
+	}
+}
