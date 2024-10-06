@@ -30,6 +30,7 @@ public class CopperLeverBlock extends ButtonBlock {
 
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        this.updateNeighbors(state, world, pos);
         if (moved) {
             world.scheduleBlockTick(new BlockPos(pos), this, PRESS_TICKS);
         }
@@ -39,10 +40,14 @@ public class CopperLeverBlock extends ButtonBlock {
     @Override
     protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (moved && state.get(POWERED)) {
-            world.updateNeighborsAlways(pos, this);
-            world.updateNeighborsAlways(pos.offset(getDirection(state).getOpposite()), this);
+            this.updateNeighbors(state, world, pos);
         }
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    private void updateNeighbors(BlockState state, World world, BlockPos pos) {
+        world.updateNeighborsAlways(pos, this);
+        world.updateNeighborsAlways(pos.offset(getDirection(state).getOpposite()), this);
     }
 
     @Override
