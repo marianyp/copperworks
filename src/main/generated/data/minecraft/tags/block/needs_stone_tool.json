@@ -1,6 +1,7 @@
 {
   "values": [
     "copperworks:copper_clock",
-    "copperworks:copper_lever"
+    "copperworks:copper_lever",
+    "copperworks:copper_frame"
   ]
 }

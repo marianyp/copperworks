@@ -24,6 +24,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createPlateRecipe(ModItems.COPPER_PLATE, Items.COPPER_INGOT, exporter);
         createPlateRecipe(ModItems.IRON_PLATE, Items.IRON_INGOT, exporter);
         createCopperClockRecipe(exporter);
+        createCopperFrameRecipe(exporter);
         createCopperLeverRecipe(exporter);
     }
 
@@ -36,6 +37,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_CLOCK).pattern(" P ").pattern("PCP")
                 .pattern(" P ").input('P', ModItems.COPPER_PLATE).input('C', Items.CLOCK)
                 .criterion(hasItem(Items.CLOCK), conditionsFromItem(Items.CLOCK)).offerTo(exporter);
+    }
+
+    private void createCopperFrameRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COPPER_FRAME, 4).pattern(" C ")
+                .pattern("CSC").pattern(" C ").input('C', Items.COPPER_INGOT).input('S', Items.SCAFFOLDING)
+                .criterion(hasItem(Items.SCAFFOLDING), conditionsFromItem(Items.SCAFFOLDING)).offerTo(exporter);
     }
 
     private void createCopperLeverRecipe(RecipeExporter exporter) {

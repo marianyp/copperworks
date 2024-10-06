@@ -1,7 +1,7 @@
 {
 	"textures": {
 		"0": "copperworks:block/copper_frame",
-		"particle": "copperworks:block/copper_frame"
+		"particle": "minecraft:block/copper_block"
 	},
 	"elements": [
 		{

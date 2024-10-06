@@ -3,5 +3,6 @@
   "item.copperworks.iron_plate": "Iron Plate",
   "block.copperworks.copper_clock": "Copper Clock",
   "block.copperworks.copper_clock.cycled": "Copper Clock interval set to %s",
-  "block.copperworks.copper_lever": "Copper Lever"
+  "block.copperworks.copper_lever": "Copper Lever",
+  "block.copperworks.copper_frame": "Copper Frame"
 }
