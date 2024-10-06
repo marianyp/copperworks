@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"down": "copperworks:block/copper_clock",
+		"up": "copperworks:block/copper_clock",
+		"north": "copperworks:block/copper_clock",
+		"east": "copperworks:block/copper_clock",
+		"south": "copperworks:block/copper_clock",
+		"west": "copperworks:block/copper_clock",
+		"particle": "copperworks:block/copper_clock"
+	}
+}

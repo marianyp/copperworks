@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "copperworks:block/charged_copper_relay"
+    }
+  }
+}

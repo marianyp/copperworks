@@ -1,0 +1,6 @@
+{
+  "item.copperworks.copper_plate": "Copper Plate",
+  "item.copperworks.iron_plate": "Iron Plate",
+  "block.copperworks.copper_clock": "Copper Clock",
+  "block.copperworks.copper_clock.cycled": "Copper Clock interval set to %s"
+}

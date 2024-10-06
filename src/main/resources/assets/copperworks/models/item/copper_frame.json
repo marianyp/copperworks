@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "copperworks:item/copper_frame_item"
+  },
+  "render_type": "translucent"
+}
