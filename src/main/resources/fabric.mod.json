@@ -17,6 +17,9 @@
     "main": [
       "dev.mariany.copperworks.Copperworks"
     ],
+    "client": [
+      "dev.mariany.copperworks.CopperworksClient"
+    ],
     "fabric-datagen": [
       "dev.mariany.copperworks.CopperworksDataGenerator"
     ]

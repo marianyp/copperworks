@@ -26,7 +26,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_DRILL);
 
         List<TagKey<Item>> drillCapabilityTags = List.of(ItemTags.MINING_ENCHANTABLE, ItemTags.MINING_LOOT_ENCHANTABLE,
-                ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BREAKS_DECORATED_POTS);
+                ItemTags.BREAKS_DECORATED_POTS);
 
         for (TagKey<Item> drillCapabilityTag : drillCapabilityTags) {
             getOrCreateTagBuilder(drillCapabilityTag).addTag(ModTags.Items.DRILLS);

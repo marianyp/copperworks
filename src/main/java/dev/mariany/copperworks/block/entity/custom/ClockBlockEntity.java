@@ -3,6 +3,7 @@ package dev.mariany.copperworks.block.entity.custom;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +21,11 @@ public class ClockBlockEntity extends BlockEntity {
     private int progress = 0;
 
     public ClockBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CLOCK, pos, state);
+        this(ModBlockEntities.CLOCK, pos, state);
+    }
+
+    public ClockBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     public void tick(World world, BlockPos pos, BlockState blockState, ClockBlockEntity clockBlockEntity) {

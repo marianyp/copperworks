@@ -25,15 +25,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class ClockBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final MapCodec<ClockBlock> CODEC = ClockBlock.createCodec(ClockBlock::new);
-    private final String CYCLE_MESSAGE_TRANSLATION;
 
     public ClockBlock(Settings settings) {
-        this("block.copperworks.copper_clock.cycled", settings);
-    }
-
-    public ClockBlock(String cycleMessageTranslation, Settings settings) {
         super(settings);
-        CYCLE_MESSAGE_TRANSLATION = cycleMessageTranslation;
     }
 
     @Override
@@ -56,7 +50,7 @@ public class ClockBlock extends BlockWithEntity implements BlockEntityProvider {
             int targetProgress = clockBlockEntity.cycleTargetProgress(player.isSneaking());
             int targetProgressInSeconds = targetProgress == 0 ? 0 : MathHelper.floor((float) targetProgress / 20);
             if (!world.isClient) {
-                player.sendMessage(Text.translatable(CYCLE_MESSAGE_TRANSLATION, targetProgressInSeconds), true);
+                player.sendMessage(Text.translatable("block.copperworks.clock.cycled", targetProgressInSeconds), true);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_NOTE_BLOCK_HAT,
                         SoundCategory.NEUTRAL, 0.5F, (float) (1.6 - (Math.min(12, targetProgressInSeconds) - 1) * 0.1));
             }

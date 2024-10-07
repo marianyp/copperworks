@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper_plate": {
+    "has_comparator": {
       "conditions": {
         "items": [
           {
-            "items": "copperworks:copper_plate"
+            "items": "minecraft:comparator"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "copperworks:copper_bracer"
+        "recipe": "copperworks:copper_battery"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_copper_plate"
+      "has_comparator"
     ]
   ],
   "rewards": {
     "recipes": [
-      "copperworks:copper_bracer"
+      "copperworks:copper_battery"
     ]
   }
 }

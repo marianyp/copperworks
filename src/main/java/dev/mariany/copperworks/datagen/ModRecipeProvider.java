@@ -23,16 +23,25 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     public void generate(RecipeExporter exporter) {
         createPlateRecipe(ModItems.COPPER_PLATE, Items.COPPER_INGOT, exporter);
         createPlateRecipe(ModItems.IRON_PLATE, Items.IRON_INGOT, exporter);
+
+        createCopperBatteryRecipe(exporter);
         createCopperBracerRecipe(exporter);
         createCopperClockRecipe(exporter);
         createCopperFrameRecipe(exporter);
         createCopperLeverRecipe(exporter);
     }
 
+    private void createCopperBatteryRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModBlocks.COPPER_BATTERY)
+                .input('C', ModItems.COPPER_PLATE).input('I', ModItems.IRON_PLATE).input('R', Items.REDSTONE_BLOCK)
+                .input('G', Items.COMPARATOR).pattern("CCC").pattern("RGR").pattern("III")
+                .criterion(hasItem(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR)).offerTo(exporter);
+    }
+
     private void createCopperBracerRecipe(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.COPPER_BRACER).input('P', ModItems.COPPER_PLATE)
                 .pattern("P P").pattern("PPP").pattern("PPP")
-                .criterion("has_plate", conditionsFromItem(ModItems.COPPER_PLATE)).offerTo(exporter);
+                .criterion(hasItem(ModItems.COPPER_PLATE), conditionsFromItem(ModItems.COPPER_PLATE)).offerTo(exporter);
     }
 
     private static void createPlateRecipe(Item plate, Item ingot, RecipeExporter exporter) {

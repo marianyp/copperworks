@@ -18,9 +18,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.COPPER_CLOCK).add(ModBlocks.COPPER_LEVER)
-                .add(ModBlocks.COPPER_FRAME);
+                .add(ModBlocks.COPPER_FRAME).add(ModBlocks.COPPER_BATTERY);
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).add(ModBlocks.COPPER_CLOCK).add(ModBlocks.COPPER_LEVER)
-                .add(ModBlocks.COPPER_FRAME);
+                .add(ModBlocks.COPPER_FRAME).add(ModBlocks.COPPER_BATTERY);
         getOrCreateTagBuilder(ModTags.Blocks.DRILLABLE).addOptionalTag(BlockTags.PICKAXE_MINEABLE)
                 .addOptionalTag(BlockTags.SHOVEL_MINEABLE);
     }

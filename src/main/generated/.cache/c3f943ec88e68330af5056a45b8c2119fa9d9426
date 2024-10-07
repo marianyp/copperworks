@@ -1,12 +1,14 @@
-// 1.21.1	2024-10-06T18:53:21.2470075	Copperworks/Recipes
+// 1.21.1	2024-10-07T04:59:08.5767339	Copperworks/Recipes
+685641e6b8c7110eb2d1e64a32a6fe6d354e0aa6 data\copperworks\advancement\recipes\combat\copper_battery.json
 7fcdd120f9d538fe7bcf1ad00bdd06ed4ad5f0b0 data\copperworks\recipe\copper_frame.json
 cd40ee4978e12d996d768b50ca61775997bc0dd8 data\copperworks\advancement\recipes\redstone\copper_lever.json
 523a61807348d12c328b7c22807936830ee3ebe9 data\copperworks\advancement\recipes\misc\copper_plate.json
-e00280882ac757b6ffc7caa5bf9b0d38ae7ef932 data\copperworks\advancement\recipes\combat\copper_bracer.json
+3cc438af8e9c85e55036ff0addc4dedab51dc83d data\copperworks\advancement\recipes\combat\copper_bracer.json
 ebe01d53de6f8f591cabd1caa2dd705d268173e8 data\copperworks\recipe\copper_plate.json
 6e725c79a5d68678eb366841611bbc629fbb1bf3 data\copperworks\advancement\recipes\misc\iron_plate.json
 cfdd586cd96ecaa9dd86721056edbcd261dee274 data\copperworks\advancement\recipes\building_blocks\copper_frame.json
 1ff260b62747f6f302a54f18eec13c7c536cde1b data\copperworks\recipe\copper_lever.json
+4363afd11313e6c92865c7bffe5ddb6d8f692610 data\copperworks\recipe\copper_battery.json
 bc781189654d97f163a9a000ed78a1699f38763b data\copperworks\advancement\recipes\redstone\copper_clock.json
 048ba4c798a2cb74ee059f4d0541cf22ee6c7a97 data\copperworks\recipe\copper_clock.json
 10b5208b1d8aa48f63c5e49c5e8ad044738403cb data\copperworks\recipe\iron_plate.json

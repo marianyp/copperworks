@@ -1,6 +1,6 @@
 {
 	"charge": {
-		"subtitle": "subtitles.charge",
+		"subtitle": "subtitles.block.copperworks.charge",
 		"sounds": [
 			{
 				"name": "copperworks:charge",
@@ -9,7 +9,7 @@
 		]
 	},
 	"drill": {
-		"subtitle": "subtitles.drill",
+		"subtitle": "subtitles.item.copperworks.drill",
 		"sounds": [
 			{
 				"name": "copperworks:drill",

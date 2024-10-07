@@ -2,8 +2,10 @@ package dev.mariany.copperworks;
 
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
+import dev.mariany.copperworks.block.property.ModProperties;
 import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;
+import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
@@ -18,7 +20,9 @@ public class Copperworks implements ModInitializer {
     @Override
     public void onInitialize() {
         ModArmorMaterials.registerModArmorMaterials();
+        ModComponents.registerModComponents();
         ModItems.registerModItems();
+        ModProperties.registerModProperties();
         ModBlocks.registerModBlocks();
         ModBlockEntities.registerModBlockEntities();
         ModSoundEvents.registerModSoundEvents();

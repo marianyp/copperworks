@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class ModSoundEvents {
     public static final SoundEvent DRILL = register("drill");
+    public static final SoundEvent CHARGE = register("charge");
 
     private static SoundEvent register(String name) {
         Identifier id = Copperworks.id(name);

@@ -2,6 +2,7 @@
   "values": [
     "copperworks:copper_clock",
     "copperworks:copper_lever",
-    "copperworks:copper_frame"
+    "copperworks:copper_frame",
+    "copperworks:copper_battery"
   ]
 }

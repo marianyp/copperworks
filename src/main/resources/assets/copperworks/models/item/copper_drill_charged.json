@@ -1,0 +1,6 @@
+{
+	"parent": "copperworks:item/copper_drill_template",
+	"textures": {
+		"layer0": "copperworks:item/copper_drill_charged"
+	}
+}

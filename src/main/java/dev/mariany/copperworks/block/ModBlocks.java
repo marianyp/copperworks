@@ -1,12 +1,14 @@
 package dev.mariany.copperworks.block;
 
 import dev.mariany.copperworks.Copperworks;
+import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.block.custom.ClockBlock;
 import dev.mariany.copperworks.block.custom.CopperFrameBlock;
 import dev.mariany.copperworks.block.custom.CopperLeverBlock;
 import dev.mariany.copperworks.item.custom.CopperFrameBlockItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -26,6 +28,10 @@ public class ModBlocks {
             AbstractBlock.Settings.create().sounds(BlockSoundGroup.COPPER).noCollision().strength(2).requiresTool()));
 
     public static final Block COPPER_FRAME = registerCopperFrame();
+
+    public static final Block COPPER_BATTERY = registerBlock("copper_battery", new BatteryBlock(
+            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(5, 6)
+                    .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK)));
 
     private static Block registerBlock(String name, Block block) {
         return registerBlock(name, block, Rarity.COMMON);
@@ -55,6 +61,7 @@ public class ModBlocks {
         Copperworks.LOGGER.info("Registering Mod Blocks for " + Copperworks.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
+            entries.add(COPPER_BATTERY);
             entries.add(COPPER_CLOCK);
             entries.add(COPPER_LEVER);
         });
