@@ -18,7 +18,7 @@
       "dev.mariany.copperworks.Copperworks"
     ],
     "client": [
-      "dev.mariany.copperworks.CopperworksClient"
+      "dev.mariany.copperworks.client.CopperworksClient"
     ],
     "fabric-datagen": [
       "dev.mariany.copperworks.CopperworksDataGenerator"
@@ -27,6 +27,7 @@
   "mixins": [
     "copperworks.mixins.json"
   ],
+  "accessWidener": "copperworks.accesswidener",
   "depends": {
     "fabricloader": ">=0.16.5",
     "minecraft": "~1.21.1",

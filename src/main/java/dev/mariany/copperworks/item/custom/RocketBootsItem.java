@@ -7,6 +7,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
@@ -16,8 +17,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class RocketBootsItem extends ArmorItem {
-    private static final int MAX_CHARGE = 200;
-    private static final int CHARGE_RATE = 10;
+    private static final int MAX_CHARGE = 50;
+    private static final int CHARGE_RATE = 20;
 
     private static final float MAX_SPEED = 2F;
     private static final float MAX_THRUST_ALLOWANCE = 1.15F;
@@ -40,14 +41,20 @@ public class RocketBootsItem extends ArmorItem {
         return entity.getY() > entity.getWorld().getDimension().height();
     }
 
-    public void spawnParticles(LivingEntity entity, BipedEntityModel<?> model, ItemStack stack) {
+    public void spawnParticles(LivingEntity entity, BipedEntityModel<?> model, ItemStack bootsStack) {
         World world = entity.getWorld();
 
-        boolean halting = (entity.isSneaking() && !entity.isOnGround()) || isOutOfBounds(entity);
-        boolean thrusting = stack.getOrDefault(ModComponents.THRUST, 0F) > 0F;
+        boolean halting = (isHalting(entity, bootsStack) && !entity.isOnGround()) || isOutOfBounds(entity);
+        boolean thrusting = bootsStack.getOrDefault(ModComponents.THRUST, 0F) > 0F;
 
         if (!halting && !thrusting) {
             return;
+        }
+
+        if (entity instanceof PlayerEntity player) {
+            if (player.getAbilities().flying) {
+                return;
+            }
         }
 
         if (halting) {
@@ -66,8 +73,8 @@ public class RocketBootsItem extends ArmorItem {
         }
     }
 
-    private static void spawnParticles(World world, LivingEntity entity, SimpleParticleType particleType, double pitch,
-                                       double zOffset) {
+    private void spawnParticles(World world, LivingEntity entity, SimpleParticleType particleType, double pitch,
+                                double zOffset) {
         double yRot = entity.bodyYaw;
         double forwardOffsetX = Math.cos(yRot * Math.PI / 180) * zOffset;
         double forwardOffsetZ = Math.sin(yRot * Math.PI / 180) * zOffset;
@@ -131,8 +138,7 @@ public class RocketBootsItem extends ArmorItem {
 
         if (isHalting(entity, bootsStack)) {
             resetThrust(entity, bootsStack);
-            entity.fallDistance = 0;
-            return true;
+            return true; // allows for fall damage reset
         }
 
         if (isOutOfBounds(entity)) {
@@ -176,6 +182,7 @@ public class RocketBootsItem extends ArmorItem {
             if (ModUtils.itemHasSomeCharge(stack)) {
                 if (livingEntity.getEquippedStack(EquipmentSlot.FEET) == stack) {
                     if (applyThrust(stack, livingEntity) && !world.isClient) {
+                        entity.fallDistance = 0;
                         decrementChargeAndDamage(stack, livingEntity);
                     }
                 }

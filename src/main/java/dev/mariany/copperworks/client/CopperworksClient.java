@@ -1,5 +1,6 @@
-package dev.mariany.copperworks;
+package dev.mariany.copperworks.client;
 
+import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.renderer.BatteryBlockEntityRenderer;
 import dev.mariany.copperworks.item.ModItems;

@@ -130,17 +130,21 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     public void tick(World world, BlockPos pos, BlockState blockState, BatteryBlockEntity batteryBlockEntity) {
-        ItemStack chargeStack = batteryBlockEntity.getStack();
-        int chargeRate = this.getChargeRate();
+        if (batteryBlockEntity.isCharging()) {
+            ItemStack chargeStack = batteryBlockEntity.getStack();
+            int chargeRate = batteryBlockEntity.getChargeRate();
 
-        if (chargeRate <= 1 || world.getTime() % chargeRate == 0) {
-            if (chargeItem(chargeStack)) {
-                batteryBlockEntity.markDirty();
-                world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+            if (chargeRate <= 1 || world.getTime() % chargeRate == 0) {
+                if (batteryBlockEntity.chargeItem(chargeStack)) {
+                    batteryBlockEntity.markDirty();
+                    world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+                }
+            }
 
-                int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
+            int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
 
-                if (currentCharge % 20 * 4 == 0) {
+            if (currentCharge > 0) {
+                if (world.getTime() % (20 * 4) == 0) {
                     batteryBlockEntity.playChargeSound(world, pos);
                 }
             }

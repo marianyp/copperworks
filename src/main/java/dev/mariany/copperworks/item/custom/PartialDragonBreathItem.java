@@ -16,7 +16,7 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class PartialDragonBreathItem extends Item {
-    private static final int MAX_FILL = 3;
+    public static final int MAX_FILL = 3;
 
     public PartialDragonBreathItem(Settings settings) {
         super(settings);

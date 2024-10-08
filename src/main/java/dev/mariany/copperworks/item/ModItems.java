@@ -3,6 +3,7 @@ package dev.mariany.copperworks.item;
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.item.custom.*;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -30,9 +31,10 @@ public class ModItems {
         Copperworks.LOGGER.info("Registering Mod Items for " + Copperworks.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            partialDragonBreathItemGroup(entries);
+
             entries.addAfter(Items.COPPER_INGOT, COPPER_PLATE);
             entries.addAfter(Items.IRON_INGOT, IRON_PLATE);
-            entries.addBefore(Items.DRAGON_BREATH, PARTIAL_DRAGON_BREATH);
             entries.addAfter(Items.BLAZE_POWDER, ENDER_POWDER);
         });
 
@@ -45,5 +47,13 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.addAfter(Items.NETHERITE_HOE, COPPER_DRILL);
         });
+    }
+
+    private static void partialDragonBreathItemGroup(FabricItemGroupEntries entries) {
+        for (int i = 0; i < PartialDragonBreathItem.MAX_FILL; i++) {
+            ItemStack itemStack = PARTIAL_DRAGON_BREATH.getDefaultStack();
+            itemStack.set(ModComponents.DRAGON_BREATH_FILL, i);
+            entries.addBefore(Items.DRAGON_BREATH, itemStack);
+        }
     }
 }

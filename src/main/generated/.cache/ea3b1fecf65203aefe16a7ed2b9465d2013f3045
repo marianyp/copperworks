@@ -1,7 +1,9 @@
-// 1.21.1	2024-10-07T21:08:06.323248	Copperworks/Tags for minecraft:item
-22bdc114643e1818e93dfb471989ff32e890591e data\minecraft\tags\item\swords.json
-cbf9f75cd72d307a015aa300c1b92418c4de4a74 data\copperworks\tags\item\engineer_can_upgrade.json
+// 1.21.1	2024-10-08T06:16:12.9228723	Copperworks/Tags for minecraft:item
+30f1f1e48cb951c376ffcd292088d0b3bd641614 data\copperworks\tags\item\engineer_can_upgrade.json
+22bdc114643e1818e93dfb471989ff32e890591e data\minecraft\tags\item\enchantable\sword.json
 70726556ef2857ded07b55dd01a65d5748938f77 data\minecraft\tags\item\enchantable\mining.json
 70726556ef2857ded07b55dd01a65d5748938f77 data\minecraft\tags\item\enchantable\mining_loot.json
+c697c80e2e307a0f16257dc6a8e026c77118083c data\minecraft\tags\item\enchantable\foot_armor.json
 516329082fecaa226e11f68daaf252b46786eb36 data\copperworks\tags\item\drills.json
 70726556ef2857ded07b55dd01a65d5748938f77 data\minecraft\tags\item\breaks_decorated_pots.json
+2e6b1843745f74e3a2cb86f09c449116902691ae data\minecraft\tags\item\enchantable\chest_armor.json

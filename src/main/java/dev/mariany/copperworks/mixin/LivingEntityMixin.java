@@ -3,6 +3,7 @@ package dev.mariany.copperworks.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.mariany.copperworks.item.custom.RocketBootsItem;
+import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -34,7 +35,8 @@ public abstract class LivingEntityMixin {
     private boolean shouldCancel(LivingEntity entity) {
         ItemStack boots = entity.getEquippedStack(EquipmentSlot.FEET);
         if (boots.getItem() instanceof RocketBootsItem) {
-            return RocketBootsItem.isHalting(entity, boots);
+            boolean bootsInUse = entity.isFallFlying() && ModUtils.itemHasSomeCharge(boots);
+            return bootsInUse || RocketBootsItem.isHalting(entity, boots);
         }
 
         return false;

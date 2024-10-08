@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.util;
 
 import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.tag.ModTags;
 import net.minecraft.item.ItemStack;
 
 public class ModUtils {
@@ -31,5 +32,9 @@ public class ModUtils {
         }
 
         return chargeComponent > 0;
+    }
+
+    public static boolean engineerCanUpgrade(ItemStack itemStack) {
+        return itemStack.isIn(ModTags.Items.ENGINEER_CAN_UPGRADE) && !itemStack.hasEnchantments();
     }
 }

@@ -5,12 +5,17 @@
   "mixins": [
     "ItemMixin",
     "ItemStackMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "NearestItemsSensorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "EntityRenderDispatcherMixin"
+    "ArmorFeatureRendererMixin",
+    "BufferBuilderStorageMixin",
+    "EntityRenderDispatcherMixin",
+    "ItemRendererMixin",
+    "WorldRendererMixin"
   ]
 }

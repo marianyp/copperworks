@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
+    List<Item> ENGINEER_CAN_UPGRADE = List.of(ModItems.COPPER_BROADSWORD, ModItems.COPPER_DRILL, ModItems.COPPER_BRACER,
+            ModItems.ROCKET_BOOTS);
+    List<TagKey<Item>> DRILL_CAPABILITIES = List.of(ItemTags.MINING_ENCHANTABLE, ItemTags.MINING_LOOT_ENCHANTABLE,
+            ItemTags.BREAKS_DECORATED_POTS);
+
     public ModItemTagProvider(FabricDataOutput output,
                               CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
@@ -20,16 +25,24 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.COPPER_BROADSWORD);
+        getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE).add(ModItems.COPPER_BROADSWORD);
+        getOrCreateTagBuilder(ItemTags.CHEST_ARMOR_ENCHANTABLE).add(ModItems.COPPER_BRACER);
+        getOrCreateTagBuilder(ItemTags.FOOT_ARMOR_ENCHANTABLE).add(ModItems.ROCKET_BOOTS);
         getOrCreateTagBuilder(ModTags.Items.DRILLS).add(ModItems.COPPER_DRILL);
-        getOrCreateTagBuilder(ModTags.Items.ENGINEER_CAN_UPGRADE).add(ModItems.COPPER_BROADSWORD)
-                .add(ModItems.COPPER_DRILL);
 
-        List<TagKey<Item>> drillCapabilityTags = List.of(ItemTags.MINING_ENCHANTABLE, ItemTags.MINING_LOOT_ENCHANTABLE,
-                ItemTags.BREAKS_DECORATED_POTS);
+        addEngineerCanUpgrade();
+        addDrillCapabilities();
+    }
 
-        for (TagKey<Item> drillCapabilityTag : drillCapabilityTags) {
-            getOrCreateTagBuilder(drillCapabilityTag).addTag(ModTags.Items.DRILLS);
+    private void addDrillCapabilities() {
+        for (TagKey<Item> tag : DRILL_CAPABILITIES) {
+            getOrCreateTagBuilder(tag).addTag(ModTags.Items.DRILLS);
+        }
+    }
+
+    private void addEngineerCanUpgrade() {
+        for (Item item : ENGINEER_CAN_UPGRADE) {
+            getOrCreateTagBuilder(ModTags.Items.ENGINEER_CAN_UPGRADE).add(item);
         }
     }
 }
