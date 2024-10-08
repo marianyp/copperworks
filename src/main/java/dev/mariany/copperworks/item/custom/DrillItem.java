@@ -17,8 +17,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class DrillItem extends MiningToolItem {
-    public DrillItem(ToolMaterial material, Item.Settings settings) {
-        super(material, ModTags.Blocks.DRILLABLE, settings);
+    public DrillItem(ToolMaterial material, Item.Settings settings, int maxCharge, int chargeRate) {
+        super(material, ModTags.Blocks.DRILLABLE,
+                settings.component(ModComponents.CHARGE, 0).component(ModComponents.MAX_CHARGE, maxCharge)
+                        .component(ModComponents.CHARGE_RATE, chargeRate));
     }
 
     @Override

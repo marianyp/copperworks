@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "copperworks:ender_powder"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "P": {
+      "item": "copperworks:copper_plate"
+    }
+  },
+  "pattern": [
+    "P P",
+    "N N",
+    "E E"
+  ],
+  "result": {
+    "count": 1,
+    "id": "copperworks:rocket_boots"
+  }
+}

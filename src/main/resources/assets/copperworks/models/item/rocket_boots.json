@@ -1,14 +1,14 @@
 {
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "copperworks:item/rocket_boots"
-	},
-	"overrides": [
-		{
-			"predicate": {
-				"copperworks:has_fuel": 1
-			},
-			"model": "copperworks:item/rocket_boots_fueled"
-		}
-	]
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "copperworks:item/rocket_boots"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "copperworks:charged": 1
+      },
+      "model": "copperworks:item/rocket_boots_charged"
+    }
+  ]
 }

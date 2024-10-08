@@ -1,0 +1,20 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "copperworks:item/partial_dragon_breath_0"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"copperworks:dragon_breath_fill": 1
+			},
+			"model": "copperworks:item/partial_dragon_breath_1"
+		},
+		{
+			"predicate": {
+				"copperworks:dragon_breath_fill": 2
+			},
+			"model": "copperworks:item/partial_dragon_breath_2"
+		}
+	]
+}

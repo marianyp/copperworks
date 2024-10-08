@@ -27,6 +27,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.COPPER_BROADSWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.COPPER_PLATE, Models.GENERATED);
         itemModelGenerator.register(ModItems.IRON_PLATE, Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.COPPER_FRAME.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.COPPER_LEVER.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDER_POWDER, Models.GENERATED);
     }
 
     private void registerBattery(BlockStateModelGenerator blockStateModelGenerator, Block battery) {

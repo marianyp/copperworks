@@ -4,12 +4,18 @@
   "item.copperworks.copper_broadsword": "Copper Broadsword",
   "item.copperworks.copper_drill": "Copper Drill",
   "item.copperworks.copper_bracer": "Copper Bracer",
+  "item.copperworks.rocket_boots": "Rocket Boots",
+  "item.copperworks.partial_dragon_breath": "Partially-Filled Dragon Breath",
+  "item.copperworks.ender_powder": "Ender Powder",
+  "item.copperworks.charge.tooltip": "Energy: %s",
   "block.copperworks.copper_clock": "Copper Clock",
   "block.copperworks.clock.cycled": "Clock interval set to %s",
   "block.copperworks.copper_battery": "Copper Battery",
   "block.copperworks.copper_lever": "Copper Lever",
   "block.copperworks.copper_frame": "Copper Frame",
+  "tag.item.copperworks.drills": "Drills",
+  "tag.item.copperworks.engineer_can_upgrade": "Engineer Can Upgrade",
+  "tag.block.copperworks.mineable/drill": "Drillable",
   "subtitles.item.copperworks.drill": "Block Drilled",
-  "subtitles.block.copperworks.charge": "Item Charging",
-  "item.copperworks.charge.tooltip": "Energy: %s"
+  "subtitles.block.copperworks.charge": "Item Charging"
 }

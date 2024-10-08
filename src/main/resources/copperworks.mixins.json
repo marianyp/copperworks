@@ -3,9 +3,14 @@
   "package": "dev.mariany.copperworks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ItemStackMixin"
+    "ItemMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "EntityRenderDispatcherMixin"
+  ]
 }

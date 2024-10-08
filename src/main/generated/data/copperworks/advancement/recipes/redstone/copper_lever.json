@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper_lever": {
+    "has_lightning_rod": {
       "conditions": {
         "items": [
           {
-            "items": "copperworks:copper_lever"
+            "items": "minecraft:lightning_rod"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_copper_lever"
+      "has_lightning_rod"
     ]
   ],
   "rewards": {

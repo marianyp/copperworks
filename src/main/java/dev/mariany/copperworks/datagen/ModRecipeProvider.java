@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -29,6 +30,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createCopperClockRecipe(exporter);
         createCopperFrameRecipe(exporter);
         createCopperLeverRecipe(exporter);
+        createEnderPowderRecipe(exporter);
+        createRocketBootsRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -46,7 +49,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private static void createPlateRecipe(Item plate, Item ingot, RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, plate).pattern("II").pattern("II").input('I', ingot)
-                .criterion(hasItem(plate), conditionsFromItem(plate)).offerTo(exporter);
+                .criterion(hasItem(ingot), conditionsFromItem(ingot)).offerTo(exporter);
     }
 
     private void createCopperClockRecipe(RecipeExporter exporter) {
@@ -64,7 +67,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private void createCopperLeverRecipe(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_LEVER).pattern("R").pattern("D")
                 .input('R', Items.LIGHTNING_ROD).input('D', Items.COBBLED_DEEPSLATE)
-                .criterion(hasItem(ModBlocks.COPPER_LEVER), conditionsFromItem(ModBlocks.COPPER_LEVER))
-                .offerTo(exporter);
+                .criterion(hasItem(Items.LIGHTNING_ROD), conditionsFromItem(Items.LIGHTNING_ROD)).offerTo(exporter);
+    }
+
+    private void createEnderPowderRecipe(RecipeExporter exporter) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.ENDER_POWDER).input(Items.BLAZE_POWDER)
+                .input(Items.DRAGON_BREATH)
+                .criterion(hasItem(Items.DRAGON_BREATH), conditionsFromItem(Items.DRAGON_BREATH)).offerTo(exporter);
+    }
+
+    private void createRocketBootsRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TRANSPORTATION, ModItems.ROCKET_BOOTS)
+                .input('P', ModItems.COPPER_PLATE).input('N', Items.NETHERITE_INGOT).input('E', ModItems.ENDER_POWDER)
+                .pattern("P P").pattern("N N").pattern("E E")
+                .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT)).offerTo(exporter);
     }
 }

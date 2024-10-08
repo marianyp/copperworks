@@ -125,23 +125,24 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         return (float) charge / (float) maxCharge;
     }
 
-    public int getChargeSpeed() {
-        return this.chargingItem.getOrDefault(ModComponents.CHARGE_SPEED, 1);
+    public int getChargeRate() {
+        return this.chargingItem.getOrDefault(ModComponents.CHARGE_RATE, 1);
     }
 
     public void tick(World world, BlockPos pos, BlockState blockState, BatteryBlockEntity batteryBlockEntity) {
         ItemStack chargeStack = batteryBlockEntity.getStack();
+        int chargeRate = this.getChargeRate();
 
-        if (chargeItem(chargeStack)) {
-            batteryBlockEntity.markDirty();
-            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+        if (chargeRate <= 1 || world.getTime() % chargeRate == 0) {
+            if (chargeItem(chargeStack)) {
+                batteryBlockEntity.markDirty();
+                world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 
-            int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
-            int chargeSpeed = this.getChargeSpeed();
-            int soundInterval = (20 * chargeSpeed) * 4;
+                int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
 
-            if (currentCharge % soundInterval == 0) {
-                batteryBlockEntity.playChargeSound(world, pos);
+                if (currentCharge % 20 * 4 == 0) {
+                    batteryBlockEntity.playChargeSound(world, pos);
+                }
             }
         }
     }
@@ -154,10 +155,9 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     private boolean chargeItem(ItemStack itemStack) {
         Integer charge = itemStack.getOrDefault(ModComponents.CHARGE, 0);
         Integer maxCharge = itemStack.getOrDefault(ModComponents.MAX_CHARGE, 0);
-        Integer chargeSpeed = itemStack.getOrDefault(ModComponents.CHARGE_SPEED, 1);
 
         if (charge < maxCharge) {
-            itemStack.set(ModComponents.CHARGE, Math.min(charge + chargeSpeed, maxCharge));
+            itemStack.set(ModComponents.CHARGE, Math.min(charge + 1, maxCharge));
             return true;
         }
 
