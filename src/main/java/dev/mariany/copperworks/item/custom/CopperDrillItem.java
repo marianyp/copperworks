@@ -14,7 +14,7 @@ public class CopperDrillItem extends DrillItem {
     private static final ToolMaterial MATERIAL = new ToolMaterial() {
         @Override
         public int getDurability() {
-            return 1640;
+            return 1850;
         }
 
         @Override

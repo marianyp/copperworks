@@ -3,7 +3,6 @@ package dev.mariany.copperworks.enchantment;
 import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.enchantment.effect.entity.AttractEntitiesEnchantmentEffect;
-import dev.mariany.copperworks.tag.ModTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -28,8 +27,6 @@ public class ModEnchantments {
     }
 
     public static void bootstrap(Registerable<Enchantment> registry) {
-        RegistryEntryLookup<Enchantment> enchantmentRegistryEntryLookup = registry.getRegistryLookup(
-                RegistryKeys.ENCHANTMENT);
         RegistryEntryLookup<Item> itemRegistryEntryLookup = registry.getRegistryLookup(RegistryKeys.ITEM);
 
         EntityPredicate.Builder builder = EntityPredicate.Builder.create().periodicTick(1)
@@ -37,8 +34,7 @@ public class ModEnchantments {
 
         register(registry, CHARGED_ATTRACTION, Enchantment.builder(
                         Enchantment.definition(itemRegistryEntryLookup.getOrThrow(ConventionalItemTags.TOOLS), 2, 1,
-                                Enchantment.constantCost(15), Enchantment.constantCost(65), 8, AttributeModifierSlot.HAND))
-                .exclusiveSet(enchantmentRegistryEntryLookup.getOrThrow(ModTags.Enchantments.FROM_UPGRADE))
+                                Enchantment.constantCost(15), Enchantment.constantCost(65), 8, AttributeModifierSlot.ANY))
                 .addEffect(EnchantmentEffectComponentTypes.TICK, new AttractEntitiesEnchantmentEffect(
                                 RegistryEntryList.of(EntityType.ITEM.getRegistryEntry(),
                                         EntityType.EXPERIENCE_ORB.getRegistryEntry()), ConstantFloatProvider.create(8F)),

@@ -25,7 +25,6 @@
       }
     ]
   },
-  "exclusive_set": "#copperworks:from_upgrade",
   "max_cost": {
     "base": 65,
     "per_level_above_first": 0
@@ -36,7 +35,7 @@
     "per_level_above_first": 0
   },
   "slots": [
-    "hand"
+    "any"
   ],
   "supported_items": "#c:tools",
   "weight": 2

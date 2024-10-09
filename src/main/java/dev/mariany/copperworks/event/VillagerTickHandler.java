@@ -42,7 +42,7 @@ public class VillagerTickHandler {
     private static final int MAX_PROGRESS = 10;
     private static final int GIVE_RANGE = 3;
 
-    private static final int ENCHANT_LEVEL = 29;
+    private static final int ENCHANT_LEVEL = 28;
     private static final int ENCHANTABILITY = 18;
 
     // TODO: Implement advancement for upgrading item

@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 public class ModArmorMaterials {
     public static final RegistryEntry<ArmorMaterial> COPPER = registerMaterial("copper",
             Map.of(ArmorItem.Type.HELMET, 2, ArmorItem.Type.CHESTPLATE, 5, ArmorItem.Type.LEGGINGS, 4,
-                    ArmorItem.Type.BOOTS, 3, ArmorItem.Type.BODY, 5), 0, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+                    ArmorItem.Type.BOOTS, 3, ArmorItem.Type.BODY, 5), 0, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,
             () -> Ingredient.EMPTY, 1, 0.1F);
 
     public static final RegistryEntry<ArmorMaterial> ROCKET_BOOTS = registerMaterial("rocket_boots",

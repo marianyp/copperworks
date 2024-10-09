@@ -13,22 +13,21 @@ import java.util.Optional;
 public class ModTrades {
     public static void registerVillagerTrades() {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 1, factories -> {
+            factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 1),
+                    new ItemStack(Items.REPEATER, 2), 12, 1, 0.2f));
             factories.add((entity, random) -> new TradeOffer(new TradedItem(ModItems.COPPER_PLATE, 4),
                     Optional.of(new TradedItem(Items.EMERALD, 6)), ModItems.COPPER_BROADSWORD.getDefaultStack(), 1, 1,
                     0.2f));
-
-            factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 1),
-                    new ItemStack(Items.REPEATER, 2), 12, 1, 0.2f));
         });
 
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 2, factories -> {
-            factories.add((entity, random) -> plateTrades(Items.IRON_INGOT, ModItems.IRON_PLATE));
             factories.add((entity, random) -> plateTrades(Items.COPPER_INGOT, ModItems.COPPER_PLATE));
+            factories.add((entity, random) -> plateTrades(Items.IRON_INGOT, ModItems.IRON_PLATE));
         });
 
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 3, factories -> {
-            factories.add((entity, random) -> railTrades(Items.POWERED_RAIL, 4, 12));
             factories.add((entity, random) -> railTrades(Items.RAIL, 16, 8));
+            factories.add((entity, random) -> railTrades(Items.POWERED_RAIL, 4, 12));
         });
 
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 4, factories -> {
@@ -44,7 +43,7 @@ public class ModTrades {
     }
 
     private static TradeOffer plateTrades(Item input, Item output) {
-        return new TradeOffer(new TradedItem(input, 3), new ItemStack(output, 1), 12, 5, 0.2F);
+        return new TradeOffer(new TradedItem(input, 3), new ItemStack(output, 1), 12, 5, 0F);
     }
 
     private static TradeOffer railTrades(Item rail, int output, int cost) {
