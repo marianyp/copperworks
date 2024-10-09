@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.datagen;
 
+import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.tag.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -16,6 +17,7 @@ public class ModEnchantmentTagProvider extends FabricTagProvider.EnchantmentTagP
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ModTags.Enchantments.FROM_UPGRADE).addOptionalTag(EnchantmentTags.NON_TREASURE);
+        getOrCreateTagBuilder(ModTags.Enchantments.FROM_UPGRADE).addOptionalTag(EnchantmentTags.NON_TREASURE)
+                .add(ModEnchantments.CHARGED_ATTRACTION);
     }
 }

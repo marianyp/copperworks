@@ -3,6 +3,7 @@
     {
       "id": "#minecraft:non_treasure",
       "required": false
-    }
+    },
+    "copperworks:charged_attraction"
   ]
 }

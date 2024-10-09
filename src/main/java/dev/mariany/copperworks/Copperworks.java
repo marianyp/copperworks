@@ -3,7 +3,7 @@ package dev.mariany.copperworks;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
-import dev.mariany.copperworks.block.property.ModProperties;
+import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.entity.villager.ModTrades;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
 import dev.mariany.copperworks.event.VillagerTickHandler;
@@ -28,7 +28,7 @@ public class Copperworks implements ModInitializer {
         ModComponents.registerModComponents();
         ModAttachmentTypes.registerAttachmentTypes();
         ModItems.registerModItems();
-        ModProperties.registerModProperties();
+        ModEnchantments.registerModEnchantments();
         ModBlocks.registerModBlocks();
         ModBlockEntities.registerModBlockEntities();
         ModVillagers.registerVillagers();

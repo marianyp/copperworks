@@ -4,6 +4,7 @@ import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.tag.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -25,6 +26,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS).add(ModItems.COPPER_BROADSWORD);
+        getOrCreateTagBuilder(ConventionalItemTags.MINING_TOOL_TOOLS).add(ModItems.COPPER_DRILL);
+        getOrCreateTagBuilder(ConventionalItemTags.ARMORS).add(ModItems.COPPER_BRACER).add(ModItems.ROCKET_BOOTS);
+
         getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE).add(ModItems.COPPER_BROADSWORD);
         getOrCreateTagBuilder(ItemTags.CHEST_ARMOR_ENCHANTABLE).add(ModItems.COPPER_BRACER);
         getOrCreateTagBuilder(ItemTags.FOOT_ARMOR_ENCHANTABLE).add(ModItems.ROCKET_BOOTS);
