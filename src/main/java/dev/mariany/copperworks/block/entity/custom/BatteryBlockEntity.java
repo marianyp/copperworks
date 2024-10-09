@@ -133,27 +133,39 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         if (batteryBlockEntity.isCharging()) {
             ItemStack chargeStack = batteryBlockEntity.getStack();
             int chargeRate = batteryBlockEntity.getChargeRate();
+            boolean chargeEveryTick = chargeRate <= 1;
+            boolean didCharge;
 
-            if (chargeRate <= 1 || world.getTime() % chargeRate == 0) {
-                if (batteryBlockEntity.chargeItem(chargeStack)) {
+            if (chargeEveryTick || world.getTime() % chargeRate == 0) {
+                didCharge = batteryBlockEntity.chargeItem(chargeStack);
+                if (didCharge) {
                     batteryBlockEntity.markDirty();
                     world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
                 }
             }
 
+            int maxCharge = chargeStack.getOrDefault(ModComponents.MAX_CHARGE, 0);
             int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
 
-            if (currentCharge > 0) {
+            if (currentCharge >= maxCharge) {
+                playDoneChargingSound(world, pos);
+            } else if (currentCharge > 0) {
                 if (world.getTime() % (20 * 4) == 0) {
                     batteryBlockEntity.playChargeSound(world, pos);
                 }
             }
+
         }
     }
 
     public void playChargeSound(@NotNull World world, BlockPos pos) {
         world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.CHARGE,
                 SoundCategory.BLOCKS, 0.5F + world.random.nextFloat(), 0.7F + 0.5F * this.getChargeProgress(), false);
+    }
+
+    public void playDoneChargingSound(@NotNull World world, BlockPos pos) {
+        world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.DONE_CHARGING,
+                SoundCategory.BLOCKS, 0.2F, 1F, false);
     }
 
     private boolean chargeItem(ItemStack itemStack) {

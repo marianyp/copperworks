@@ -8,6 +8,24 @@
 			}
 		]
 	},
+	"done_charging": {
+		"subtitle": "subtitles.block.copperworks.done_charging",
+		"sounds": [
+			{
+				"name": "copperworks:done_charging",
+				"stream": false
+			}
+		]
+	},
+	"out_of_charge": {
+		"subtitle": "subtitles.item.copperworks.out_of_charge",
+		"sounds": [
+			{
+				"name": "copperworks:out_of_charge",
+				"stream": false
+			}
+		]
+	},
 	"drill": {
 		"subtitle": "subtitles.item.copperworks.drill",
 		"sounds": [

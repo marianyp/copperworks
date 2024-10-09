@@ -44,8 +44,14 @@ public abstract class ItemStackMixin {
         // Scale the proportion to the total number of blocks
         int fullBlocks = (int) Math.round(proportion * TOTAL_BLOCKS);
 
+
         // Ensure fullBlocks is within the valid range
         fullBlocks = Math.max(0, Math.min(TOTAL_BLOCKS, fullBlocks));
+        if (value > 0 && fullBlocks == 0) {
+            fullBlocks = 1;
+        } else if (value < max && fullBlocks >= TOTAL_BLOCKS) {
+            fullBlocks = TOTAL_BLOCKS - 1;
+        }
         int emptyBlocks = TOTAL_BLOCKS - fullBlocks;
 
         String fullChar = "▮";

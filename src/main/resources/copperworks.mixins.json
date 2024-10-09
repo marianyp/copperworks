@@ -3,6 +3,7 @@
   "package": "dev.mariany.copperworks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "GrindstoneScreenHandlerMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
@@ -14,6 +15,7 @@
   "client": [
     "ArmorFeatureRendererMixin",
     "BufferBuilderStorageMixin",
+    "ElytraFeatureRendererMixin",
     "EntityRenderDispatcherMixin",
     "ItemRendererMixin",
     "WorldRendererMixin"

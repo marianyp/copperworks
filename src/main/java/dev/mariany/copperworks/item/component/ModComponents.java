@@ -18,6 +18,8 @@ public class ModComponents {
             ComponentType.<Float>builder().codec(Codec.FLOAT).packetCodec(PacketCodecs.FLOAT).cache());
     public static final ComponentType<Integer> DRAGON_BREATH_FILL = register("dragon_breath_fill",
             ComponentType.<Integer>builder().codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT).cache());
+    public static final ComponentType<Boolean> UPGRADED = register("upgraded",
+            ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).cache());
 
     private static <T> ComponentType<T> register(String name, ComponentType.Builder<T> builder) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Copperworks.id(name), builder.build());

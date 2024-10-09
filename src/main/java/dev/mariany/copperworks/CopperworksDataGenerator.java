@@ -11,6 +11,7 @@ public class CopperworksDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
+        pack.addProvider(ModEnchantmentTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModPoiTagProvider::new);

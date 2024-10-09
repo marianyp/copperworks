@@ -14,11 +14,12 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class RocketBootsItem extends ArmorItem {
-    private static final int MAX_CHARGE = 50;
-    private static final int CHARGE_RATE = 20;
+    private static final int MAX_CHARGE = 64;
+    private static final int CHARGE_RATE = 8;
 
     private static final float MAX_SPEED = 2F;
     private static final float MAX_THRUST_ALLOWANCE = 1.15F;
@@ -86,12 +87,13 @@ public class RocketBootsItem extends ArmorItem {
     }
 
     private void decrementChargeAndDamage(ItemStack stack, LivingEntity entity) {
-        if (entity.age % 40 == 0) {
+        Random random = entity.getRandom();
+        if (entity.age % 15 == 0) {
             int currentCharge = stack.getOrDefault(ModComponents.CHARGE, 0);
 
-            if (entity.getRandom().nextBoolean()) {
-                if (entity.getRandom().nextBoolean()) {
-                    stack.set(ModComponents.CHARGE, Math.max(0, currentCharge - 1));
+            if (random.nextBoolean()) {
+                if (entity.getRandom().nextBoolean() && currentCharge > 0) {
+                    ModUtils.decrementCharge(entity, stack);
                 } else {
                     stack.damage(1, entity, EquipmentSlot.FEET);
                 }

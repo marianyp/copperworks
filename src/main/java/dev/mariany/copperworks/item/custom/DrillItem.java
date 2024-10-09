@@ -27,11 +27,7 @@ public class DrillItem extends MiningToolItem {
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         if (super.postMine(stack, world, state, pos, miner)) {
             if (miner.getRandom().nextBoolean()) {
-                Integer charge = stack.get(ModComponents.CHARGE);
-
-                if (charge != null) {
-                    stack.set(ModComponents.CHARGE, charge - MathHelper.nextInt(miner.getRandom(), 0, 2));
-                }
+                ModUtils.decrementCharge(miner, stack);
             }
 
             world.playSoundFromEntity(null, miner, ModSoundEvents.DRILL, SoundCategory.NEUTRAL, 1F,

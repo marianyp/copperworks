@@ -2,7 +2,6 @@ package dev.mariany.copperworks.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.mariany.copperworks.client.GlintTypes;
-import dev.mariany.copperworks.tag.ModTags;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -21,7 +20,7 @@ public abstract class ItemRendererMixin {
     private void setCharged(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
                             MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay,
                             BakedModel model, CallbackInfo ci) {
-        GlintTypes.setCharged(stack.isIn(ModTags.Items.ENGINEER_CAN_UPGRADE));
+        GlintTypes.setCharged(stack);
     }
 
     @ModifyExpressionValue(method = "getArmorGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getArmorEntityGlint()Lnet/minecraft/client/render/RenderLayer;"))

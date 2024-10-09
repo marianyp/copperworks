@@ -65,10 +65,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
                     itemStack.increment(1);
                 }
 
-                world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F,
-                        (world.random.nextFloat() - world.random.nextFloat()) * 1.4F + 2.0F);
-
-                batteryBlockEntity.playChargeSound(world, pos);
+                playItemPlopSound(world, pos);
 
                 batteryBlockEntity.markDirty();
                 world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
@@ -88,6 +85,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
                 if (!batteryBlockEntity.getStack().isEmpty()) {
                     batteryBlockEntity.takeStack(player);
                     batteryBlockEntity.markDirty();
+                    playItemPlopSound(world, pos);
                     world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                     return ActionResult.SUCCESS;
                 }
@@ -95,6 +93,11 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
         }
 
         return ActionResult.PASS;
+    }
+
+    private void playItemPlopSound(World world, BlockPos pos) {
+        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F,
+                (world.random.nextFloat() - world.random.nextFloat()) * 1.4F + 2.0F);
     }
 
     @Override

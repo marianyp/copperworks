@@ -3,7 +3,9 @@ package dev.mariany.copperworks.event;
 import com.google.common.collect.Lists;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
+import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
+import dev.mariany.copperworks.tag.ModTags;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -19,7 +21,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -41,9 +42,10 @@ public class VillagerTickHandler {
     private static final int MAX_PROGRESS = 10;
     private static final int GIVE_RANGE = 3;
 
-    private static final int ENCHANT_LEVEL = 34;
-    private static final int ENCHANTABILITY = 22;
+    private static final int ENCHANT_LEVEL = 29;
+    private static final int ENCHANTABILITY = 18;
 
+    // TODO: Implement advancement for upgrading item
     private static final int ADVANCEMENT_RADIUS = 20;
 
     public static void onServerTick(MinecraftServer server) {
@@ -174,6 +176,8 @@ public class VillagerTickHandler {
             upgradedItem.addEnchantment(enchantmentLevelEntry.enchantment, enchantmentLevelEntry.level);
         }
 
+        upgradedItem.set(ModComponents.UPGRADED, true);
+
         return upgradedItem;
     }
 
@@ -215,7 +219,7 @@ public class VillagerTickHandler {
         level = MathHelper.clamp(Math.round(level + level * f), 1, Integer.MAX_VALUE);
 
         Optional<RegistryEntryList.Named<Enchantment>> registryEntries = registryManager.get(RegistryKeys.ENCHANTMENT)
-                .getEntryList(EnchantmentTags.IN_ENCHANTING_TABLE);
+                .getEntryList(ModTags.Enchantments.FROM_UPGRADE);
 
         if (registryEntries.isEmpty()) {
             return enchantments;

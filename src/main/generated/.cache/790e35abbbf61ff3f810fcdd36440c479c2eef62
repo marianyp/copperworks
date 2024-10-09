@@ -1,14 +1,14 @@
-// 1.21.1	2024-10-08T06:16:12.9249827	Copperworks/Model Definitions
-9678e04dad96ffaaace0910fdfb8ec533a09c7f4 assets\copperworks\blockstates\copper_clock.json
-d21d76bc346ada84a5467b1f752bca8876cdb689 assets\copperworks\models\item\ender_powder.json
-c25637c0274564ee059e8568998cc1569bbb049c assets\copperworks\models\item\copper_battery.json
-73896c0e230648aa59b321de18b5b97405d7799c assets\copperworks\models\item\copper_frame.json
+// 1.21.1	2024-10-09T00:15:53.9004934	Copperworks/Model Definitions
 5064bb8f167519f70bc4e3fbc591438da3d62119 assets\copperworks\models\item\iron_plate.json
+9678e04dad96ffaaace0910fdfb8ec533a09c7f4 assets\copperworks\blockstates\copper_clock.json
 549b2cba40084a6b3de44ba22384ba8eb13146fe assets\copperworks\models\item\copper_bracer.json
 4662c5b523c9ad8fcedcf86c85530b558dadc52f assets\copperworks\models\item\copper_clock.json
 bf53d402ff592ddcf06c51795f97b38ec11da582 assets\copperworks\models\item\copper_plate.json
 bfba1f9a5aa2f9847286d0d9b2b0cf2303af41b0 assets\copperworks\models\item\copper_broadsword.json
 18047361ebcd733cd7a208244c903cec551dd574 assets\copperworks\blockstates\copper_battery.json
-0cbed4461fbdbf80a5ed2317123f735fbc61bdf9 assets\copperworks\models\block\copper_clock.json
+d21d76bc346ada84a5467b1f752bca8876cdb689 assets\copperworks\models\item\ender_powder.json
+c25637c0274564ee059e8568998cc1569bbb049c assets\copperworks\models\item\copper_battery.json
 43c6adeb71dc680392e2d07e6fc68ce58dbec961 assets\copperworks\models\item\copper_lever.json
+0cbed4461fbdbf80a5ed2317123f735fbc61bdf9 assets\copperworks\models\block\copper_clock.json
 711fbc97dd830d98afc89565f8914ef98ae1f001 assets\copperworks\models\block\copper_battery.json
+73896c0e230648aa59b321de18b5b97405d7799c assets\copperworks\models\item\copper_frame.json

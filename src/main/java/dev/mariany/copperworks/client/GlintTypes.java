@@ -1,9 +1,11 @@
 package dev.mariany.copperworks.client;
 
 import dev.mariany.copperworks.client.render.GlintRenderLayers;
+import dev.mariany.copperworks.util.ModUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.item.ItemStack;
 
 import java.util.function.Supplier;
 
@@ -12,11 +14,11 @@ public class GlintTypes {
     private static final ThreadLocal<Boolean> charged = new ThreadLocal<>();
 
     static {
-        setCharged(false);
+        charged.set(false);
     }
 
-    public static void setCharged(boolean value) {
-        charged.set(value);
+    public static void setCharged(ItemStack itemStack) {
+        charged.set(ModUtils.isUpgraded(itemStack));
     }
 
     public static RenderLayer getGlint() {

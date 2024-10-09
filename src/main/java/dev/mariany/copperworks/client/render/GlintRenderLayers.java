@@ -41,7 +41,7 @@ public class GlintRenderLayers extends RenderLayer {
 
     private static RenderLayer buildGlintRenderLayer() {
         return of(PREFIX, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 1536,
-                RenderLayer.MultiPhaseParameters.builder().program(GLINT_PROGRAM)
+                RenderLayer.MultiPhaseParameters.builder().program(GlintPrograms.GLINT_PROGRAM)
                         .texture(new RenderPhase.Texture(CHARGED_GLINT_TEXTURE, true, false)).writeMaskState(COLOR_MASK)
                         .cull(DISABLE_CULLING).depthTest(EQUAL_DEPTH_TEST).transparency(GLINT_TRANSPARENCY)
                         .texturing(GLINT_TEXTURING).build(false));
@@ -49,7 +49,7 @@ public class GlintRenderLayers extends RenderLayer {
 
     private static RenderLayer buildGlintTranslucentRenderLayer() {
         return of(layerName("translucent"), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 1536,
-                RenderLayer.MultiPhaseParameters.builder().program(TRANSLUCENT_GLINT_PROGRAM)
+                RenderLayer.MultiPhaseParameters.builder().program(GlintPrograms.TRANSLUCENT_GLINT_PROGRAM)
                         .texture(new RenderPhase.Texture(CHARGED_GLINT_TEXTURE, true, false)).writeMaskState(COLOR_MASK)
                         .cull(DISABLE_CULLING).depthTest(EQUAL_DEPTH_TEST).transparency(GLINT_TRANSPARENCY)
                         .texturing(GLINT_TEXTURING).target(ITEM_ENTITY_TARGET).build(false));
@@ -57,7 +57,7 @@ public class GlintRenderLayers extends RenderLayer {
 
     private static RenderLayer buildEntityGlintRenderLayer() {
         return of(layerName("entity"), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 1536,
-                RenderLayer.MultiPhaseParameters.builder().program(ENTITY_GLINT_PROGRAM)
+                RenderLayer.MultiPhaseParameters.builder().program(GlintPrograms.ENTITY_GLINT_PROGRAM)
                         .texture(new RenderPhase.Texture(CHARGED_GLINT_TEXTURE, true, false)).writeMaskState(COLOR_MASK)
                         .cull(DISABLE_CULLING).depthTest(EQUAL_DEPTH_TEST).transparency(GLINT_TRANSPARENCY)
                         .target(ITEM_ENTITY_TARGET).texturing(ENTITY_GLINT_TEXTURING).build(false));
@@ -65,7 +65,7 @@ public class GlintRenderLayers extends RenderLayer {
 
     private static RenderLayer buildGlintDirectEntityRenderLayer() {
         return of(layerName("entity_direct"), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 1536,
-                RenderLayer.MultiPhaseParameters.builder().program(DIRECT_ENTITY_GLINT_PROGRAM)
+                RenderLayer.MultiPhaseParameters.builder().program(GlintPrograms.DIRECT_ENTITY_GLINT_PROGRAM)
                         .texture(new RenderPhase.Texture(CHARGED_GLINT_TEXTURE, true, false)).writeMaskState(COLOR_MASK)
                         .cull(DISABLE_CULLING).depthTest(EQUAL_DEPTH_TEST).transparency(GLINT_TRANSPARENCY)
                         .texturing(ENTITY_GLINT_TEXTURING).build(false));
@@ -73,7 +73,7 @@ public class GlintRenderLayers extends RenderLayer {
 
     private static RenderLayer buildArmorEntityGlintRenderLayer() {
         return of(layerName("armor_entity"), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 1536,
-                RenderLayer.MultiPhaseParameters.builder().program(ARMOR_ENTITY_GLINT_PROGRAM)
+                RenderLayer.MultiPhaseParameters.builder().program(GlintPrograms.ARMOR_ENTITY_GLINT_PROGRAM)
                         .texture(new RenderPhase.Texture(CHARGED_GLINT_TEXTURE, true, false)).writeMaskState(COLOR_MASK)
                         .cull(DISABLE_CULLING).depthTest(EQUAL_DEPTH_TEST).transparency(GLINT_TRANSPARENCY)
                         .texturing(ENTITY_GLINT_TEXTURING).layering(VIEW_OFFSET_Z_LAYERING).build(false));

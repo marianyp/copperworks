@@ -19,5 +19,7 @@
   "tag.item.copperworks.engineer_can_upgrade": "Engineer Can Upgrade",
   "tag.block.copperworks.mineable/drill": "Drillable",
   "subtitles.item.copperworks.drill": "Block Drilled",
-  "subtitles.block.copperworks.charge": "Item Charging"
+  "subtitles.item.copperworks.out_of_charge": "Item Out of Charge",
+  "subtitles.block.copperworks.charge": "Item Charging",
+  "subtitles.block.copperworks.done_charging": "Item Done Charging"
 }

@@ -8,7 +8,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 
 public class CopperDrillItem extends DrillItem {
-    private static final int MAX_CHARGE = 20 * 30;
+    private static final int MAX_CHARGE = 800;
     private static final int CHARGE_RATE = 1;
 
     private static final ToolMaterial MATERIAL = new ToolMaterial() {
