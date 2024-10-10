@@ -96,7 +96,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     }
 
     private void playItemPlopSound(World world, BlockPos pos) {
-        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F,
+        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.5F,
                 (world.random.nextFloat() - world.random.nextFloat()) * 1.4F + 2.0F);
     }
 

@@ -4,10 +4,12 @@ import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -77,8 +79,9 @@ public class CopperLeverBlock extends ButtonBlock {
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         this.updateNeighbors(state, world, pos);
-        if (moved) {
-            world.scheduleBlockTick(new BlockPos(pos), this, PRESS_TICKS);
+        if (moved && world instanceof ServerWorld serverWorld) {
+            serverWorld.getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
+            world.scheduleBlockTick(pos, this, PRESS_TICKS);
         }
         super.onBlockAdded(state, world, pos, newState, moved);
     }
@@ -89,6 +92,14 @@ public class CopperLeverBlock extends ButtonBlock {
             this.updateNeighbors(state, world, pos);
         }
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
+    public void powerOn(BlockState state, World world, BlockPos pos, @Nullable PlayerEntity player) {
+        if (world instanceof ServerWorld serverWorld) {
+            serverWorld.getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
+            super.powerOn(state, world, pos, player);
+        }
     }
 
     private void updateNeighbors(BlockState state, World world, BlockPos pos) {

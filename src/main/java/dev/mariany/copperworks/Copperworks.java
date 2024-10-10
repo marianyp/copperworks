@@ -6,7 +6,7 @@ import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.entity.villager.ModTrades;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
-import dev.mariany.copperworks.event.VillagerTickHandler;
+import dev.mariany.copperworks.event.ServerTickHandler;
 import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.ModComponents;
@@ -35,7 +35,7 @@ public class Copperworks implements ModInitializer {
         ModTrades.registerVillagerTrades();
         ModSoundEvents.registerModSoundEvents();
 
-        ServerTickEvents.END_SERVER_TICK.register(VillagerTickHandler::onServerTick);
+        ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);
     }
 
     public static Identifier id(String resource) {

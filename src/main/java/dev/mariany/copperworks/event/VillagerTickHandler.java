@@ -21,7 +21,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -38,32 +37,31 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Optional;
 
-public class VillagerTickHandler {
+public class VillagerTickHandler implements ServerWorldTickHandler {
     private static final int MAX_PROGRESS = 10;
     private static final int GIVE_RANGE = 3;
 
-    private static final int ENCHANT_LEVEL = 28;
-    private static final int ENCHANTABILITY = 18;
+    private static final int ENCHANT_LEVEL = 27;
+    private static final int ENCHANTABILITY = 16;
 
     // TODO: Implement advancement for upgrading item
     private static final int ADVANCEMENT_RADIUS = 20;
 
-    public static void onServerTick(MinecraftServer server) {
-        for (ServerWorld world : server.getWorlds()) {
-            for (VillagerEntity entity : world.getEntitiesByType(EntityType.VILLAGER, Entity::isAlive)) {
-                onVillagerTick(entity);
-            }
+    @Override
+    public void onServerWorldTick(ServerWorld world) {
+        for (VillagerEntity entity : world.getEntitiesByType(EntityType.VILLAGER, Entity::isAlive)) {
+            onVillagerTick(entity);
         }
     }
 
-    private static void onVillagerTick(VillagerEntity villager) {
+    private void onVillagerTick(VillagerEntity villager) {
         if (villager.getVillagerData().getProfession().equals(ModVillagers.ENGINEER)) {
             handleItemPickup(villager);
             handleItemUpgrade(villager);
         }
     }
 
-    private static void handleItemPickup(VillagerEntity villager) {
+    private void handleItemPickup(VillagerEntity villager) {
         World world = villager.getWorld();
         boolean canPickUpLoot = villager.canPickUpLoot();
         boolean isAlive = villager.isAlive();
@@ -98,15 +96,15 @@ public class VillagerTickHandler {
         }
     }
 
-    private static ItemStack getUpgradingItem(VillagerEntity villager) {
+    private ItemStack getUpgradingItem(VillagerEntity villager) {
         return villager.getAttachedOrCreate(ModAttachmentTypes.UPGRADING_ITEM);
     }
 
-    private static void setUpgradingItem(VillagerEntity villager, ItemStack itemStack) {
+    private void setUpgradingItem(VillagerEntity villager, ItemStack itemStack) {
         villager.setAttached(ModAttachmentTypes.UPGRADING_ITEM, itemStack);
     }
 
-    private static void startUpgrading(ItemEntity itemEntity, VillagerEntity villager) {
+    private void startUpgrading(ItemEntity itemEntity, VillagerEntity villager) {
         ItemStack upgradingItem = itemEntity.getStack();
 
         setUpgradingItem(villager, upgradingItem.copyWithCount(1));
@@ -116,13 +114,13 @@ public class VillagerTickHandler {
         playSoundAtVillager(villager, SoundEvents.ENTITY_WANDERING_TRADER_TRADE, 1.4F);
     }
 
-    private static void playSoundAtVillager(VillagerEntity villager, SoundEvent soundEvent, float pitch) {
+    private void playSoundAtVillager(VillagerEntity villager, SoundEvent soundEvent, float pitch) {
         villager.getWorld()
                 .playSound(null, villager.getX(), villager.getY(), villager.getZ(), soundEvent, SoundCategory.NEUTRAL,
                         0.5F, pitch, 0);
     }
 
-    private static void handleItemUpgrade(VillagerEntity villager) {
+    private void handleItemUpgrade(VillagerEntity villager) {
         ItemStack upgradingItem = getUpgradingItem(villager);
         int currentProgress = getUpgradeProgress(villager);
         if (!upgradingItem.isEmpty()) {
@@ -153,21 +151,21 @@ public class VillagerTickHandler {
         }
     }
 
-    private static void displayUpgradeParticle(VillagerEntity villager) {
+    private void displayUpgradeParticle(VillagerEntity villager) {
         ServerWorld world = (ServerWorld) villager.getWorld();
         world.spawnParticles(ParticleTypes.ELECTRIC_SPARK, villager.getX(), villager.getY() + 2.5, villager.getZ(), 5,
                 0.25, 0.25, 0.05, 0.01);
     }
 
-    private static int getUpgradeProgress(VillagerEntity villager) {
+    private int getUpgradeProgress(VillagerEntity villager) {
         return villager.getAttachedOrCreate(ModAttachmentTypes.UPGRADE_PROGRESS);
     }
 
-    private static void setUpgradeProgress(VillagerEntity villager, int progress) {
+    private void setUpgradeProgress(VillagerEntity villager, int progress) {
         villager.setAttached(ModAttachmentTypes.UPGRADE_PROGRESS, progress);
     }
 
-    private static ItemStack upgradeItem(VillagerEntity villager, ItemStack upgradingItem) {
+    private ItemStack upgradeItem(VillagerEntity villager, ItemStack upgradingItem) {
         ItemStack upgradedItem = upgradingItem.copy();
 
         List<EnchantmentLevelEntry> list = generateEnchantments(villager.getWorld(), upgradedItem);
@@ -181,7 +179,7 @@ public class VillagerTickHandler {
         return upgradedItem;
     }
 
-    private static boolean giveToNearestPlayer(VillagerEntity villager, ItemStack upgradedItem) {
+    private boolean giveToNearestPlayer(VillagerEntity villager, ItemStack upgradedItem) {
         ServerWorld world = (ServerWorld) villager.getWorld();
         PlayerEntity player = world.getClosestPlayer(villager, 16);
 
@@ -200,13 +198,13 @@ public class VillagerTickHandler {
         return false;
     }
 
-    private static boolean isCloseEnough(VillagerEntity villager, PlayerEntity player) {
+    private boolean isCloseEnough(VillagerEntity villager, PlayerEntity player) {
         BlockPos blockPos = player.getBlockPos();
         BlockPos blockPos2 = villager.getBlockPos();
         return blockPos2.isWithinDistance(blockPos, GIVE_RANGE);
     }
 
-    public static List<EnchantmentLevelEntry> generateEnchantments(World world, ItemStack stack) {
+    public List<EnchantmentLevelEntry> generateEnchantments(World world, ItemStack stack) {
         Random random = world.getRandom();
         DynamicRegistryManager registryManager = world.getRegistryManager();
 

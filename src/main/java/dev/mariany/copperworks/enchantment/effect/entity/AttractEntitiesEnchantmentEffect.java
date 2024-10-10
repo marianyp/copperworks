@@ -20,10 +20,13 @@ import java.util.List;
 
 public record AttractEntitiesEnchantmentEffect(RegistryEntryList<EntityType<?>> affectedEntities,
                                                FloatProvider baseRange) implements EnchantmentEntityEffect {
+    public static final float DEFAULT_BASE_RANGE = 8F;
+
     public static final MapCodec<AttractEntitiesEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(RegistryCodecs.entryList(RegistryKeys.ENTITY_TYPE).fieldOf("affected_entities")
                                     .forGetter(AttractEntitiesEnchantmentEffect::affectedEntities),
-                            FloatProvider.VALUE_CODEC.optionalFieldOf("base_range", ConstantFloatProvider.ZERO)
+                            FloatProvider.VALUE_CODEC.optionalFieldOf("base_range",
+                                            ConstantFloatProvider.create(DEFAULT_BASE_RANGE))
                                     .forGetter(AttractEntitiesEnchantmentEffect::baseRange))
                     .apply(instance, AttractEntitiesEnchantmentEffect::new));
 
@@ -45,8 +48,9 @@ public record AttractEntitiesEnchantmentEffect(RegistryEntryList<EntityType<?>> 
     }
 
     private void attract(Entity centerEntity, Entity pullingEntity) {
-        Vec3d vec3d = new Vec3d(centerEntity.getX() - pullingEntity.getX(), centerEntity.getY() - pullingEntity.getY(),
-                centerEntity.getZ() - pullingEntity.getZ()).multiply(0.0425);
+        Vec3d centerPos = centerEntity.getEyePos();
+        Vec3d vec3d = new Vec3d(centerPos.getX() - pullingEntity.getX(), centerPos.getY() - pullingEntity.getY(),
+                centerPos.getZ() - pullingEntity.getZ()).multiply(0.0425);
         pullingEntity.setVelocity(pullingEntity.getVelocity().add(vec3d));
         pullingEntity.velocityModified = true;
     }
