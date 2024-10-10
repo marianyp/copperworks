@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
-import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
@@ -54,16 +53,11 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     protected ItemActionResult onUseWithItem(ItemStack useStack, BlockState state, World world, BlockPos pos,
                                              PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
-            ItemStack itemStack = batteryBlockEntity.getStack();
-            if (ModUtils.itemNeedsCharge(useStack) && itemStack.isEmpty()) {
+            if (batteryBlockEntity.isEmpty()) {
                 player.incrementStat(Stats.USED.getOrCreateStat(useStack.getItem()));
-                ItemStack itemStack2 = useStack.splitUnlessCreative(1, player);
+                ItemStack itemStack = useStack.splitUnlessCreative(1, player);
 
-                if (batteryBlockEntity.isEmpty()) {
-                    batteryBlockEntity.setStack(itemStack2);
-                } else {
-                    itemStack.increment(1);
-                }
+                batteryBlockEntity.setStack(itemStack);
 
                 playItemPlopSound(world, pos);
 

@@ -18,6 +18,11 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_CLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_CHARGED);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_BOUND);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_RADIO_BOUND);
+
         registerBattery(blockStateModelGenerator, ModBlocks.COPPER_BATTERY);
     }
 
@@ -30,6 +35,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.COPPER_FRAME.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.COPPER_LEVER.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDER_POWDER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.AMETHYST_PIECE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.RADIO, Models.GENERATED);
     }
 
     private void registerBattery(BlockStateModelGenerator blockStateModelGenerator, Block battery) {
@@ -71,16 +78,5 @@ public class ModModelProvider extends FabricModelProvider {
                                 BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180)
                                         .put(VariantSettings.Y, VariantSettings.Rotation.R270))));
     }
-
-//    private void registerBattery(BlockStateModelGenerator blockStateModelGenerator, Block battery) {
-//        TextureMap textureMap = new TextureMap().put(TextureKey.TOP, TextureMap.getSubId(battery, "_top"))
-//                .put(TextureKey.SIDE, TextureMap.getSubId(battery, "_side"))
-//                .put(TextureKey.BOTTOM, TextureMap.getSubId(battery, "_bottom"));
-//
-//        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(battery,
-//                        BlockStateVariant.create().put(VariantSettings.MODEL,
-//                                Models.CUBE_BOTTOM_TOP.upload(battery, textureMap, blockStateModelGenerator.modelCollector)))
-//                .coordinate(blockStateModelGenerator.createUpDefaultFacingVariantMap()));
-//    }
 }
 

@@ -147,7 +147,14 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
             int maxCharge = chargeStack.getOrDefault(ModComponents.MAX_CHARGE, 0);
             int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
 
+            ContainerComponent convertsToContainer = chargeStack.getOrDefault(ModComponents.CONVERTS_TO,
+                    ContainerComponent.DEFAULT);
+            ItemStack convertsTo = convertsToContainer.copyFirstStack();
+
             if (currentCharge >= maxCharge) {
+                if (!convertsTo.isEmpty()) {
+                    setStack(convertsTo);
+                }
                 playDoneChargingSound(world, pos);
             } else if (currentCharge > 0) {
                 if (world.getTime() % (20 * 4) == 0) {

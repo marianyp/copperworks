@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.item;
 
 import dev.mariany.copperworks.Copperworks;
+import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.item.custom.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -22,6 +23,9 @@ public class ModItems {
     public static final Item ENDER_POWDER = registerItem("ender_powder", new Item(new Item.Settings()));
     public static final Item ROCKET_BOOTS = registerItem("rocket_boots",
             new RocketBootsItem(new Item.Settings().maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(33)).fireproof()));
+    public static final Item AMETHYST_PIECE = registerItem("amethyst_piece",
+            new Item(new Item.Settings().rarity(Rarity.RARE).maxCount(1)));
+    public static final Item RADIO = registerItem("radio", new RadioItem(new Item.Settings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Copperworks.id(name), item);
@@ -46,6 +50,10 @@ public class ModItems {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.addAfter(Items.NETHERITE_HOE, COPPER_DRILL);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
+            entries.addBefore(ModBlocks.COPPER_BATTERY, RADIO);
         });
     }
 

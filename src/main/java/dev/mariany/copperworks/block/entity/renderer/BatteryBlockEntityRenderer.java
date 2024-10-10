@@ -12,6 +12,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
@@ -21,7 +22,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BatteryBlockEntityRenderer implements BlockEntityRenderer<BatteryBlockEntity> {
-    private static final float ITEM_DISTANCE = 1.375F;
+    private static final float ITEM_DISTANCE = 1.36F;
+    private static final float BLOCK_DISTANCE = 1.185F;
 
     private final ItemRenderer itemRenderer;
     private final Random random = Random.create();
@@ -69,7 +71,7 @@ public class BatteryBlockEntityRenderer implements BlockEntityRenderer<BatteryBl
         float half = 0.5F;
         matrices.translate(half, half, half);
 
-        float distance = ITEM_DISTANCE - half;
+        float distance = getDistance(stack) - half;
         float offset = half / 4;
 
         switch (face) {
@@ -104,5 +106,13 @@ public class BatteryBlockEntityRenderer implements BlockEntityRenderer<BatteryBl
         ItemEntityRenderer.renderStack(itemRenderer, matrices, vertexConsumers, light, stack, random, world);
 
         matrices.pop();
+    }
+
+    private static float getDistance(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem) {
+            return BLOCK_DISTANCE;
+        }
+
+        return ITEM_DISTANCE;
     }
 }
