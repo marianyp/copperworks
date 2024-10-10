@@ -7,6 +7,7 @@ import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -36,14 +37,15 @@ public record ShockEnchantmentEffect(FloatProvider shockDamagePercentage,
 
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity victim, Vec3d pos) {
+        Random random = victim.getRandom();
+        ItemStack stack = context.stack();
+        EquipmentSlot slot = context.slot();
+
         if (context.owner() instanceof LivingEntity user) {
             if (victim instanceof LivingEntity livingEntityVictim) {
                 DamageSource damageSource = livingEntityVictim.getRecentDamageSource();
 
                 if (damageSource != null) {
-                    ItemStack stack = context.stack();
-                    Random random = livingEntityVictim.getRandom();
-
                     float baseAttackDamage = (float) user.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
                     float originalDamage = EnchantmentHelper.getDamage(world, stack, livingEntityVictim, damageSource,
                             baseAttackDamage);
@@ -57,6 +59,10 @@ public record ShockEnchantmentEffect(FloatProvider shockDamagePercentage,
 
                     ModUtils.shockEntity(ignore, livingEntityVictim, level + 1, damage, delay, true);
                 }
+            }
+
+            if (slot != null && random.nextBoolean()) {
+                stack.damage(1, user, slot);
             }
         }
     }

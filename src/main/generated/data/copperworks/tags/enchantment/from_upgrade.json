@@ -5,6 +5,7 @@
       "required": false
     },
     "copperworks:charged_attraction",
-    "copperworks:shock"
+    "copperworks:shock",
+    "copperworks:life_current"
   ]
 }

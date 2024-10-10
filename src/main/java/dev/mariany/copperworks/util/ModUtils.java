@@ -19,10 +19,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class ModUtils {
@@ -108,36 +105,73 @@ public class ModUtils {
                             victimLivingEntity, victim.getX(), victim.getY(), victim.getZ(),
                             Box.from(victim.getPos()).expand(damage * 2));
 
+                    TargetPredicate waterTargetPredicate = getWaterTargetPredicate(ignore, victimLivingEntity,
+                            nextVictim);
+                    List<LivingEntity> waterVictims = world.getEntitiesByClass(LivingEntity.class,
+                            Box.from(victim.getPos()).expand(8),
+                            livingEntity -> waterTargetPredicate.test(victimLivingEntity, livingEntity));
+
+                    List<LivingEntity> entitiesToShock = new ArrayList<>(waterVictims);
+
                     if (nextVictim != null) {
-                        ignore.add(nextVictim);
+                        entitiesToShock.add(nextVictim);
+                    }
+
+                    for (LivingEntity victimToShock : entitiesToShock) {
+                        float damageForVictim = damage;
+                        int chain = shockChain;
+
+                        if (!victimToShock.equals(nextVictim)) {
+                            ++damageForVictim;
+                            chain = 0;
+                        }
+
+                        ignore.add(victimToShock);
 
                         Vec3d victimPos = victim.getPos();
                         Vec3d origin = new Vec3d(victimPos.x, victim.getBodyY(0.5), victimPos.z);
 
-                        markForShock(origin, ignore, nextVictim, shockChain - 1, damage, delay);
+                        markForShock(origin, ignore, victimToShock, chain, damageForVictim, delay);
                     }
                 }
             }
         }
     }
 
-    private static @NotNull TargetPredicate getTargetPredicate(Set<@NotNull Entity> ignore, LivingEntity victim) {
+    private static boolean targetPredicateFilter(Set<@NotNull Entity> ignore, LivingEntity victim,
+                                                 LivingEntity possibleNextVictim) {
+        if (victim instanceof Monster && !(possibleNextVictim instanceof Monster)) {
+            return false;
+        }
+        if (possibleNextVictim instanceof PassiveEntity && !(victim instanceof PassiveEntity)) {
+            return false;
+        }
+
+        int progress = possibleNextVictim.getAttachedOrElse(ModAttachmentTypes.SHOCK_DELAY_PROGRESS, 0);
+        if (shockPropertiesDefined(possibleNextVictim) && progress > 0) {
+            return false;
+        }
+
+        return !ignore.contains(possibleNextVictim) && TargetPredicate.createNonAttackable()
+                .test(victim, possibleNextVictim);
+    }
+
+    private static TargetPredicate getTargetPredicate(Set<@NotNull Entity> ignore, LivingEntity currentVictim) {
         TargetPredicate targetPredicate = TargetPredicate.createNonAttackable();
+        return targetPredicate.setPredicate(entity -> targetPredicateFilter(ignore, currentVictim, entity));
+    }
 
+    private static TargetPredicate getWaterTargetPredicate(Set<@NotNull Entity> ignore, LivingEntity currentVictim,
+                                                           LivingEntity foundNextVictim) {
+        TargetPredicate targetPredicate = TargetPredicate.createNonAttackable();
         return targetPredicate.setPredicate(entity -> {
-            if (victim instanceof Monster && !(entity instanceof Monster)) {
+            if (!currentVictim.isTouchingWater() || !entity.isTouchingWater()) {
                 return false;
             }
-            if (entity instanceof PassiveEntity && !(victim instanceof PassiveEntity)) {
+            if (foundNextVictim.equals(entity)) {
                 return false;
             }
-
-            int progress = entity.getAttachedOrElse(ModAttachmentTypes.SHOCK_DELAY_PROGRESS, 0);
-            if (shockPropertiesDefined(entity) && progress > 0) {
-                return false;
-            }
-
-            return !ignore.contains(entity) && TargetPredicate.createNonAttackable().test(victim, entity);
+            return targetPredicateFilter(ignore, currentVictim, entity);
         });
     }
 

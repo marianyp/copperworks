@@ -6,6 +6,7 @@
     "GrindstoneScreenHandlerMixin",
     "ItemMixin",
     "ItemStackMixin",
+    "LivingEntityAccessor",
     "LivingEntityMixin",
     "NearestItemsSensorMixin"
   ],
