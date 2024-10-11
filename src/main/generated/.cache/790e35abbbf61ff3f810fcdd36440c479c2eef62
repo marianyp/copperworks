@@ -1,12 +1,12 @@
-// 1.21.1	2024-10-11T06:04:38.8253372	Copperworks/Model Definitions
+// 1.21.1	2024-10-11T17:45:11.1675886	Copperworks/Model Definitions
 5ffddc3adeca06f9215170a314c1e4d51ceb7f49 assets\copperworks\models\block\copper_relay_bound.json
 eb56c9eb1522874e9b8ae5a158af0c665c86f4a4 assets\copperworks\blockstates\copper_relay_charged.json
 73896c0e230648aa59b321de18b5b97405d7799c assets\copperworks\models\item\copper_frame.json
 549b2cba40084a6b3de44ba22384ba8eb13146fe assets\copperworks\models\item\copper_bracer.json
 bf709c2e967725875818586dfcf264ba67ccf05c assets\copperworks\models\block\copper_relay.json
 c5e9091bd2446d1d8a5669363af6f126f56d7d84 assets\copperworks\blockstates\copper_relay_bound.json
-0cbed4461fbdbf80a5ed2317123f735fbc61bdf9 assets\copperworks\models\block\copper_clock.json
 43c6adeb71dc680392e2d07e6fc68ce58dbec961 assets\copperworks\models\item\copper_lever.json
+0cbed4461fbdbf80a5ed2317123f735fbc61bdf9 assets\copperworks\models\block\copper_clock.json
 711fbc97dd830d98afc89565f8914ef98ae1f001 assets\copperworks\models\block\copper_battery.json
 90660d526f3fa0c1dd0f2e9f2325e7bc248c91fb assets\copperworks\models\block\copper_relay_charged.json
 9678e04dad96ffaaace0910fdfb8ec533a09c7f4 assets\copperworks\blockstates\copper_clock.json

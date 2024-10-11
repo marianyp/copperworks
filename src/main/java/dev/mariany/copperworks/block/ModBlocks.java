@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.block;
 
 import dev.mariany.copperworks.Copperworks;
+import dev.mariany.copperworks.block.custom.PatinaBlock;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.block.custom.ClockBlock;
 import dev.mariany.copperworks.block.custom.CopperFrameBlock;
@@ -10,6 +11,7 @@ import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.item.custom.CopperFrameBlockItem;
+import dev.mariany.copperworks.item.custom.PatinaItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -51,6 +53,8 @@ public class ModBlocks {
     public static final Block COPPER_RELAY_RADIO_BOUND = registerBlock("copper_relay_radio_bound",
             new RadioBoundRelayBlock(copperRelaySettings()));
 
+    public static final Block PATINA = registerPatina();
+
     private static Block registerBlock(String name, Block block) {
         return registerBlock(name, block, Rarity.COMMON);
     }
@@ -68,13 +72,12 @@ public class ModBlocks {
 
     private static Block registerCopperFrame() {
         Identifier id = Copperworks.id("copper_frame");
-        Block copperFrameBlock = new CopperFrameBlock(
+        CopperFrameBlock copperFrameBlock = new CopperFrameBlock(
                 AbstractBlock.Settings.create().sounds(BlockSoundGroup.COPPER).noCollision().strength(2).requiresTool()
                         .solidBlock(Blocks::never).allowsSpawning(Blocks::never));
         Registry.register(Registries.ITEM, id, new CopperFrameBlockItem(copperFrameBlock, new Item.Settings()));
         return Registry.register(Registries.BLOCK, id, copperFrameBlock);
     }
-
 
     private static Block registerCopperRelay() {
         Identifier id = Copperworks.id("copper_relay");
@@ -89,6 +92,14 @@ public class ModBlocks {
     private static AbstractBlock.Settings copperRelaySettings() {
         return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                 .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
+    }
+
+    private static Block registerPatina() {
+        Identifier id = Copperworks.id("patina");
+        PatinaBlock patinaBlock = new PatinaBlock(
+                AbstractBlock.Settings.create().noCollision().breakInstantly().pistonBehavior(PistonBehavior.DESTROY));
+        Registry.register(Registries.ITEM, id, new PatinaItem(patinaBlock, new Item.Settings()));
+        return Registry.register(Registries.BLOCK, id, patinaBlock);
     }
 
     public static void registerModBlocks() {
@@ -106,6 +117,10 @@ public class ModBlocks {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
             entries.addBefore(Items.COPPER_BLOCK, COPPER_FRAME);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.addAfter(Items.GUNPOWDER, PATINA);
         });
     }
 }

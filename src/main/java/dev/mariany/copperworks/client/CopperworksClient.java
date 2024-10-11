@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.client;
 
 import dev.mariany.copperworks.Copperworks;
+import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.renderer.BatteryBlockEntityRenderer;
 import dev.mariany.copperworks.block.entity.renderer.BoundRelayBlockEntityRenderer;
@@ -10,8 +11,10 @@ import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.util.ModUtils;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.Identifier;
 
@@ -60,5 +63,7 @@ public class CopperworksClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.BOUND_RELAY, BoundRelayBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.RADIO_BOUND_RELAY,
                 RadioBoundRelayBlockEntityRenderer::new);
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PATINA, RenderLayer.getCutout());
     }
 }

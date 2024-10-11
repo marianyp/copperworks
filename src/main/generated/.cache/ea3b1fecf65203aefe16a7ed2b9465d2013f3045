@@ -1,10 +1,10 @@
-// 1.21.1	2024-10-11T06:04:38.8223397	Copperworks/Tags for minecraft:item
+// 1.21.1	2024-10-11T17:45:11.1655893	Copperworks/Tags for minecraft:item
 22bdc114643e1818e93dfb471989ff32e890591e data\c\tags\item\tools\melee_weapon.json
 22bdc114643e1818e93dfb471989ff32e890591e data\minecraft\tags\item\enchantable\sharp_weapon.json
 30f1f1e48cb951c376ffcd292088d0b3bd641614 data\copperworks\tags\item\engineer_can_upgrade.json
 516329082fecaa226e11f68daaf252b46786eb36 data\c\tags\item\tools\mining_tool.json
-70726556ef2857ded07b55dd01a65d5748938f77 data\minecraft\tags\item\enchantable\mining.json
 70726556ef2857ded07b55dd01a65d5748938f77 data\minecraft\tags\item\enchantable\mining_loot.json
+70726556ef2857ded07b55dd01a65d5748938f77 data\minecraft\tags\item\enchantable\mining.json
 c697c80e2e307a0f16257dc6a8e026c77118083c data\minecraft\tags\item\enchantable\foot_armor.json
 cffd5a5cf62c63fe681ca92e645e005eaf7af58b data\c\tags\item\armors.json
 516329082fecaa226e11f68daaf252b46786eb36 data\copperworks\tags\item\drills.json

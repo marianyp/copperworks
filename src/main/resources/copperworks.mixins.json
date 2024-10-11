@@ -3,12 +3,14 @@
   "package": "dev.mariany.copperworks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AxeItemMixin",
     "GrindstoneScreenHandlerMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
-    "NearestItemsSensorMixin"
+    "NearestItemsSensorMixin",
+    "SpawnRestrictionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
