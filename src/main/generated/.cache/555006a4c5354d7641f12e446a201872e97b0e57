@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-10T20:23:36.3111549	Copperworks/Tags for minecraft:block
-927250ee7a8a9ede5b020b50b453cb2efafc0fd1 data\minecraft\tags\block\needs_stone_tool.json
-927250ee7a8a9ede5b020b50b453cb2efafc0fd1 data\minecraft\tags\block\mineable\pickaxe.json
-d444197bfa15ab91774548ca604f9905ab61c596 data\copperworks\tags\block\mineable\drill.json
+// 1.21.1	2024-10-11T05:55:47.2131149	Copperworks/Tags for minecraft:block
+b1d5d0fe31844e8008613341691448e5217f4cad data\minecraft\tags\block\needs_stone_tool.json
+b1d5d0fe31844e8008613341691448e5217f4cad data\minecraft\tags\block\mineable\pickaxe.json
+c2f6fb7224bd1e2fdb87249751113c4d66dbc21f data\copperworks\tags\block\mineable\drill.json

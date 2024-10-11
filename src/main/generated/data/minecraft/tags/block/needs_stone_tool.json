@@ -3,6 +3,10 @@
     "copperworks:copper_clock",
     "copperworks:copper_lever",
     "copperworks:copper_frame",
-    "copperworks:copper_battery"
+    "copperworks:copper_battery",
+    "copperworks:copper_relay",
+    "copperworks:copper_relay_bound",
+    "copperworks:copper_relay_charged",
+    "copperworks:copper_relay_radio_bound"
   ]
 }

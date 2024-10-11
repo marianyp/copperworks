@@ -37,7 +37,7 @@ public class ModBlocks {
     public static final Block COPPER_FRAME = registerCopperFrame();
 
     public static final Block COPPER_BATTERY = registerBlock("copper_battery", new BatteryBlock(
-            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(5, 6)
+            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                     .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK)));
 
     public static final Block COPPER_RELAY_CHARGED = registerBlock("copper_relay_charged",
@@ -87,7 +87,7 @@ public class ModBlocks {
     }
 
     private static AbstractBlock.Settings copperRelaySettings() {
-        return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(5, 6)
+        return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                 .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
     }
 
