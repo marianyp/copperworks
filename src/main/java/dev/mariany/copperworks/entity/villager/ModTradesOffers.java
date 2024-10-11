@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.entity.villager;
 
+import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.item.ModItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.item.Item;
@@ -10,7 +11,7 @@ import net.minecraft.village.TradedItem;
 
 import java.util.Optional;
 
-public class ModTrades {
+public class ModTradesOffers {
     public static void registerVillagerTrades() {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 1, factories -> {
             factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 1),
@@ -31,8 +32,10 @@ public class ModTrades {
         });
 
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 4, factories -> {
+            factories.add((entity, random) -> new TradeOffer(new TradedItem(ModItems.COPPER_PLATE, 10),
+                    Optional.of(new TradedItem(Items.DIAMOND, 5)), new ItemStack(ModBlocks.COPPER_RELAY, 2), 12, 15,
+                    0.2f));
             // TODO: Add trade for Copper Upgrade Smithing Template
-            // TODO: Add trade for Copper Relay
         });
 
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 5, factories -> {
