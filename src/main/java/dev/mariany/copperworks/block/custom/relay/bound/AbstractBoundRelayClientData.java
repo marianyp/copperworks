@@ -13,7 +13,7 @@ public abstract class AbstractBoundRelayClientData {
     private float angle = 0F;
     private float opacity = 0F;
 
-    private final Vec3d color;
+    private Vec3d color;
 
     public AbstractBoundRelayClientData(Vec3d color) {
         this.color = color;
@@ -43,5 +43,9 @@ public abstract class AbstractBoundRelayClientData {
 
     public Vec3d getColor() {
         return color;
+    }
+
+    public void setColor(Vec3d newColor) {
+        this.color = newColor;
     }
 }

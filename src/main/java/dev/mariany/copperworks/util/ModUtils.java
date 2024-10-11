@@ -11,13 +11,13 @@ import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ChunkLevelType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.GlobalPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -198,5 +198,12 @@ public class ModUtils {
 
     public static boolean isSameDimension(World world, GlobalPos globalPos) {
         return world.getRegistryKey().getValue().equals(globalPos.dimension().getValue());
+    }
+
+    public static boolean isChunkLoaded(ServerWorld world, BlockPos pos) {
+        ChunkPos chunkPos = new ChunkPos(pos);
+        WorldChunk worldChunk = world.getChunkManager().getWorldChunk(chunkPos.x, chunkPos.z);
+        return worldChunk != null && worldChunk.getLevelType() == ChunkLevelType.ENTITY_TICKING && world.isChunkLoaded(
+                chunkPos.toLong());
     }
 }

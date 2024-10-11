@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
@@ -58,15 +59,24 @@ public class BoundRelayBlock extends AbstractRelayBlock implements BindableRelay
         }
         if (world.getBlockEntity(pos) instanceof BoundRelayBlockEntity boundRelayBlockEntity) {
             if (world.isClient) {
-                Optional<GlobalPos> optionalBoundPos = boundRelayBlockEntity.getBoundPos();
-                Optional<BoundRelayClientData> optionalBoundClientData = boundRelayBlockEntity.getBoundClientData();
+                if (player.equals(MinecraftClient.getInstance().player)) {
+                    BoundRelayClientData clientData = boundRelayBlockEntity.getClientData();
+                    Optional<GlobalPos> optionalBoundGlobalPos = boundRelayBlockEntity.getBoundPos();
+                    Optional<BoundRelayClientData> optionalBoundClientData = boundRelayBlockEntity.getBoundClientData();
 
-                if (optionalBoundPos.isPresent() && optionalBoundClientData.isPresent()) {
-                    boolean visible = isInRenderDistance(optionalBoundPos.get().pos().toCenterPos(), player.getPos());
-                    if (visible) {
-                        optionalBoundClientData.get().show();
-                        boundRelayBlockEntity.getClientData().show();
-                        return ActionResult.success(true);
+                    if (optionalBoundGlobalPos.isPresent() && optionalBoundClientData.isPresent()) {
+                        GlobalPos boundGlobalPos = optionalBoundGlobalPos.get();
+                        BlockPos boundBlockPos = boundGlobalPos.pos();
+                        BoundRelayClientData boundRelayClientData = optionalBoundClientData.get();
+
+                        boolean visible = isInRenderDistance(boundBlockPos.toCenterPos(), player.getPos());
+
+                        if (visible) {
+                            clientData.show(BoundRelayClientData.PURPLE);
+                            boundRelayClientData.show(BoundRelayClientData.PURPLE);
+                        }
+                    } else {
+                        clientData.show(BoundRelayClientData.BLACK);
                     }
                 }
             } else {
@@ -77,15 +87,6 @@ public class BoundRelayBlock extends AbstractRelayBlock implements BindableRelay
             }
         }
         return ActionResult.success(world.isClient);
-    }
-
-    @Override
-    public boolean isBound(World world, BlockPos pos) {
-        if (world.getBlockEntity(pos) instanceof BoundRelayBlockEntity boundRelayBlockEntity) {
-            return boundRelayBlockEntity.getBoundBlockState().isPresent();
-        }
-
-        return false;
     }
 
     @Override

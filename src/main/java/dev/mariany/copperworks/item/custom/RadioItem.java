@@ -5,6 +5,7 @@ import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
+import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +17,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ChunkLevelType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -26,10 +26,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
 
 public class RadioItem extends AbstractBindingItem {
@@ -79,7 +77,7 @@ public class RadioItem extends AbstractBindingItem {
 
         ServerWorld world = server.getWorld(boundDimension);
 
-        if (world != null && isChunkLoaded(world, boundPos)) {
+        if (world != null && ModUtils.isChunkLoaded(world, boundPos)) {
             BlockState boundBlockState = world.getBlockState(boundPos);
 
             if (boundBlockState.getBlock() instanceof RadioBoundRelayBlock radioBoundRelayBlock) {
@@ -136,7 +134,7 @@ public class RadioItem extends AbstractBindingItem {
             return NO_DATA;
         }
 
-        if (!isChunkLoaded(boundWorld, boundBlockPos)) {
+        if (!ModUtils.isChunkLoaded(boundWorld, boundBlockPos)) {
             return NOT_LOADED;
         }
 
@@ -157,13 +155,6 @@ public class RadioItem extends AbstractBindingItem {
     @Nullable
     private GlobalPos getBoundPos(ItemStack radioStack) {
         return radioStack.get(ModComponents.RELAY_POSITION);
-    }
-
-    private static boolean isChunkLoaded(ServerWorld world, BlockPos pos) {
-        ChunkPos chunkPos = new ChunkPos(pos);
-        WorldChunk worldChunk = world.getChunkManager().getWorldChunk(chunkPos.x, chunkPos.z);
-        return worldChunk != null && worldChunk.getLevelType() == ChunkLevelType.ENTITY_TICKING && world.isChunkLoaded(
-                chunkPos.toLong());
     }
 
     private void playUsedSound(PlayerEntity player) {
