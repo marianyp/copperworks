@@ -2,7 +2,7 @@ package dev.mariany.copperworks.item.custom;
 
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
-import dev.mariany.copperworks.block.custom.relay.RadioBoundRelayBlock;
+import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import net.minecraft.block.Block;
@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.network.packet.s2c.play.PlaySoundFromEntityS2CPacket;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkLevelType;
 import net.minecraft.server.world.ServerWorld;
@@ -51,7 +53,13 @@ public class RadioItem extends AbstractBindingItem {
 
         BlockState blockState = world.getBlockState(blockPos);
 
+        GlobalPos relayPosition = stack.get(ModComponents.RELAY_POSITION);
+
         if (blockState.getBlock() instanceof ChargedRelayBlock) {
+            if (relayPosition != null && world instanceof ServerWorld serverWorld) {
+                resetRelay(serverWorld.getServer(), relayPosition);
+            }
+
             world.setBlockState(blockPos, ModBlocks.COPPER_RELAY_RADIO_BOUND.getDefaultState(), Block.NOTIFY_LISTENERS);
             stack.set(ModComponents.RELAY_POSITION, GlobalPos.create(world.getRegistryKey(), blockPos));
 
@@ -63,6 +71,23 @@ public class RadioItem extends AbstractBindingItem {
         }
 
         return super.useOnBlock(context);
+    }
+
+    private void resetRelay(MinecraftServer server, GlobalPos relayPosition) {
+        RegistryKey<World> boundDimension = relayPosition.dimension();
+        BlockPos boundPos = relayPosition.pos();
+
+        ServerWorld world = server.getWorld(boundDimension);
+
+        if (world != null && isChunkLoaded(world, boundPos)) {
+            BlockState boundBlockState = world.getBlockState(boundPos);
+
+            if (boundBlockState.getBlock() instanceof RadioBoundRelayBlock radioBoundRelayBlock) {
+                world.getBlockTickScheduler().clearNextTicks(new BlockBox(boundPos));
+                world.setBlockState(boundPos, ModBlocks.COPPER_RELAY_CHARGED.getDefaultState(), Block.NOTIFY_LISTENERS);
+                world.updateNeighborsAlways(boundPos, radioBoundRelayBlock);
+            }
+        }
     }
 
     @Override

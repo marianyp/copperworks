@@ -3,6 +3,8 @@ package dev.mariany.copperworks.client;
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.renderer.BatteryBlockEntityRenderer;
+import dev.mariany.copperworks.block.entity.renderer.BoundRelayBlockEntityRenderer;
+import dev.mariany.copperworks.block.entity.renderer.RadioBoundRelayBlockEntityRenderer;
 import dev.mariany.copperworks.client.shaders.CoreShaders;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.ModComponents;
@@ -55,5 +57,8 @@ public class CopperworksClient implements ClientModInitializer {
         registerModelPredicateProviders();
 
         BlockEntityRendererFactories.register(ModBlockEntities.BATTERY, BatteryBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.BOUND_RELAY, BoundRelayBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.RADIO_BOUND_RELAY,
+                RadioBoundRelayBlockEntityRenderer::new);
     }
 }

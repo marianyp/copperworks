@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.mixin;
 
-import dev.mariany.copperworks.client.render.GlintRenderLayers;
+import dev.mariany.copperworks.client.render.RenderLayers;
 import net.minecraft.client.render.*;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
@@ -22,7 +22,7 @@ public abstract class WorldRendererMixin {
                                   Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
         VertexConsumerProvider.Immediate immediate = bufferBuilders.getEntityVertexConsumers();
 
-        for (RenderLayer renderLayer : GlintRenderLayers.ALL) {
+        for (RenderLayer renderLayer : RenderLayers.GLINT_LAYERS) {
             immediate.draw(renderLayer);
         }
     }

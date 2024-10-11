@@ -2,26 +2,39 @@ package dev.mariany.copperworks.block.entity.custom.relay;
 
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.ModBlocks;
-import dev.mariany.copperworks.block.custom.relay.BoundRelayBlock;
+import dev.mariany.copperworks.block.custom.relay.bound.BoundRelayBlock;
+import dev.mariany.copperworks.block.custom.relay.bound.BoundRelayClientData;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
+import dev.mariany.copperworks.util.ModUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class BoundRelayBlockEntity extends BlockEntity {
+public class BoundRelayBlockEntity extends AbstractBoundRelayBlockEntity {
     private static final String BOUND_NBT = "Bound";
     private Optional<GlobalPos> bound = Optional.empty();
+
+    @Environment(EnvType.CLIENT)
+    private final BoundRelayClientData clientData = new BoundRelayClientData();
 
     public BoundRelayBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BOUND_RELAY, pos, state);
@@ -73,6 +86,11 @@ public class BoundRelayBlockEntity extends BlockEntity {
 
     public void bind(@NotNull GlobalPos pos) {
         this.bound = Optional.of(pos);
+
+        this.markDirty();
+        if (this.world != null) {
+            this.world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, this.pos);
+        }
     }
 
     public Optional<GlobalPos> getBoundPos() {
@@ -94,6 +112,42 @@ public class BoundRelayBlockEntity extends BlockEntity {
         getBoundPos().flatMap(
                         pos -> GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).resultOrPartial(Copperworks.LOGGER::error))
                 .ifPresent(pos -> nbt.put(BOUND_NBT, pos));
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createComponentlessNbt(registryLookup);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public BoundRelayClientData getClientData() {
+        return clientData;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public Optional<BoundRelayClientData> getBoundClientData() {
+        World world = this.getWorld();
+
+        if (world != null) {
+            if (this.getBoundPos().isPresent()) {
+                GlobalPos boundGlobalPos = this.getBoundPos().get();
+
+                if (ModUtils.isSameDimension(world, boundGlobalPos)) {
+                    BlockEntity blockEntity = world.getBlockEntity(boundGlobalPos.pos());
+                    if (blockEntity instanceof BoundRelayBlockEntity boundRelayBlockEntity) {
+                        return Optional.of(boundRelayBlockEntity.getClientData());
+                    }
+                }
+            }
+        }
+
+        return Optional.empty();
     }
 
     @Override

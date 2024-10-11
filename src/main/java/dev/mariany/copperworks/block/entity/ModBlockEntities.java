@@ -5,6 +5,7 @@ import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
 import dev.mariany.copperworks.block.entity.custom.ClockBlockEntity;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
+import dev.mariany.copperworks.block.entity.custom.relay.RadioBoundRelayBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,6 +19,9 @@ public class ModBlockEntities {
 
     public static final BlockEntityType<BoundRelayBlockEntity> BOUND_RELAY = register("bound_relay",
             BlockEntityType.Builder.create(BoundRelayBlockEntity::new, ModBlocks.COPPER_RELAY_BOUND).build());
+
+    public static final BlockEntityType<RadioBoundRelayBlockEntity> RADIO_BOUND_RELAY = register("radio_bound_relay",
+            BlockEntityType.Builder.create(RadioBoundRelayBlockEntity::new, ModBlocks.COPPER_RELAY_RADIO_BOUND).build());
 
     public static <T extends BlockEntityType<?>> T register(String name, T blockEntityType) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, Copperworks.id(name), blockEntityType);

@@ -1,7 +1,11 @@
-package dev.mariany.copperworks.block.custom.relay;
+package dev.mariany.copperworks.block.custom.relay.bound;
 
+import dev.mariany.copperworks.block.custom.relay.AbstractRelayBlock;
+import dev.mariany.copperworks.block.custom.relay.BindableRelay;
+import dev.mariany.copperworks.block.entity.custom.relay.RadioBoundRelayBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -10,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.Nullable;
 
 public class RadioBoundRelayBlock extends AbstractRelayBlock implements BindableRelay {
     public static final BooleanProperty POWERED = Properties.POWERED;
@@ -43,5 +48,10 @@ public class RadioBoundRelayBlock extends AbstractRelayBlock implements Bindable
 
         state = state.cycle(POWERED);
         world.setBlockState(pos, state, Block.NOTIFY_ALL);
+    }
+
+    @Override
+    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new RadioBoundRelayBlockEntity(pos, state);
     }
 }

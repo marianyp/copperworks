@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.mixin;
 
-import dev.mariany.copperworks.client.render.GlintRenderLayers;
+import dev.mariany.copperworks.client.render.RenderLayers;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.RenderLayer;
@@ -14,6 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BufferBuilderStorageMixin {
     @Inject(method = "method_54639(Lit/unimi/dsi/fastutil/objects/Object2ObjectLinkedOpenHashMap;)V", at = @At("TAIL"))
     private void addGlintTypes(Object2ObjectLinkedOpenHashMap<RenderLayer, BufferAllocator> map, CallbackInfo ci) {
-        GlintRenderLayers.addGlintTypes(map);
+        RenderLayers.addGlintTypes(map);
     }
 }

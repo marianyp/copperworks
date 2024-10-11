@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.client;
 
-import dev.mariany.copperworks.client.render.GlintRenderLayers;
+import dev.mariany.copperworks.client.render.RenderLayers;
 import dev.mariany.copperworks.util.ModUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,23 +22,23 @@ public class GlintTypes {
     }
 
     public static RenderLayer getGlint() {
-        return renderLayer(GlintRenderLayers.glint, RenderLayer::getGlint);
+        return renderLayer(RenderLayers.glint, RenderLayer::getGlint);
     }
 
     public static RenderLayer getGlintTranslucent() {
-        return renderLayer(GlintRenderLayers.glintTranslucent, RenderLayer::getGlintTranslucent);
+        return renderLayer(RenderLayers.glintTranslucent, RenderLayer::getGlintTranslucent);
     }
 
     public static RenderLayer getEntityGlint() {
-        return renderLayer(GlintRenderLayers.entityGlint, RenderLayer::getEntityGlint);
+        return renderLayer(RenderLayers.entityGlint, RenderLayer::getEntityGlint);
     }
 
     public static RenderLayer getDirectEntityGlint() {
-        return renderLayer(GlintRenderLayers.glintDirectEntity, RenderLayer::getDirectEntityGlint);
+        return renderLayer(RenderLayers.glintDirectEntity, RenderLayer::getDirectEntityGlint);
     }
 
     public static RenderLayer getArmorEntityGlint() {
-        return renderLayer(GlintRenderLayers.armorEntityGlint, RenderLayer::getArmorEntityGlint);
+        return renderLayer(RenderLayers.armorEntityGlint, RenderLayer::getArmorEntityGlint);
     }
 
     private static RenderLayer renderLayer(RenderLayer layer, Supplier<RenderLayer> vanilla) {
