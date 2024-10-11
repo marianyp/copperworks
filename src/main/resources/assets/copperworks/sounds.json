@@ -35,17 +35,17 @@
 			}
 		]
 	},
-	"radio_bound": {
-		"subtitle": "subtitles.radio_bound",
+	"radio_used": {
+		"subtitle": "subtitles.item.copperworks.radio_used",
 		"sounds": [
 			{
-				"name": "copperworks:radio_bound",
+				"name": "copperworks:radio_used",
 				"stream": false
 			}
 		]
 	},
 	"radio_fail": {
-		"subtitle": "subtitles.radio_fail",
+		"subtitle": "subtitles.item.copperworks.radio_fail",
 		"sounds": [
 			{
 				"name": "copperworks:radio_fail",

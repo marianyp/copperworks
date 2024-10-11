@@ -59,8 +59,8 @@ public class ModEnchantments {
                 .addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.VICTIM,
                         EnchantmentEffectTarget.VICTIM, new DamageAbsorbEnchantmentEffect(
                                 ConstantFloatProvider.create(DamageAbsorbEnchantmentEffect.DEFAULT_MAX_HEAL_PERCENTAGE),
-                                ConstantIntProvider.create(
-                                        DamageAbsorbEnchantmentEffect.DEFAULT_REGENERATION_DURATION)),
+                                ConstantIntProvider.create(DamageAbsorbEnchantmentEffect.DEFAULT_REGENERATION_DURATION),
+                                ConstantIntProvider.create(DamageAbsorbEnchantmentEffect.DEFAULT_COOLDOWN)),
                         RandomChanceLootCondition.builder(
                                 EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.linear(0.624F)))));
 

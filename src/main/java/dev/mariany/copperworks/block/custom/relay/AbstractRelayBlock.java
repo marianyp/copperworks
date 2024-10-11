@@ -29,7 +29,9 @@ public abstract class AbstractRelayBlock extends BlockWithEntity implements Bloc
     }
 
     @Override
-    protected abstract MapCodec<? extends AbstractRelayBlock> getCodec();
+    protected MapCodec<? extends AbstractRelayBlock> getCodec() {
+        return null;
+    }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {

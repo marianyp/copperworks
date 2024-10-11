@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.datagen;
 
+import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -32,6 +33,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createCopperLeverRecipe(exporter);
         createEnderPowderRecipe(exporter);
         createRocketBootsRecipe(exporter);
+        createRadioRecipe(exporter);
+        createCopperRelayRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -81,5 +84,23 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('P', ModItems.COPPER_PLATE).input('N', Items.NETHERITE_INGOT).input('E', ModItems.ENDER_POWDER)
                 .pattern("P P").pattern("N N").pattern("E E")
                 .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT)).offerTo(exporter);
+    }
+
+    private void createRadioRecipe(RecipeExporter exporter) {
+        String group = "radio";
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModItems.RADIO).input('C', ModItems.COPPER_PLATE)
+                .input('I', ModItems.IRON_PLATE).input('R', Items.REDSTONE).pattern("CRC").pattern("CIC").pattern("CCC")
+                .criterion(hasItem(Items.REDSTONE), conditionsFromItem(Items.REDSTONE)).group(group).offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModItems.RADIO).input(ModItems.RADIO)
+                .criterion(hasItem(ModItems.RADIO), conditionsFromItem(ModItems.RADIO)).group(group)
+                .offerTo(exporter, Copperworks.id("reset_radio"));
+    }
+
+    private void createCopperRelayRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_RELAY)
+                .input('P', ModItems.COPPER_PLATE).input('E', Items.ECHO_SHARD).pattern("PPP").pattern("EEE")
+                .pattern("PPP").criterion(hasItem(Items.ECHO_SHARD), conditionsFromItem(Items.ECHO_SHARD))
+                .offerTo(exporter);
     }
 }

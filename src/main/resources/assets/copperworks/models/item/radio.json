@@ -1,0 +1,14 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "copperworks:item/radio"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"copperworks:bound": 1
+			},
+			"model": "copperworks:item/radio_bound"
+		}
+	]
+}

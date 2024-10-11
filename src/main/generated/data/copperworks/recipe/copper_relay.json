@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "E": {
+      "item": "minecraft:echo_shard"
+    },
+    "P": {
+      "item": "copperworks:copper_plate"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "EEE",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "copperworks:copper_relay"
+  }
+}

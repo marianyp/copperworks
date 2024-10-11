@@ -10,6 +10,11 @@
   "item.copperworks.amethyst_piece": "Amethyst Piece",
   "item.copperworks.radio": "Radio",
   "item.copperworks.charge.tooltip": "Energy: %s",
+  "item.copperworks.radio.dimension.tooltip": "%s",
+  "item.copperworks.radio.dimension.overworld.tooltip": "Overworld",
+  "item.copperworks.radio.dimension.nether.tooltip": "Nether",
+  "item.copperworks.radio.dimension.end.tooltip": "End",
+  "item.copperworks.radio.position.tooltip": "(%s)",
   "block.minecraft.lightning_rod": "Copper Rod",
   "block.copperworks.copper_clock": "Copper Clock",
   "block.copperworks.clock.cycled": "Clock interval set to %s",
@@ -30,5 +35,7 @@
   "subtitles.item.copperworks.drill": "Block Drilled",
   "subtitles.item.copperworks.out_of_charge": "Item Out of Charge",
   "subtitles.block.copperworks.charge": "Item Charging",
-  "subtitles.block.copperworks.done_charging": "Item Done Charging"
+  "subtitles.block.copperworks.done_charging": "Item Done Charging",
+  "subtitles.item.copperworks.radio_used": "Radio Used",
+  "subtitles.item.copperworks.radio_fail": "Radio Fail"
 }

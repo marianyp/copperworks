@@ -1,6 +1,5 @@
 package dev.mariany.copperworks.block.custom.relay;
 
-import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
 import dev.mariany.copperworks.item.ModItems;
@@ -8,11 +7,16 @@ import dev.mariany.copperworks.item.component.ModComponents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -20,34 +24,42 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class ChargedRelayBlock extends AbstractRelayBlock {
+    private static final List<Item> BINDING_ITEMS = List.of(Items.AMETHYST_SHARD, ModItems.AMETHYST_PIECE);
+
     public ChargedRelayBlock(Settings settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends ChargedRelayBlock> getCodec() {
-        return null;
-    }
-
-    @Override
     protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos,
                                              PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (stack.isOf(Items.AMETHYST_SHARD)) {
-            player.giveItemStack(initiateBinding(world, pos));
-        } else if (stack.isOf(ModItems.AMETHYST_PIECE)) {
-            if (!completeBinding(player, stack, GlobalPos.create(world.getRegistryKey(), pos))) {
-                return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
-            }
-        } else {
+        if (!BINDING_ITEMS.contains(stack.getItem())) {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
         }
 
-        if (!world.isClient) {
-            stack.decrement(1);
+        if (world instanceof ServerWorld serverWorld) {
+            if (stack.isOf(Items.AMETHYST_SHARD)) {
+                ItemStack piece = ItemUsage.exchangeStack(stack, player, initiateBinding(serverWorld, pos), false);
+                player.setStackInHand(hand, piece);
+                playInsertSound(serverWorld, pos, 0);
+            }
+
+            if (stack.isOf(ModItems.AMETHYST_PIECE)) {
+                if (!completeBinding(player, stack, GlobalPos.create(serverWorld.getRegistryKey(), pos))) {
+                    return ItemActionResult.FAIL;
+                }
+
+                stack.decrement(1);
+                playInsertSound(serverWorld, pos, 0.65F);
+            }
+
+            player.swingHand(hand, true);
         }
 
-        return ItemActionResult.success(world.isClient);
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     private ItemStack initiateBinding(World world, BlockPos pos) {
@@ -97,5 +109,10 @@ public class ChargedRelayBlock extends AbstractRelayBlock {
         if (world.getBlockEntity(pos) instanceof BoundRelayBlockEntity boundRelayBlockEntity) {
             boundRelayBlockEntity.bind(boundPos);
         }
+    }
+
+    private void playInsertSound(ServerWorld world, BlockPos pos, float pitch) {
+        world.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
+                RegistryEntry.of(SoundEvents.BLOCK_AMETHYST_BLOCK_STEP), SoundCategory.BLOCKS, 0.7F, pitch);
     }
 }

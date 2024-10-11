@@ -9,6 +9,7 @@
         "affected": "victim",
         "effect": {
           "type": "copperworks:damage_absorb",
+          "cooldown": 200,
           "max_heal_percentage": 1.5,
           "regeneration_duration": 100
         },

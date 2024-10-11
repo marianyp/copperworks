@@ -20,6 +20,7 @@ public class CopperworksClient implements ClientModInitializer {
     private static final Identifier CHARGED = Copperworks.id("charged");
     private static final Identifier FULLY_CHARGED = Copperworks.id("fully_charged");
     private static final Identifier DRAGON_BREATH_FILL = Copperworks.id("dragon_breath_fill");
+    private static final Identifier BOUND = Copperworks.id("bound");
 
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(CHARGED,
@@ -31,6 +32,10 @@ public class CopperworksClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(ModItems.PARTIAL_DRAGON_BREATH, DRAGON_BREATH_FILL,
                 (itemStack, clientWorld, livingEntity, seed) -> itemStack.getOrDefault(ModComponents.DRAGON_BREATH_FILL,
                         0));
+
+        ModelPredicateProviderRegistry.register(ModItems.RADIO, BOUND,
+                (itemStack, clientWorld, livingEntity, seed) -> itemStack.get(
+                        ModComponents.RELAY_POSITION) == null ? 0 : 1);
     }
 
     private void registerCoreShaders() {

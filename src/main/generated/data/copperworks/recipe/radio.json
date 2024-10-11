@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "radio",
+  "key": {
+    "C": {
+      "item": "copperworks:copper_plate"
+    },
+    "I": {
+      "item": "copperworks:iron_plate"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "CIC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "copperworks:radio"
+  }
+}

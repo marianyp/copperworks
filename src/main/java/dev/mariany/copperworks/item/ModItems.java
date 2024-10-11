@@ -23,8 +23,7 @@ public class ModItems {
     public static final Item ENDER_POWDER = registerItem("ender_powder", new Item(new Item.Settings()));
     public static final Item ROCKET_BOOTS = registerItem("rocket_boots",
             new RocketBootsItem(new Item.Settings().maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(33)).fireproof()));
-    public static final Item AMETHYST_PIECE = registerItem("amethyst_piece",
-            new Item(new Item.Settings().rarity(Rarity.RARE).maxCount(1)));
+    public static final Item AMETHYST_PIECE = registerItem("amethyst_piece", new AmethystPieceItem());
     public static final Item RADIO = registerItem("radio", new RadioItem(new Item.Settings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
@@ -49,6 +48,7 @@ public class ModItems {
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            entries.addBefore(Items.COMPASS, RADIO);
             entries.addAfter(Items.NETHERITE_HOE, COPPER_DRILL);
         });
 

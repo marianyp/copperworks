@@ -41,8 +41,8 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
     private static final int MAX_PROGRESS = 10;
     private static final int GIVE_RANGE = 3;
 
-    private static final int ENCHANT_LEVEL = 27;
-    private static final int ENCHANTABILITY = 16;
+    private static final int ENCHANT_LEVEL = 26;
+    private static final int ENCHANTABILITY = 15;
 
     // TODO: Implement advancement for upgrading item
     private static final int ADVANCEMENT_RADIUS = 20;
