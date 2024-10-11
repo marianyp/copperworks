@@ -1,9 +1,6 @@
 {
   "values": [
-    {
-      "id": "#minecraft:non_treasure",
-      "required": false
-    },
+    "#minecraft:non_treasure",
     "copperworks:charged_attraction",
     "copperworks:shock",
     "copperworks:life_current"

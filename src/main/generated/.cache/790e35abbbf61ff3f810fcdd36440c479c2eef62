@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-11T05:55:47.2090994	Copperworks/Model Definitions
+// 1.21.1	2024-10-11T06:04:38.8253372	Copperworks/Model Definitions
 5ffddc3adeca06f9215170a314c1e4d51ceb7f49 assets\copperworks\models\block\copper_relay_bound.json
 eb56c9eb1522874e9b8ae5a158af0c665c86f4a4 assets\copperworks\blockstates\copper_relay_charged.json
 73896c0e230648aa59b321de18b5b97405d7799c assets\copperworks\models\item\copper_frame.json
@@ -20,8 +20,8 @@ c25637c0274564ee059e8568998cc1569bbb049c assets\copperworks\models\item\copper_b
 2c1c9b317eb052b14368f6ce41fa3f90be5f7eb1 assets\copperworks\models\item\copper_relay_radio_bound.json
 16d6d5ec01557d37e5dbf929e81dfbfbf85329c0 assets\copperworks\models\item\copper_relay.json
 bf53d402ff592ddcf06c51795f97b38ec11da582 assets\copperworks\models\item\copper_plate.json
-bfba1f9a5aa2f9847286d0d9b2b0cf2303af41b0 assets\copperworks\models\item\copper_broadsword.json
 44aa393a56e428fc0d20190904365cc65b7587d5 assets\copperworks\models\item\copper_relay_charged.json
+bfba1f9a5aa2f9847286d0d9b2b0cf2303af41b0 assets\copperworks\models\item\copper_broadsword.json
 18047361ebcd733cd7a208244c903cec551dd574 assets\copperworks\blockstates\copper_battery.json
 1ea4326bc6a855e7644decf3233c1535f278d883 assets\copperworks\models\item\copper_relay_bound.json
 3a45f87126ccbe5b2b875886f71e1f54990dd65e assets\copperworks\models\block\copper_relay_radio_bound.json

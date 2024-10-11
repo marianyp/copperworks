@@ -17,7 +17,7 @@ public class ModEnchantmentTagProvider extends FabricTagProvider.EnchantmentTagP
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ModTags.Enchantments.FROM_UPGRADE).addOptionalTag(EnchantmentTags.NON_TREASURE)
+        getOrCreateTagBuilder(ModTags.Enchantments.FROM_UPGRADE).forceAddTag(EnchantmentTags.NON_TREASURE)
                 .add(ModEnchantments.CHARGED_ATTRACTION).add(ModEnchantments.SHOCK).add(ModEnchantments.LIFE_CURRENT);
     }
 }
