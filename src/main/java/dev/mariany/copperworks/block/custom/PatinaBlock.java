@@ -26,7 +26,7 @@ public class PatinaBlock extends Block {
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos blockPos = pos.up();
         BlockState ceiling = world.getBlockState(blockPos);
-        return ceiling.isSideSolidFullSquare(world, pos, Direction.UP);
+        return ceiling.isSideSolidFullSquare(world, pos, Direction.DOWN);
     }
 
     @Override

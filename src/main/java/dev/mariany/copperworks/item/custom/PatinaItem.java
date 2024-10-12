@@ -46,8 +46,9 @@ public class PatinaItem extends BlockItem {
         } else if (!side.equals(Direction.DOWN)) {
             BlockPos belowPos = blockPos.down();
             BlockState belowState = world.getBlockState(belowPos);
-            if (belowState.isReplaceable() && belowState.canPlaceAt(world, belowPos)) {
-                world.setBlockState(belowPos, ModBlocks.PATINA.getDefaultState());
+            BlockState patinaState = ModBlocks.PATINA.getDefaultState();
+            if (belowState.isReplaceable() && patinaState.canPlaceAt(world, belowPos)) {
+                world.setBlockState(belowPos, patinaState);
                 playSound(world, belowPos);
                 return ActionResult.success(world.isClient);
             }
