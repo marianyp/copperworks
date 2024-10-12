@@ -99,12 +99,19 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
 
     @Override
     public void setStack(ItemStack chargingItem) {
-        this.chargingItem = chargingItem;
+        ItemStack itemStack = chargingItem.copy();
+        if (ModUtils.itemNeedsCharge(itemStack)) {
+            itemStack.set(ModComponents.CHARGING, true);
+        }
+        this.chargingItem = itemStack;
+        this.markDirty();
     }
 
     public void takeStack(PlayerEntity player) {
+        this.chargingItem.remove(ModComponents.CHARGING);
         player.giveItemStack(this.chargingItem);
         this.chargingItem = ItemStack.EMPTY;
+        notifyChange(this);
     }
 
     @Override
@@ -129,9 +136,17 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         return this.chargingItem.getOrDefault(ModComponents.CHARGE_RATE, 1);
     }
 
-    public void tick(World world, BlockPos pos, BlockState blockState, BatteryBlockEntity batteryBlockEntity) {
-        if (batteryBlockEntity.isCharging()) {
-            ItemStack chargeStack = batteryBlockEntity.getStack();
+    public void tick(World world, BlockPos pos, BatteryBlockEntity batteryBlockEntity) {
+        ItemStack chargeStack = batteryBlockEntity.getStack();
+        boolean isCharging = batteryBlockEntity.isCharging();
+        boolean stackCharging = ModUtils.isCharging(chargeStack);
+
+        if (isCharging != stackCharging) {
+            chargeStack.set(ModComponents.CHARGING, isCharging);
+            notifyChange(batteryBlockEntity);
+        }
+
+        if (isCharging) {
             int chargeRate = batteryBlockEntity.getChargeRate();
             boolean chargeEveryTick = chargeRate <= 1;
             boolean didCharge;
@@ -139,8 +154,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
             if (chargeEveryTick || world.getTime() % chargeRate == 0) {
                 didCharge = batteryBlockEntity.chargeItem(chargeStack);
                 if (didCharge) {
-                    batteryBlockEntity.markDirty();
-                    world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+                    notifyChange(batteryBlockEntity);
                 }
             }
 
@@ -154,6 +168,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
             if (currentCharge >= maxCharge) {
                 if (!convertsTo.isEmpty()) {
                     setStack(convertsTo);
+                    notifyChange(batteryBlockEntity);
                 }
                 playDoneChargingSound(world, pos);
             } else if (currentCharge > 0) {
@@ -162,6 +177,14 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
                 }
             }
 
+        }
+    }
+
+    public static void notifyChange(BatteryBlockEntity batteryBlockEntity) {
+        World world = batteryBlockEntity.getWorld();
+        if (world != null) {
+            batteryBlockEntity.markDirty();
+            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, batteryBlockEntity.getPos());
         }
     }
 

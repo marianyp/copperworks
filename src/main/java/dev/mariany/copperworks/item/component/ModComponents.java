@@ -25,6 +25,8 @@ public class ModComponents {
             ComponentType.<Integer>builder().codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT).cache());
     public static final ComponentType<Boolean> UPGRADED = register("upgraded",
             ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).cache());
+    public static final ComponentType<Boolean> CHARGING = register("charging",
+            ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).cache());
     public static final ComponentType<GlobalPos> RELAY_POSITION = register("relay_position",
             ComponentType.<GlobalPos>builder().codec(GlobalPos.CODEC).packetCodec(GlobalPos.PACKET_CODEC).cache());
 

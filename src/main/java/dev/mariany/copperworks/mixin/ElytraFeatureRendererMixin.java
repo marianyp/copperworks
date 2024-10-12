@@ -24,7 +24,7 @@ public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M exten
     private ItemStack redirectGetModel(LivingEntity entity, EquipmentSlot equipmentSlot,
                                        Operation<ItemStack> original) {
         ItemStack stack = original.call(entity, equipmentSlot);
-        GlintTypes.setCharged(stack);
+        GlintTypes.updateGlint(stack);
         return stack;
     }
 }

@@ -21,6 +21,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -107,6 +108,8 @@ public class RadioItem extends AbstractBindingItem {
                     playFailSound(serverPlayer);
                     if (result == NO_DATA || result == NOT_FOUND) {
                         radioStack.remove(ModComponents.RELAY_POSITION);
+                    } else {
+                        serverPlayer.sendMessage(Text.translatable("block.copperworks.radio.not_loaded"), true);
                     }
                 }
             }

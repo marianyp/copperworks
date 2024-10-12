@@ -38,7 +38,7 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
     @WrapOperation(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/LivingEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/feature/ArmorFeatureRenderer;getModel(Lnet/minecraft/entity/EquipmentSlot;)Lnet/minecraft/client/render/entity/model/BipedEntityModel;"))
     private BipedEntityModel<T> redirectGetModel(ArmorFeatureRenderer<T, M, A> instance, EquipmentSlot slot,
                                                  Operation<A> original) {
-        GlintTypes.setCharged(currentEntity.getEquippedStack(slot));
+        GlintTypes.updateGlint(currentEntity.getEquippedStack(slot));
         return original.call(instance, slot);
     }
 

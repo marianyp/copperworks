@@ -9,6 +9,7 @@
   "item.copperworks.ender_powder": "Ender Powder",
   "item.copperworks.amethyst_piece": "Amethyst Piece",
   "item.copperworks.radio": "Radio",
+  "block.copperworks.radio.not_loaded": "Activation failed; relay isn't loaded",
   "item.copperworks.charge.tooltip": "Energy: %s",
   "item.copperworks.radio.dimension.tooltip": "%s",
   "item.copperworks.radio.dimension.overworld.tooltip": "Overworld",

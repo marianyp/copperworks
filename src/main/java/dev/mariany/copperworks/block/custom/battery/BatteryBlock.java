@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
+import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
@@ -27,7 +29,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEntityProvider {
@@ -52,7 +53,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     @Override
     protected ItemActionResult onUseWithItem(ItemStack useStack, BlockState state, World world, BlockPos pos,
                                              PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
+        if (!useStack.isEmpty() && world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
             if (batteryBlockEntity.isEmpty()) {
                 player.incrementStat(Stats.USED.getOrCreateStat(useStack.getItem()));
                 ItemStack itemStack = useStack.splitUnlessCreative(1, player);
@@ -61,15 +62,12 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
 
                 playItemPlopSound(world, pos);
 
-                batteryBlockEntity.markDirty();
-                world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                BatteryBlockEntity.notifyChange(batteryBlockEntity);
                 return ItemActionResult.SUCCESS;
             }
-
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        return ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override
@@ -78,9 +76,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
             if (player.getMainHandStack().isEmpty() && player.getOffHandStack().isEmpty()) {
                 if (!batteryBlockEntity.getStack().isEmpty()) {
                     batteryBlockEntity.takeStack(player);
-                    batteryBlockEntity.markDirty();
                     playItemPlopSound(world, pos);
-                    world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                     return ActionResult.SUCCESS;
                 }
             }
@@ -101,6 +97,14 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
 
     @Override
     protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
+            ItemStack stack = batteryBlockEntity.getStack();
+
+            if (ModUtils.isCharging(stack)) {
+                stack.remove(ModComponents.CHARGING);
+                batteryBlockEntity.setStack(stack);
+            }
+        }
         ItemScatterer.onStateReplaced(state, newState, world, pos);
         super.onStateReplaced(state, world, pos, newState, moved);
     }
@@ -120,7 +124,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
                                                                   BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.BATTERY, (worldx, pos, statex, blockEntity) -> {
-            blockEntity.tick(worldx, pos, statex, blockEntity);
+            blockEntity.tick(worldx, pos, blockEntity);
             if (worldx.isClient) {
                 BatteryBlockEntity.Client.tick(worldx, pos, state, blockEntity.getClientData());
             }

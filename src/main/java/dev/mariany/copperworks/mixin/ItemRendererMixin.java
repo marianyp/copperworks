@@ -20,7 +20,7 @@ public abstract class ItemRendererMixin {
     private void setCharged(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
                             MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay,
                             BakedModel model, CallbackInfo ci) {
-        GlintTypes.setCharged(stack);
+        GlintTypes.updateGlint(stack);
     }
 
     @ModifyExpressionValue(method = "getArmorGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getArmorEntityGlint()Lnet/minecraft/client/render/RenderLayer;"))
@@ -40,7 +40,7 @@ public abstract class ItemRendererMixin {
 
     @ModifyExpressionValue(method = "getItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getGlintTranslucent()Lnet/minecraft/client/render/RenderLayer;"))
     private static RenderLayer getGlintTranslucent(RenderLayer original) {
-        return GlintTypes.getGlintTranslucent();
+        return GlintTypes.getTranslucentGlint();
     }
 
     @ModifyExpressionValue(method = "getItemGlintConsumer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntityGlint()Lnet/minecraft/client/render/RenderLayer;"))

@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.mixin;
 
 import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,13 @@ import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
+    @Inject(at = @At("HEAD"), method = "hasGlint", cancellable = true)
+    private void injectHasGlint(CallbackInfoReturnable<Boolean> cir) {
+        if (ModUtils.isCharging(((ItemStack) (Object) this))) {
+            cir.setReturnValue(true);
+        }
+    }
+
     @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;appendAttributeModifiersTooltip(Ljava/util/function/Consumer;Lnet/minecraft/entity/player/PlayerEntity;)V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void injectChargeTooltip(Item.TooltipContext context, PlayerEntity player, TooltipType type,
                                      CallbackInfoReturnable<List<Text>> cir, List<Text> list, MutableText mutableText,

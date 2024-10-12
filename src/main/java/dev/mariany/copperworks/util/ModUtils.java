@@ -61,6 +61,10 @@ public class ModUtils {
         return itemStack.getOrDefault(ModComponents.UPGRADED, false);
     }
 
+    public static boolean isCharging(ItemStack itemStack) {
+        return Boolean.TRUE.equals(itemStack.get(ModComponents.CHARGING));
+    }
+
     public static void decrementCharge(LivingEntity entity, ItemStack itemStack) {
         decrementCharge(entity, itemStack, 0, 2);
     }
