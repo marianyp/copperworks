@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.util;
 
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
+import dev.mariany.copperworks.block.custom.StickyBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.tag.ModTags;
@@ -10,6 +11,7 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ChunkLevelType;
 import net.minecraft.server.world.ServerWorld;
@@ -209,5 +211,19 @@ public class ModUtils {
         WorldChunk worldChunk = world.getChunkManager().getWorldChunk(chunkPos.x, chunkPos.z);
         return worldChunk != null && worldChunk.getLevelType() == ChunkLevelType.ENTITY_TICKING && world.isChunkLoaded(
                 chunkPos.toLong());
+    }
+
+    public static boolean isEntityStuck(Entity entity) {
+        if (!entity.isAlive()) {
+            return false;
+        }
+
+        if (entity instanceof PlayerEntity player) {
+            if (player.isSpectator()) {
+                return false;
+            }
+        }
+
+        return entity.getSteppingBlockState().getBlock() instanceof StickyBlock;
     }
 }

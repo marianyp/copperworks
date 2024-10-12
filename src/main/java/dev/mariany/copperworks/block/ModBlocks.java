@@ -1,11 +1,8 @@
 package dev.mariany.copperworks.block;
 
 import dev.mariany.copperworks.Copperworks;
-import dev.mariany.copperworks.block.custom.PatinaBlock;
+import dev.mariany.copperworks.block.custom.*;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
-import dev.mariany.copperworks.block.custom.ClockBlock;
-import dev.mariany.copperworks.block.custom.CopperFrameBlock;
-import dev.mariany.copperworks.block.custom.CopperLeverBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.BoundRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayBlock;
@@ -55,6 +52,11 @@ public class ModBlocks {
 
     public static final Block PATINA = registerPatina();
 
+    public static final Block STICKY_COPPER = registerBlock("sticky_copper", new StickyBlock(stickyBlockSettings()));
+
+    public static final Block STICKY_COPPER_HONEY = registerBlock("sticky_copper_honey",
+            new StickyBlock(stickyBlockSettings()));
+
     private static Block registerBlock(String name, Block block) {
         return registerBlock(name, block, Rarity.COMMON);
     }
@@ -94,6 +96,11 @@ public class ModBlocks {
                 .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
     }
 
+    private static AbstractBlock.Settings stickyBlockSettings() {
+        return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).requiresTool().strength(3.0F, 6.0F)
+                .solidBlock(Blocks::never).sounds(BlockSoundGroup.COPPER);
+    }
+
     private static Block registerPatina() {
         Identifier id = Copperworks.id("patina");
         PatinaBlock patinaBlock = new PatinaBlock(
@@ -121,6 +128,11 @@ public class ModBlocks {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.addAfter(Items.GUNPOWDER, PATINA);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
+            entries.addAfter(Items.WAXED_OXIDIZED_COPPER_BULB, STICKY_COPPER);
+            entries.addAfter(STICKY_COPPER, STICKY_COPPER_HONEY);
         });
     }
 }

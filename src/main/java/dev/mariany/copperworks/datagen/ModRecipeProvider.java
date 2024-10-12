@@ -9,6 +9,7 @@ import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
@@ -33,8 +34,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createCopperLeverRecipe(exporter);
         createEnderPowderRecipe(exporter);
         createRocketBootsRecipe(exporter);
-        createRadioRecipe(exporter);
+        createRadioRecipes(exporter);
         createCopperRelayRecipe(exporter);
+        createStickyCopperRecipes(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -86,7 +88,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT)).offerTo(exporter);
     }
 
-    private void createRadioRecipe(RecipeExporter exporter) {
+    private void createRadioRecipes(RecipeExporter exporter) {
         String group = "radio";
         ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModItems.RADIO).input('C', ModItems.COPPER_PLATE)
                 .input('I', ModItems.IRON_PLATE).input('R', Items.REDSTONE).pattern("CRC").pattern("CIC").pattern("CCC")
@@ -102,5 +104,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('P', ModItems.COPPER_PLATE).input('E', Items.ECHO_SHARD).pattern("PPP").pattern("EEE")
                 .pattern("PPP").criterion(hasItem(Items.ECHO_SHARD), conditionsFromItem(Items.ECHO_SHARD))
                 .offerTo(exporter);
+    }
+
+    private void createStickyCopperRecipe(RecipeExporter exporter, Item input, ItemConvertible output) {
+        String group = "sticky_copper";
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, output).input('P', ModItems.COPPER_PLATE)
+                .input('C', Items.COPPER_INGOT).input('I', input).pattern("PPP").pattern("CIC").pattern("PPP")
+                .criterion(hasItem(input), conditionsFromItem(input)).group(group).offerTo(exporter);
+    }
+
+    private void createStickyCopperRecipes(RecipeExporter exporter) {
+        createStickyCopperRecipe(exporter, Items.SLIME_BALL, ModBlocks.STICKY_COPPER);
+        createStickyCopperRecipe(exporter, Items.HONEY_BOTTLE, ModBlocks.STICKY_COPPER_HONEY);
     }
 }

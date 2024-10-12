@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.datagen;
 
+import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -24,6 +25,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_RADIO_BOUND);
 
         registerBattery(blockStateModelGenerator, ModBlocks.COPPER_BATTERY);
+        registerStickyBlocks(blockStateModelGenerator);
     }
 
     @Override
@@ -76,6 +78,22 @@ public class ModModelProvider extends FabricModelProvider {
                         .register(BlockFace.CEILING, Direction.EAST,
                                 BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180)
                                         .put(VariantSettings.Y, VariantSettings.Rotation.R270))));
+    }
+
+    private static void registerStickyBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        TextureMap textureMap = new TextureMap().put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
+                .put(TextureKey.SIDE, Copperworks.id("block/sticky_copper_side"))
+                .put(TextureKey.BOTTOM, Copperworks.id("block/sticky_copper_side"));
+
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
+                BlockStateVariant.create().put(VariantSettings.MODEL,
+                        Models.CUBE_TOP.upload(block, textureMap, blockStateModelGenerator.modelCollector))));
+
+    }
+
+    private static void registerStickyBlocks(BlockStateModelGenerator blockStateModelGenerator) {
+        registerStickyBlock(blockStateModelGenerator, ModBlocks.STICKY_COPPER);
+        registerStickyBlock(blockStateModelGenerator, ModBlocks.STICKY_COPPER_HONEY);
     }
 }
 
