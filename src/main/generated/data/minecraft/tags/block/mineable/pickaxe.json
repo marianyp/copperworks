@@ -9,6 +9,8 @@
     "copperworks:copper_relay_charged",
     "copperworks:copper_relay_radio_bound",
     "copperworks:sticky_copper",
-    "copperworks:sticky_copper_honey"
+    "copperworks:sticky_copper_honey",
+    "copperworks:copper_sensor",
+    "copperworks:copper_sensor_charged"
   ]
 }

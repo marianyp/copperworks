@@ -1,0 +1,6 @@
+{
+	"parent": "copperworks:block/copper_sensor_ceiling_template",
+	"textures": {
+		"face": "copperworks:block/copper_sensor_face"
+	}
+}

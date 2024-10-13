@@ -1,7 +1,7 @@
 package dev.mariany.copperworks.block.entity.custom.relay;
 
 import dev.mariany.copperworks.block.custom.relay.bound.AbstractBoundRelayClientData;
-import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayClientData;
+import dev.mariany.copperworks.block.custom.relay.bound.radio.RadioBoundRelayClientData;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

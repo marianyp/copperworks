@@ -27,6 +27,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.PATINA);
         addDrop(ModBlocks.STICKY_COPPER);
         addDrop(ModBlocks.STICKY_COPPER_HONEY);
+        addDrop(ModBlocks.COPPER_SENSOR);
+        addDrop(ModBlocks.COPPER_SENSOR_CHARGED);
 
         addRelayDrops();
     }

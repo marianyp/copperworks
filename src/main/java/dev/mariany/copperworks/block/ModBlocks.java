@@ -3,25 +3,27 @@ package dev.mariany.copperworks.block;
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.custom.*;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
+import dev.mariany.copperworks.block.custom.relay.RelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.BoundRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
-import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayBlock;
+import dev.mariany.copperworks.block.custom.relay.bound.radio.RadioBoundRelayBlock;
+import dev.mariany.copperworks.block.custom.sensor.ChargedSensorBlock;
+import dev.mariany.copperworks.block.custom.sensor.SensorBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.item.custom.CopperFrameBlockItem;
 import dev.mariany.copperworks.item.custom.PatinaItem;
+import dev.mariany.copperworks.util.ModConstants;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -39,23 +41,36 @@ public class ModBlocks {
             AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                     .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK)));
 
-    public static final Block COPPER_RELAY_CHARGED = registerBlock("copper_relay_charged",
-            new ChargedRelayBlock(copperRelaySettings()));
+    public static final Block COPPER_RELAY_CHARGED = registerBlock("copper_relay_charged", new ChargedRelayBlock(
+            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
+                    .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK)));
 
-    public static final Block COPPER_RELAY = registerCopperRelay();
+    public static final Block COPPER_RELAY = registerChargeable("copper_relay",
+            new RelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
+            ModConstants.DEFAULT_CHARGE_RATE, COPPER_RELAY_CHARGED);
 
     public static final Block COPPER_RELAY_BOUND = registerBlock("copper_relay_bound",
-            new BoundRelayBlock(copperRelaySettings()));
+            new BoundRelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)));
 
     public static final Block COPPER_RELAY_RADIO_BOUND = registerBlock("copper_relay_radio_bound",
-            new RadioBoundRelayBlock(copperRelaySettings()));
+            new RadioBoundRelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)));
 
     public static final Block PATINA = registerPatina();
 
-    public static final Block STICKY_COPPER = registerBlock("sticky_copper", new StickyBlock(stickyBlockSettings()));
+    public static final Block STICKY_COPPER = registerBlock("sticky_copper", new StickyBlock(
+            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).requiresTool().strength(3.0F, 6.0F)
+                    .solidBlock(Blocks::never).sounds(BlockSoundGroup.COPPER).velocityMultiplier(0)));
 
     public static final Block STICKY_COPPER_HONEY = registerBlock("sticky_copper_honey",
-            new StickyBlock(stickyBlockSettings()));
+            new StickyBlock(AbstractBlock.Settings.copyShallow(STICKY_COPPER)));
+
+    public static final Block COPPER_SENSOR_CHARGED = registerBlock("copper_sensor_charged", new ChargedSensorBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.COPPER).strength(2).requiresTool()));
+
+    public static final Block COPPER_SENSOR = registerChargeable("copper_sensor",
+            new SensorBlock(AbstractBlock.Settings.copyShallow(COPPER_SENSOR_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
+            ModConstants.DEFAULT_CHARGE_RATE, COPPER_SENSOR_CHARGED);
+
 
     private static Block registerBlock(String name, Block block) {
         return registerBlock(name, block, Rarity.COMMON);
@@ -72,6 +87,25 @@ public class ModBlocks {
         Registry.register(Registries.ITEM, Copperworks.id(name), new BlockItem(block, settings));
     }
 
+    private static Block registerChargeable(String name, Block block, int maxCharge, int chargeRate) {
+        return registerChargeable(name, block, maxCharge, chargeRate, null);
+    }
+
+    private static Block registerChargeable(String name, Block block, int maxCharge, int chargeRate,
+                                            @Nullable Block convertsTo) {
+        Identifier id = Copperworks.id(name);
+        Item.Settings settings = new Item.Settings().component(ModComponents.CHARGE, 0)
+                .component(ModComponents.MAX_CHARGE, maxCharge).component(ModComponents.CHARGE_RATE, chargeRate);
+
+        if (convertsTo != null) {
+            settings.component(ModComponents.CONVERTS_TO,
+                    ContainerComponent.fromStacks(List.of(convertsTo.asItem().getDefaultStack())));
+        }
+
+        Registry.register(Registries.ITEM, id, new BlockItem(block, settings));
+        return Registry.register(Registries.BLOCK, id, block);
+    }
+
     private static Block registerCopperFrame() {
         Identifier id = Copperworks.id("copper_frame");
         CopperFrameBlock copperFrameBlock = new CopperFrameBlock(
@@ -79,26 +113,6 @@ public class ModBlocks {
                         .solidBlock(Blocks::never).allowsSpawning(Blocks::never));
         Registry.register(Registries.ITEM, id, new CopperFrameBlockItem(copperFrameBlock, new Item.Settings()));
         return Registry.register(Registries.BLOCK, id, copperFrameBlock);
-    }
-
-    private static Block registerCopperRelay() {
-        Identifier id = Copperworks.id("copper_relay");
-        Block copperRelay = new Block(copperRelaySettings());
-        Registry.register(Registries.ITEM, id, new BlockItem(copperRelay,
-                new Item.Settings().component(ModComponents.CHARGE, 0).component(ModComponents.MAX_CHARGE, 15)
-                        .component(ModComponents.CHARGE_RATE, 40).component(ModComponents.CONVERTS_TO,
-                                ContainerComponent.fromStacks(List.of(COPPER_RELAY_CHARGED.asItem().getDefaultStack())))));
-        return Registry.register(Registries.BLOCK, id, copperRelay);
-    }
-
-    private static AbstractBlock.Settings copperRelaySettings() {
-        return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
-                .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
-    }
-
-    private static AbstractBlock.Settings stickyBlockSettings() {
-        return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).requiresTool().strength(3.0F, 6.0F)
-                .solidBlock(Blocks::never).sounds(BlockSoundGroup.COPPER);
     }
 
     private static Block registerPatina() {
@@ -113,13 +127,14 @@ public class ModBlocks {
         Copperworks.LOGGER.info("Registering Mod Blocks for " + Copperworks.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
+            entries.addAfter(Items.TARGET, COPPER_CLOCK);
+            entries.addAfter(Items.LEVER, COPPER_LEVER);
+
             entries.add(COPPER_BATTERY);
-
-            entries.add(COPPER_CLOCK);
-            entries.add(COPPER_LEVER);
-
             entries.add(COPPER_RELAY);
             entries.add(COPPER_RELAY_CHARGED);
+            entries.add(COPPER_SENSOR);
+            entries.add(COPPER_SENSOR_CHARGED);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
@@ -131,7 +146,7 @@ public class ModBlocks {
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
-            entries.addAfter(Items.WAXED_OXIDIZED_COPPER_BULB, STICKY_COPPER);
+            entries.addBefore(Items.CRAFTING_TABLE, STICKY_COPPER);
             entries.addAfter(STICKY_COPPER, STICKY_COPPER_HONEY);
         });
     }

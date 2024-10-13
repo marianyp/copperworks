@@ -1,6 +1,6 @@
 {
 	"parent": "copperworks:block/copper_sensor_template",
 	"textures": {
-		"texture": "copperworks:block/copper_sensor_powered"
+		"face": "copperworks:block/copper_sensor_face_charged"
 	}
 }

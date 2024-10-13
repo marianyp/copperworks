@@ -15,7 +15,7 @@ public class LivingEntityTickHandler implements ServerWorldTickHandler {
     @Override
     public void onServerWorldTick(ServerWorld world) {
         for (LivingEntity entity : world.getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),
-                LivingEntity::isAlive)) {
+                entity -> !entity.isRemoved())) {
             onLivingEntityTick(entity);
         }
     }

@@ -2,7 +2,7 @@ package dev.mariany.copperworks.item.custom;
 
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
-import dev.mariany.copperworks.block.custom.relay.bound.RadioBoundRelayBlock;
+import dev.mariany.copperworks.block.custom.relay.bound.radio.RadioBoundRelayBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.util.ModUtils;
@@ -109,7 +109,7 @@ public class RadioItem extends AbstractBindingItem {
                     if (result == NO_DATA || result == NOT_FOUND) {
                         radioStack.remove(ModComponents.RELAY_POSITION);
                     } else {
-                        serverPlayer.sendMessage(Text.translatable("block.copperworks.radio.not_loaded"), true);
+                        serverPlayer.sendMessage(Text.translatable("item.copperworks.radio.not_loaded"), true);
                     }
                 }
             }

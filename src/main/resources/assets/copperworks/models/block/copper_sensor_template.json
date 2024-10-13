@@ -1,33 +1,24 @@
 {
 	"textures": {
-		"particle": "#texture"
+		"back": "copperworks:block/copper_sensor_back",
+		"side_x": "copperworks:block/copper_sensor_side_x",
+		"side_y": "copperworks:block/copper_sensor_side_y",
+		"particle": "#back"
 	},
 	"elements": [
 		{
-			"from": [2, 4, 12],
-			"to": [14, 12, 16],
+			"from": [2, 0, 4],
+			"to": [14, 4, 12],
 			"faces": {
-				"north": {
-					"uv": [6, 8, 0, 0],
-					"rotation": 180,
-					"texture": "#texture"
-				},
-				"east": {
-					"uv": [6, 8, 10, 12],
-					"rotation": 90,
-					"texture": "#texture"
-				},
-				"south": { "uv": [6, 8, 0, 16], "texture": "#texture" },
-				"west": {
-					"uv": [6, 12, 10, 16],
-					"rotation": 270,
-					"texture": "#texture"
-				},
-				"up": { "uv": [6, 4, 12, 8], "texture": "#texture" },
+				"north": { "uv": [14, 10, 2, 6], "texture": "#side_y" },
+				"east": { "uv": [4, 6, 12, 10], "texture": "#side_x" },
+				"south": { "uv": [14, 6, 2, 10], "texture": "#side_y" },
+				"west": { "uv": [4, 6, 12, 10], "texture": "#side_x" },
+				"up": { "uv": [2, 4, 14, 12], "texture": "#face" },
 				"down": {
-					"uv": [6, 0, 12, 4],
-					"rotation": 180,
-					"texture": "#texture"
+					"uv": [2, 4, 14, 12],
+					"texture": "#back",
+					"cullface": "down"
 				}
 			}
 		}

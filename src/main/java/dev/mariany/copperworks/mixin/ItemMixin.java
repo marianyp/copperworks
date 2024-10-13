@@ -29,7 +29,7 @@ public class ItemMixin {
             if (!world.isClient && world.getBlockState(pos).isOf(Blocks.CRYING_OBSIDIAN)) {
                 if (player != null) {
                     PartialDragonBreathItem.playFillSound(world, player);
-                    stack.decrement(1);
+                    stack.decrementUnlessCreative(1, player);
                     player.giveItemStack(ModItems.PARTIAL_DRAGON_BREATH.getDefaultStack());
                 }
 

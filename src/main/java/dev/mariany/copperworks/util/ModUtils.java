@@ -100,7 +100,7 @@ public class ModUtils {
 
         if (damage > 0) {
             if (victim.isAlive() && !skipDamage) {
-                DamageSources damageSources = victim.getDamageSources();
+                DamageSources damageSources = world.getDamageSources();
                 victim.damage(damageSources.lightningBolt(), damage);
             }
 
@@ -112,33 +112,13 @@ public class ModUtils {
                             victimLivingEntity, victim.getX(), victim.getY(), victim.getZ(),
                             Box.from(victim.getPos()).expand(damage * 2));
 
-                    TargetPredicate waterTargetPredicate = getWaterTargetPredicate(ignore, victimLivingEntity,
-                            nextVictim);
-                    List<LivingEntity> waterVictims = world.getEntitiesByClass(LivingEntity.class,
-                            Box.from(victim.getPos()).expand(8),
-                            livingEntity -> waterTargetPredicate.test(victimLivingEntity, livingEntity));
-
-                    List<LivingEntity> entitiesToShock = new ArrayList<>(waterVictims);
-
                     if (nextVictim != null) {
-                        entitiesToShock.add(nextVictim);
-                    }
-
-                    for (LivingEntity victimToShock : entitiesToShock) {
-                        float damageForVictim = damage;
-                        int chain = shockChain;
-
-                        if (!victimToShock.equals(nextVictim)) {
-                            ++damageForVictim;
-                            chain = 0;
-                        }
-
-                        ignore.add(victimToShock);
+                        ignore.add(nextVictim);
 
                         Vec3d victimPos = victim.getPos();
                         Vec3d origin = new Vec3d(victimPos.x, victim.getBodyY(0.5), victimPos.z);
 
-                        markForShock(origin, ignore, victimToShock, chain, damageForVictim, delay);
+                        markForShock(origin, ignore, nextVictim, shockChain - 1, damage, delay);
                     }
                 }
             }
@@ -218,10 +198,8 @@ public class ModUtils {
             return false;
         }
 
-        if (entity instanceof PlayerEntity player) {
-            if (player.isSpectator()) {
-                return false;
-            }
+        if (entity instanceof PlayerEntity) {
+            return false;
         }
 
         return entity.getSteppingBlockState().getBlock() instanceof StickyBlock;

@@ -37,6 +37,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createRadioRecipes(exporter);
         createCopperRelayRecipe(exporter);
         createStickyCopperRecipes(exporter);
+        createCopperSensorRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -116,5 +117,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private void createStickyCopperRecipes(RecipeExporter exporter) {
         createStickyCopperRecipe(exporter, Items.SLIME_BALL, ModBlocks.STICKY_COPPER);
         createStickyCopperRecipe(exporter, Items.HONEY_BOTTLE, ModBlocks.STICKY_COPPER_HONEY);
+    }
+
+    private void createCopperSensorRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_SENSOR)
+                .input('P', ModItems.COPPER_PLATE).input('E', Items.ENDER_EYE).input('O', Items.OBSERVER).pattern("PEP")
+                .pattern("POP").criterion(hasItem(Items.ENDER_EYE), conditionsFromItem(Items.ENDER_EYE))
+                .offerTo(exporter);
     }
 }

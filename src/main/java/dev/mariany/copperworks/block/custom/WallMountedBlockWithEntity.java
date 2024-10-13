@@ -5,23 +5,32 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.enums.BlockFace;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class WallMountedBlockWithEntity extends WallMountedBlock implements BlockEntityProvider {
     protected WallMountedBlockWithEntity(AbstractBlock.Settings settings) {
         super(settings);
+        this.setDefaultState(applyDefaultState(this.stateManager.getDefaultState()));
+    }
+
+    protected BlockState applyDefaultState(BlockState state) {
+        return state.with(FACING, Direction.NORTH).with(FACE, BlockFace.WALL);
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(FACING, FACE);
     }
 
     @Override
     protected abstract MapCodec<? extends WallMountedBlockWithEntity> getCodec();
-
-    @Override
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
-    }
 
     @Override
     protected boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {

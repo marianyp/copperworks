@@ -4,6 +4,7 @@ import dev.mariany.copperworks.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Oxidizable;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -23,8 +24,9 @@ public class PatinaItem extends BlockItem {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        ItemStack itemStack = context.getStack();
         World world = context.getWorld();
+        PlayerEntity player = context.getPlayer();
+        ItemStack itemStack = context.getStack();
         BlockPos blockPos = context.getBlockPos();
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
@@ -37,7 +39,7 @@ public class PatinaItem extends BlockItem {
                 Block increasedOxidationBlock = optionalIncreasedOxidationBlock.get();
                 world.setBlockState(blockPos, increasedOxidationBlock.getDefaultState());
 
-                itemStack.decrement(1);
+                itemStack.decrementUnlessCreative(1, player);
 
                 playSound(world, blockPos);
 

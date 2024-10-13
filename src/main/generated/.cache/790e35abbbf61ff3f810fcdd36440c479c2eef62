@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-12T00:42:09.619121	Copperworks/Model Definitions
+// 1.21.1	2024-10-12T03:20:15.4632096	Copperworks/Model Definitions
 6efe288b0191adac4cffcf30dd22ab1560862d1c assets\copperworks\blockstates\sticky_copper_honey.json
 5ffddc3adeca06f9215170a314c1e4d51ceb7f49 assets\copperworks\models\block\copper_relay_bound.json
 eb56c9eb1522874e9b8ae5a158af0c665c86f4a4 assets\copperworks\blockstates\copper_relay_charged.json
@@ -21,8 +21,8 @@ c25637c0274564ee059e8568998cc1569bbb049c assets\copperworks\models\item\copper_b
 941c7c702d4614f008071184e0a031eeabc80371 assets\copperworks\models\block\sticky_copper_honey.json
 9014751756510ea6efd62e314ab747fe55b8ea89 assets\copperworks\models\item\amethyst_piece.json
 5064bb8f167519f70bc4e3fbc591438da3d62119 assets\copperworks\models\item\iron_plate.json
-2c1c9b317eb052b14368f6ce41fa3f90be5f7eb1 assets\copperworks\models\item\copper_relay_radio_bound.json
 4662c5b523c9ad8fcedcf86c85530b558dadc52f assets\copperworks\models\item\copper_clock.json
+2c1c9b317eb052b14368f6ce41fa3f90be5f7eb1 assets\copperworks\models\item\copper_relay_radio_bound.json
 16d6d5ec01557d37e5dbf929e81dfbfbf85329c0 assets\copperworks\models\item\copper_relay.json
 bf53d402ff592ddcf06c51795f97b38ec11da582 assets\copperworks\models\item\copper_plate.json
 44aa393a56e428fc0d20190904365cc65b7587d5 assets\copperworks\models\item\copper_relay_charged.json

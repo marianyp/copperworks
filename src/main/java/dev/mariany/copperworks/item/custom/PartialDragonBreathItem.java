@@ -65,7 +65,7 @@ public class PartialDragonBreathItem extends Item {
                     ItemStack newBottle = bottleToFill.copyWithCount(1);
                     newBottle.set(ModComponents.DRAGON_BREATH_FILL, dragonBreathFill + 1);
 
-                    bottleToFill.decrement(1);
+                    bottleToFill.decrementUnlessCreative(1, player);
                     player.giveItemStack(newBottle);
                 } else {
                     bottleToFill.set(ModComponents.DRAGON_BREATH_FILL, dragonBreathFill + 1);

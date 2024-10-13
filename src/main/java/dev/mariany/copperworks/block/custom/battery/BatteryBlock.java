@@ -6,27 +6,22 @@ import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.util.ModUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.BlockFace;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
@@ -36,18 +31,6 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
 
     public BatteryBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(
-                this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(FACE, BlockFace.FLOOR));
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState blockState) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, FACE);
     }
 
     @Override
@@ -63,7 +46,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
                 playItemPlopSound(world, pos);
 
                 BatteryBlockEntity.notifyChange(batteryBlockEntity);
-                return ItemActionResult.SUCCESS;
+                return ItemActionResult.success(world.isClient);
             }
         }
 
