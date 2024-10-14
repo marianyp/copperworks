@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ChunkLevelType;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -55,7 +57,29 @@ public class ModUtils {
         return chargeComponent > 0;
     }
 
-    public static boolean engineerCanUpgrade(ItemStack itemStack) {
+    @Nullable
+    public static PlayerEntity getItemStackOwner(World world, ItemStack itemStack) {
+        UUID lastThrownUUID = itemStack.get(ModComponents.LAST_THROWN);
+
+        if (lastThrownUUID != null) {
+            return world.getPlayerByUuid(lastThrownUUID);
+        }
+
+        return null;
+    }
+
+    public static int getReputationFromItem(VillagerEntity villager, ItemStack itemStack) {
+        PlayerEntity lastThrown = getItemStackOwner(villager.getWorld(), itemStack);
+        if (lastThrown != null) {
+            return villager.getReputation(lastThrown);
+        }
+        return 0;
+    }
+
+    public static boolean engineerCanUpgrade(VillagerEntity villager, ItemStack itemStack) {
+        if (getReputationFromItem(villager, itemStack) < 0) {
+            return false;
+        }
         return itemStack.isIn(ModTags.Items.ENGINEER_CAN_UPGRADE) && !itemStack.hasEnchantments();
     }
 

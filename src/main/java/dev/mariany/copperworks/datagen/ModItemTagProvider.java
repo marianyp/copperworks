@@ -30,9 +30,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ConventionalItemTags.MINING_TOOL_TOOLS).add(ModItems.COPPER_DRILL);
         getOrCreateTagBuilder(ConventionalItemTags.ARMORS).add(ModItems.COPPER_BRACER).add(ModItems.ROCKET_BOOTS);
 
+        getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE).add(ModItems.COPPER_BROADSWORD);
         getOrCreateTagBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(ModItems.COPPER_BROADSWORD);
+
         getOrCreateTagBuilder(ItemTags.CHEST_ARMOR_ENCHANTABLE).add(ModItems.COPPER_BRACER);
         getOrCreateTagBuilder(ItemTags.FOOT_ARMOR_ENCHANTABLE).add(ModItems.ROCKET_BOOTS);
+
         getOrCreateTagBuilder(ModTags.Items.DRILLS).add(ModItems.COPPER_DRILL);
 
         addEngineerCanUpgrade();

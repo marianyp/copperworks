@@ -66,7 +66,7 @@ public class ModEnchantments {
 
         register(registry, SHOCK, Enchantment.builder(
                         Enchantment.definition(itemRegistryEntryLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE), 1, 5,
-                                Enchantment.constantCost(15), Enchantment.constantCost(65), 8, AttributeModifierSlot.ANY))
+                                Enchantment.leveledCost(5, 8), Enchantment.leveledCost(25, 8), 8, AttributeModifierSlot.ANY))
                 .addEffect(EnchantmentEffectComponentTypes.POST_ATTACK, EnchantmentEffectTarget.ATTACKER,
                         EnchantmentEffectTarget.VICTIM, new ShockEnchantmentEffect(
                                 ConstantFloatProvider.create(ShockEnchantmentEffect.DEFAULT_DAMAGE_PERCENTAGE),

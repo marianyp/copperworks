@@ -7,7 +7,10 @@ import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Uuids;
 import net.minecraft.util.math.GlobalPos;
+
+import java.util.UUID;
 
 public class ModComponents {
     public static final ComponentType<Integer> CHARGE = register("charge",
@@ -25,6 +28,8 @@ public class ModComponents {
             ComponentType.<Integer>builder().codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT).cache());
     public static final ComponentType<Boolean> UPGRADED = register("upgraded",
             ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).cache());
+    public static final ComponentType<UUID> LAST_THROWN = register("last_thrown",
+            ComponentType.<UUID>builder().codec(Uuids.CODEC).packetCodec(Uuids.PACKET_CODEC).cache());
     public static final ComponentType<Boolean> CHARGING = register("charging",
             ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).cache());
     public static final ComponentType<GlobalPos> RELAY_POSITION = register("relay_position",

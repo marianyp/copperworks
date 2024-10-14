@@ -41,8 +41,10 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
     private static final int MAX_PROGRESS = 10;
     private static final int GIVE_RANGE = 3;
 
-    private static final int ENCHANT_LEVEL = 26;
-    private static final int ENCHANTABILITY = 15;
+    private static final int MAX_ENCHANT_LEVEL = 30;
+    private static final int MIN_ENCHANT_LEVEL = 23;
+    private static final int ENCHANTABILITY = 13;
+    private static final float REPUTATION_MULTIPLIER = 0.02F;
 
     // TODO: Implement advancement for upgrading item
     private static final int ADVANCEMENT_RADIUS = 20;
@@ -87,7 +89,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
                     continue;
                 }
 
-                if (!ModUtils.engineerCanUpgrade(itemEntity.getStack())) {
+                if (!ModUtils.engineerCanUpgrade(villager, itemEntity.getStack())) {
                     continue;
                 }
 
@@ -124,6 +126,13 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         ItemStack upgradingItem = getUpgradingItem(villager);
         int currentProgress = getUpgradeProgress(villager);
         if (!upgradingItem.isEmpty()) {
+            if (ModUtils.getReputationFromItem(villager, upgradingItem) < 0) {
+                villager.dropStack(upgradingItem, 0.5F);
+                setUpgradingItem(villager, ItemStack.EMPTY);
+                setUpgradeProgress(villager, 0);
+                return;
+            }
+
             ++currentProgress;
 
             if (currentProgress >= MAX_PROGRESS) {
@@ -168,7 +177,17 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
     private ItemStack upgradeItem(VillagerEntity villager, ItemStack upgradingItem) {
         ItemStack upgradedItem = upgradingItem.copy();
 
-        List<EnchantmentLevelEntry> list = generateEnchantments(villager.getWorld(), upgradedItem);
+        int reputation = ModUtils.getReputationFromItem(villager, upgradedItem);
+        int enchantmentLevel = MIN_ENCHANT_LEVEL + Math.round(reputation * REPUTATION_MULTIPLIER);
+
+        if (reputation > 0) {
+            ++enchantmentLevel;
+        }
+
+        int clampedEnchantmentLevel = MathHelper.clamp(enchantmentLevel, MIN_ENCHANT_LEVEL, MAX_ENCHANT_LEVEL);
+
+        List<EnchantmentLevelEntry> list = generateEnchantments(villager.getWorld(), upgradedItem,
+                clampedEnchantmentLevel);
 
         for (EnchantmentLevelEntry enchantmentLevelEntry : list) {
             upgradedItem.addEnchantment(enchantmentLevelEntry.enchantment, enchantmentLevelEntry.level);
@@ -204,13 +223,11 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         return blockPos2.isWithinDistance(blockPos, GIVE_RANGE);
     }
 
-    public List<EnchantmentLevelEntry> generateEnchantments(World world, ItemStack stack) {
+    public List<EnchantmentLevelEntry> generateEnchantments(World world, ItemStack stack, int level) {
         Random random = world.getRandom();
         DynamicRegistryManager registryManager = world.getRegistryManager();
 
         List<EnchantmentLevelEntry> enchantments = Lists.newArrayList();
-
-        int level = ENCHANT_LEVEL;
 
         level += 1 + random.nextInt(ENCHANTABILITY / 4 + 1) + random.nextInt(ENCHANTABILITY / 4 + 1);
         float f = (random.nextFloat() + random.nextFloat() - 1.0F) * 0.15F;

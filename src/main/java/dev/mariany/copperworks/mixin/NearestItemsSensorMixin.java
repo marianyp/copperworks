@@ -23,7 +23,7 @@ class NearestItemsSensorMixin {
     private static boolean canUpgradeItem(MobEntity mobEntity, ItemStack itemStack) {
         if (mobEntity instanceof VillagerEntity villager) {
             if (villager.getVillagerData().getProfession().equals(ModVillagers.ENGINEER)) {
-                return ModUtils.engineerCanUpgrade(itemStack);
+                return ModUtils.engineerCanUpgrade(villager, itemStack);
             }
         }
         return false;
