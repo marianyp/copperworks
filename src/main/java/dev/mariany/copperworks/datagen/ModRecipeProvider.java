@@ -38,6 +38,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createCopperRelayRecipe(exporter);
         createStickyCopperRecipes(exporter);
         createCopperSensorRecipe(exporter);
+        createComparatorMirror(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -123,6 +124,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_SENSOR)
                 .input('P', ModItems.COPPER_PLATE).input('E', Items.ENDER_EYE).input('O', Items.OBSERVER).pattern("PEP")
                 .pattern("POP").criterion(hasItem(Items.ENDER_EYE), conditionsFromItem(Items.ENDER_EYE))
+                .offerTo(exporter);
+    }
+
+    private void createComparatorMirror(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COMPARATOR_MIRROR)
+                .input('C', ModItems.COPPER_PLATE).input('G', Items.COMPARATOR).input('P', Items.PRISMARINE_CRYSTALS)
+                .pattern("CGC").pattern("GPG").pattern("CGC")
+                .criterion(hasItem(Items.PRISMARINE_CRYSTALS), conditionsFromItem(Items.PRISMARINE_CRYSTALS))
                 .offerTo(exporter);
     }
 }

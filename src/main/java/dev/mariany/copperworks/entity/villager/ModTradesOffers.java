@@ -32,6 +32,9 @@ public class ModTradesOffers {
         });
 
         TradeOfferHelper.registerVillagerOffers(ModVillagers.ENGINEER, 4, factories -> {
+            factories.add((entity, random) -> new TradeOffer(new TradedItem(ModItems.COPPER_PLATE, 6),
+                    Optional.of(new TradedItem(Items.GLASS_PANE, 6)), new ItemStack(ModBlocks.COMPARATOR_MIRROR, 1), 12,
+                    15, 0));
             factories.add((entity, random) -> new TradeOffer(new TradedItem(ModItems.COPPER_PLATE, 10),
                     Optional.of(new TradedItem(Items.DIAMOND, 5)), new ItemStack(ModBlocks.COPPER_RELAY, 2), 12, 15,
                     0.2f));

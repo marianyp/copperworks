@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.data.client.*;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -26,6 +27,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         registerBattery(blockStateModelGenerator, ModBlocks.COPPER_BATTERY);
         registerStickyBlocks(blockStateModelGenerator);
+        registerComparatorMirror(blockStateModelGenerator);
     }
 
     @Override
@@ -94,6 +96,18 @@ public class ModModelProvider extends FabricModelProvider {
     private static void registerStickyBlocks(BlockStateModelGenerator blockStateModelGenerator) {
         registerStickyBlock(blockStateModelGenerator, ModBlocks.STICKY_COPPER);
         registerStickyBlock(blockStateModelGenerator, ModBlocks.STICKY_COPPER_HONEY);
+    }
+
+    private static void registerComparatorMirror(BlockStateModelGenerator blockStateModelGenerator) {
+        Identifier defaultVariant = TexturedModel.CUBE_ALL.upload(ModBlocks.COMPARATOR_MIRROR,
+                blockStateModelGenerator.modelCollector);
+        Identifier lockedVariant = blockStateModelGenerator.createSubModel(ModBlocks.COMPARATOR_MIRROR, "_locked",
+                Models.CUBE_ALL, TextureMap::all);
+
+        blockStateModelGenerator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(ModBlocks.COMPARATOR_MIRROR).coordinate(
+                        BlockStateModelGenerator.createBooleanModelMap(Properties.LOCKED, lockedVariant,
+                                defaultVariant)));
     }
 }
 

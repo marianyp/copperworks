@@ -27,6 +27,23 @@ public class CopperworksClient implements ClientModInitializer {
     private static final Identifier DRAGON_BREATH_FILL = Copperworks.id("dragon_breath_fill");
     private static final Identifier BOUND = Copperworks.id("bound");
 
+    @Override
+    public void onInitializeClient() {
+        registerCoreShaders();
+        registerModelPredicateProviders();
+
+        BlockEntityRendererFactories.register(ModBlockEntities.BATTERY, BatteryBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.BOUND_RELAY, BoundRelayBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.RADIO_BOUND_RELAY,
+                RadioBoundRelayBlockEntityRenderer::new);
+
+        registerBlockRenderLayers();
+    }
+
+    private void registerBlockRenderLayers() {
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PATINA, RenderLayer.getCutout());
+    }
+
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(CHARGED,
                 (itemStack, clientWorld, livingEntity, seed) -> ModUtils.itemHasSomeCharge(itemStack) ? 1 : 0);
@@ -52,18 +69,5 @@ public class CopperworksClient implements ClientModInitializer {
                 throw new UncheckedIOException(e);
             }
         }));
-    }
-
-    @Override
-    public void onInitializeClient() {
-        registerCoreShaders();
-        registerModelPredicateProviders();
-
-        BlockEntityRendererFactories.register(ModBlockEntities.BATTERY, BatteryBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(ModBlockEntities.BOUND_RELAY, BoundRelayBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(ModBlockEntities.RADIO_BOUND_RELAY,
-                RadioBoundRelayBlockEntityRenderer::new);
-
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PATINA, RenderLayer.getCutout());
     }
 }

@@ -11,6 +11,7 @@
     "copperworks:sticky_copper",
     "copperworks:sticky_copper_honey",
     "copperworks:copper_sensor",
-    "copperworks:copper_sensor_charged"
+    "copperworks:copper_sensor_charged",
+    "copperworks:comparator_mirror"
   ]
 }

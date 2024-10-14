@@ -27,6 +27,7 @@ public class RadioBoundRelayBlock extends AbstractRelayBlock implements Bindable
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(POWERED);
     }
 

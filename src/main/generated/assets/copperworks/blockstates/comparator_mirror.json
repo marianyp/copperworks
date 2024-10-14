@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "locked=false": {
+      "model": "copperworks:block/comparator_mirror"
+    },
+    "locked=true": {
+      "model": "copperworks:block/comparator_mirror_locked"
+    }
+  }
+}

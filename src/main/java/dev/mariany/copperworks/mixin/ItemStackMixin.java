@@ -57,7 +57,7 @@ public abstract class ItemStackMixin {
         fullBlocks = Math.max(0, Math.min(TOTAL_BLOCKS, fullBlocks));
         if (value > 0 && fullBlocks == 0) {
             fullBlocks = 1;
-        } else if (value < max && fullBlocks >= TOTAL_BLOCKS) {
+        } else if (value < max && fullBlocks == TOTAL_BLOCKS) {
             fullBlocks = TOTAL_BLOCKS - 1;
         }
         int emptyBlocks = TOTAL_BLOCKS - fullBlocks;

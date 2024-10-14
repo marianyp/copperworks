@@ -46,7 +46,7 @@ public class SensorBlockEntity extends BlockEntity {
 
         if (blockState.get(POWER) != power) {
             world.setBlockState(pos, blockState.with(POWER, power), Block.NOTIFY_ALL);
-            world.updateNeighborsAlways(pos, blockState.getBlock());
+            world.updateNeighborsAlways(pos, block);
             world.updateNeighborsAlways(pos.offset(facing), block);
         }
     }

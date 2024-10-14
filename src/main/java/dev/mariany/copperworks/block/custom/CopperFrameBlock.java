@@ -44,6 +44,7 @@ public class CopperFrameBlock extends Block implements Waterloggable {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(WATERLOGGED);
     }
 

@@ -28,22 +28,18 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ModBlocks {
-    public static final Block COPPER_CLOCK = registerBlock("copper_clock", new ClockBlock(
-            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
-                    .requiresTool().solidBlock(Blocks::never)));
+    public static final Block COPPER_CLOCK = registerBlock("copper_clock", new ClockBlock(genericCopperSettings()));
 
     public static final Block COPPER_LEVER = registerBlock("copper_lever", new CopperLeverBlock(
             AbstractBlock.Settings.create().sounds(BlockSoundGroup.COPPER).noCollision().strength(2).requiresTool()));
 
     public static final Block COPPER_FRAME = registerCopperFrame();
 
-    public static final Block COPPER_BATTERY = registerBlock("copper_battery", new BatteryBlock(
-            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
-                    .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK)));
+    public static final Block COPPER_BATTERY = registerBlock("copper_battery",
+            new BatteryBlock(genericCopperSettings()));
 
-    public static final Block COPPER_RELAY_CHARGED = registerBlock("copper_relay_charged", new ChargedRelayBlock(
-            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
-                    .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK)));
+    public static final Block COPPER_RELAY_CHARGED = registerBlock("copper_relay_charged",
+            new ChargedRelayBlock(genericCopperSettings()));
 
     public static final Block COPPER_RELAY = registerChargeable("copper_relay",
             new RelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
@@ -57,20 +53,26 @@ public class ModBlocks {
 
     public static final Block PATINA = registerPatina();
 
-    public static final Block STICKY_COPPER = registerBlock("sticky_copper", new StickyBlock(
-            AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).requiresTool().strength(3.0F, 6.0F)
-                    .solidBlock(Blocks::never).sounds(BlockSoundGroup.COPPER).velocityMultiplier(0)));
+    public static final Block STICKY_COPPER = registerBlock("sticky_copper",
+            new StickyBlock(genericCopperSettings().velocityMultiplier(0)));
 
     public static final Block STICKY_COPPER_HONEY = registerBlock("sticky_copper_honey",
             new StickyBlock(AbstractBlock.Settings.copyShallow(STICKY_COPPER)));
 
-    public static final Block COPPER_SENSOR_CHARGED = registerBlock("copper_sensor_charged", new ChargedSensorBlock(
-            AbstractBlock.Settings.create().sounds(BlockSoundGroup.COPPER).strength(2).requiresTool()));
+    public static final Block COPPER_SENSOR_CHARGED = registerBlock("copper_sensor_charged",
+            new ChargedSensorBlock(genericCopperSettings().strength(2)));
 
     public static final Block COPPER_SENSOR = registerChargeable("copper_sensor",
             new SensorBlock(AbstractBlock.Settings.copyShallow(COPPER_SENSOR_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
             ModConstants.DEFAULT_CHARGE_RATE, COPPER_SENSOR_CHARGED);
 
+    public static final Block COMPARATOR_MIRROR = registerBlock("comparator_mirror",
+            new ComparatorMirrorBlock(genericCopperSettings().sounds(BlockSoundGroup.COPPER_BULB)));
+
+    private static AbstractBlock.Settings genericCopperSettings() {
+        return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
+                .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
+    }
 
     private static Block registerBlock(String name, Block block) {
         return registerBlock(name, block, Rarity.COMMON);

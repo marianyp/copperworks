@@ -11,7 +11,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.enums.BlockFace;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -90,6 +92,15 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
         }
         ItemScatterer.onStateReplaced(state, newState, world, pos);
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        boolean replacingAir = ctx.getWorld().getBlockState(ctx.getBlockPos()).isAir();
+        if (!replacingAir && ctx.canReplaceExisting()) {
+            return this.getDefaultState().with(FACE, BlockFace.FLOOR);
+        }
+        return super.getPlacementState(ctx);
     }
 
     @Override
