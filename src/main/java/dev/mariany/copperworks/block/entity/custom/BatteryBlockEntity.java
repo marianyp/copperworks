@@ -1,9 +1,11 @@
 package dev.mariany.copperworks.block.entity.custom;
 
+import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.battery.BatteryClientData;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
+import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,7 +21,9 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +32,7 @@ import java.util.List;
 
 public class BatteryBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
     private static final String CHARGING_ITEM_NBT = "ChargingItem";
+    private static final IntProperty CHARGE = ModProperties.CHARGE;
 
     private ItemStack chargingItem = ItemStack.EMPTY;
     private final BatteryClientData clientData = new BatteryClientData();
@@ -122,6 +127,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     public boolean isCharging() {
+        if (this.world != null) {
+            if (this.world.getBlockState(this.pos).get(CHARGE) <= 0) {
+                return false;
+            }
+        }
         return ModUtils.itemNeedsCharge(this.chargingItem);
     }
 
@@ -138,7 +148,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         return this.chargingItem.getOrDefault(ModComponents.CHARGE_RATE, 1);
     }
 
-    public void tick(World world, BlockPos pos, BatteryBlockEntity batteryBlockEntity) {
+    public void tick(World world, BlockPos pos, BlockState blockState, BatteryBlockEntity batteryBlockEntity) {
         ItemStack chargeStack = batteryBlockEntity.getStack();
         boolean isCharging = batteryBlockEntity.isCharging();
         boolean stackCharging = ModUtils.isCharging(chargeStack);
@@ -172,7 +182,22 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
                     setStack(convertsTo);
                     notifyChange(batteryBlockEntity);
                 }
+
                 playDoneChargingSound(world, pos);
+
+                if (!world.isClient) {
+                    int batteryChargeDecrementAmount = MathHelper.nextInt(world.getRandom(), 0, 1);
+                    int newBatteryCharge = MathHelper.clamp(blockState.get(CHARGE) - batteryChargeDecrementAmount, 0,
+                            ModConstants.MAX_BATTERY_CHARGE);
+
+                    if (batteryChargeDecrementAmount != 0) {
+                        world.setBlockState(pos, blockState.with(CHARGE, newBatteryCharge));
+                        world.updateNeighborsAlways(pos, blockState.getBlock());
+                        if (newBatteryCharge <= 0) {
+                            playOutOfChargeSound(world, pos);
+                        }
+                    }
+                }
             }
         }
     }
@@ -193,6 +218,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     private void playDoneChargingSound(@NotNull World world, BlockPos pos) {
         world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.DONE_CHARGING,
                 SoundCategory.BLOCKS, 0.2F, 1F, false);
+    }
+
+    private void playOutOfChargeSound(@NotNull World world, BlockPos pos) {
+        world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.OUT_OF_CHARGE,
+                SoundCategory.BLOCKS, 0.375F, 1F);
     }
 
     private boolean chargeItem(ItemStack itemStack) {

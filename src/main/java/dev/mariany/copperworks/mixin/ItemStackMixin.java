@@ -8,9 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -36,35 +34,7 @@ public abstract class ItemStackMixin {
         Integer charge = stack.get(ModComponents.CHARGE);
         Integer maxCharge = stack.get(ModComponents.MAX_CHARGE);
         if (charge != null && maxCharge != null) {
-            Text chargeTooltip = Text.translatable("item.copperworks.charge.tooltip", generateBars(charge, maxCharge))
-                    .withColor(Colors.RED);
-            consumer.accept(chargeTooltip);
+            consumer.accept(ModUtils.generateChargeTooltip(charge, maxCharge));
         }
-    }
-
-    @Unique
-    private static String generateBars(int value, int max) {
-        final int TOTAL_BLOCKS = 10;
-
-        // Calculate the proportion of the value to the max
-        double proportion = (double) value / max;
-
-        // Scale the proportion to the total number of blocks
-        int fullBlocks = (int) Math.round(proportion * TOTAL_BLOCKS);
-
-
-        // Ensure fullBlocks is within the valid range
-        fullBlocks = Math.max(0, Math.min(TOTAL_BLOCKS, fullBlocks));
-        if (value > 0 && fullBlocks == 0) {
-            fullBlocks = 1;
-        } else if (value < max && fullBlocks == TOTAL_BLOCKS) {
-            fullBlocks = TOTAL_BLOCKS - 1;
-        }
-        int emptyBlocks = TOTAL_BLOCKS - fullBlocks;
-
-        String fullChar = "▮";
-        String emptyChar = "▯";
-
-        return fullChar.repeat(fullBlocks) + emptyChar.repeat(emptyBlocks);
     }
 }

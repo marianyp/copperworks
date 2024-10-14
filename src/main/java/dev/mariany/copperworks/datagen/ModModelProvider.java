@@ -2,6 +2,7 @@ package dev.mariany.copperworks.datagen;
 
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.ModBlocks;
+import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -47,6 +48,12 @@ public class ModModelProvider extends FabricModelProvider {
                 .put(TextureKey.SIDE, TextureMap.getSubId(battery, "_side"))
                 .put(TextureKey.BOTTOM, TextureMap.getSubId(battery, "_bottom"));
 
+        TextureMap deadTextureMap = new TextureMap().put(TextureKey.TOP, TextureMap.getSubId(battery, "_top"))
+                .put(TextureKey.SIDE, TextureMap.getSubId(battery, "_side_dead"))
+                .put(TextureKey.BOTTOM, TextureMap.getSubId(battery, "_bottom"));
+
+        Models.CUBE_BOTTOM_TOP.upload(battery, "_dead", deadTextureMap, blockStateModelGenerator.modelCollector);
+
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(battery,
                         BlockStateVariant.create().put(VariantSettings.MODEL,
                                 Models.CUBE_BOTTOM_TOP.upload(battery, textureMap, blockStateModelGenerator.modelCollector)))
@@ -79,7 +86,11 @@ public class ModModelProvider extends FabricModelProvider {
                                         .put(VariantSettings.Y, VariantSettings.Rotation.R180))
                         .register(BlockFace.CEILING, Direction.EAST,
                                 BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180)
-                                        .put(VariantSettings.Y, VariantSettings.Rotation.R270))));
+                                        .put(VariantSettings.Y, VariantSettings.Rotation.R270))).coordinate(
+                        BlockStateVariantMap.create(ModProperties.CHARGE).register(
+                                charge -> charge == 0 ? BlockStateVariant.create().put(VariantSettings.MODEL,
+                                        ModelIds.getBlockSubModelId(battery, "_dead")) : BlockStateVariant.create()
+                                        .put(VariantSettings.MODEL, ModelIds.getBlockModelId(battery)))));
     }
 
     private static void registerStickyBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {

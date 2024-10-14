@@ -1,38 +1,63 @@
 package dev.mariany.copperworks.block.custom.battery;
 
 import com.mojang.serialization.MapCodec;
+import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
 import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.BlockFace;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEntityProvider {
     public static final MapCodec<BatteryBlock> CODEC = BatteryBlock.createCodec(BatteryBlock::new);
+    public static final IntProperty CHARGE = ModProperties.CHARGE;
 
     public BatteryBlock(Settings settings) {
         super(settings);
+    }
+
+    protected BlockState applyDefaultState(BlockState state) {
+        return super.applyDefaultState(state).with(CHARGE, ModConstants.MAX_BATTERY_CHARGE);
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(CHARGE);
     }
 
     @Override
@@ -108,6 +133,44 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     }
 
     @Override
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (!world.isClient && player.isCreative() && world.getGameRules()
+                .getBoolean(GameRules.DO_TILE_DROPS) && world.getBlockEntity(
+                pos) instanceof BatteryBlockEntity batteryBlockEntity) {
+            int charge = state.get(CHARGE);
+            if (charge != ModConstants.MAX_BATTERY_CHARGE) {
+                ItemStack itemStack = new ItemStack(this);
+                itemStack.applyComponentsFrom(batteryBlockEntity.createComponentMap());
+                itemStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(CHARGE, charge));
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+                itemEntity.setToDefaultPickupDelay();
+                world.spawnEntity(itemEntity);
+            }
+        }
+
+        return super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+        super.appendTooltip(stack, context, tooltip, options);
+
+        int maxCharge = ModConstants.MAX_BATTERY_CHARGE;
+        int charge = maxCharge;
+
+        BlockStateComponent blockStateComponent = stack.get(DataComponentTypes.BLOCK_STATE);
+
+        if (blockStateComponent != null) {
+            Integer chargeState = blockStateComponent.getValue(ModProperties.CHARGE);
+            if (chargeState != null) {
+                charge = chargeState;
+            }
+        }
+
+        tooltip.add(ModUtils.generateChargeTooltip(charge, maxCharge));
+    }
+
+    @Override
     protected MapCodec<? extends WallMountedBlockWithEntity> getCodec() {
         return CODEC;
     }
@@ -122,7 +185,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
                                                                   BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.BATTERY, (worldx, pos, statex, blockEntity) -> {
-            blockEntity.tick(worldx, pos, blockEntity);
+            blockEntity.tick(worldx, pos, statex, blockEntity);
             if (worldx.isClient) {
                 BatteryBlockEntity.Client.tick(worldx, pos, blockEntity.getClientData());
             }

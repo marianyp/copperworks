@@ -3,14 +3,18 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "block": "copperworks:copper_battery",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "charge"
+              ]
+            }
+          ],
           "name": "copperworks:copper_battery"
         }
       ],

@@ -17,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ChunkLevelType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -111,6 +113,35 @@ public class ModUtils {
                         1F);
             }
         }
+    }
+
+    public static Text generateChargeTooltip(int charge, int max) {
+        return Text.translatable("item.copperworks.charge.tooltip", generateBars(charge, max)).withColor(Colors.RED);
+    }
+
+    private static String generateBars(int value, int max) {
+        final int TOTAL_BLOCKS = 10;
+
+        // Calculate the proportion of the value to the max
+        double proportion = (double) value / max;
+
+        // Scale the proportion to the total number of blocks
+        int fullBlocks = (int) Math.round(proportion * TOTAL_BLOCKS);
+
+
+        // Ensure fullBlocks is within the valid range
+        fullBlocks = Math.max(0, Math.min(TOTAL_BLOCKS, fullBlocks));
+        if (value > 0 && fullBlocks == 0) {
+            fullBlocks = 1;
+        } else if (value < max && fullBlocks == TOTAL_BLOCKS) {
+            fullBlocks = TOTAL_BLOCKS - 1;
+        }
+        int emptyBlocks = TOTAL_BLOCKS - fullBlocks;
+
+        String fullChar = "▮";
+        String emptyChar = "▯";
+
+        return fullChar.repeat(fullBlocks) + emptyChar.repeat(emptyBlocks);
     }
 
     public static void shockEntity(Set<@NotNull Entity> ignore, LivingEntity victim, int shockChain, float damage,
