@@ -58,7 +58,11 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
-            if (player.getMainHandStack().isEmpty() && player.getOffHandStack().isEmpty()) {
+            ItemStack handStack = player.getMainHandStack();
+            ItemStack currentItemStack = batteryBlockEntity.getStack();
+            boolean canTake = handStack.isEmpty() || ItemStack.areEqual(handStack.copyWithCount(1),
+                    currentItemStack.copyWithCount(1));
+            if (canTake && player.getOffHandStack().isEmpty()) {
                 if (!batteryBlockEntity.getStack().isEmpty()) {
                     batteryBlockEntity.takeStack(player);
                     playItemPlopSound(world, pos);
