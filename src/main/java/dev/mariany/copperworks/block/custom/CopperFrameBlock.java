@@ -50,9 +50,16 @@ public class CopperFrameBlock extends Block implements Waterloggable {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
+        BlockState defaultPlacementState = super.getPlacementState(ctx);
         BlockPos blockPos = ctx.getBlockPos();
         World world = ctx.getWorld();
-        return this.getDefaultState().with(WATERLOGGED, world.getFluidState(blockPos).getFluid() == Fluids.WATER);
+        boolean waterlogged = world.getFluidState(blockPos).getFluid() == Fluids.WATER;
+
+        if (defaultPlacementState == null) {
+            return this.getDefaultState().with(WATERLOGGED, waterlogged);
+        }
+
+        return defaultPlacementState.with(WATERLOGGED, waterlogged);
     }
 
     @Override
@@ -66,7 +73,7 @@ public class CopperFrameBlock extends Block implements Waterloggable {
             world.scheduleBlockTick(pos, this, 1);
         }
 
-        return state;
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override

@@ -5,7 +5,6 @@
   "mixins": [
     "AxeItemMixin",
     "GrindstoneScreenHandlerMixin",
-    "ItemMixin",
     "ItemStackMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",

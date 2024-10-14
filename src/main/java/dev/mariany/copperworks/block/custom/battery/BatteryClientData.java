@@ -3,6 +3,7 @@ package dev.mariany.copperworks.block.custom.battery;
 import net.minecraft.util.math.MathHelper;
 
 public class BatteryClientData {
+    public static final int SOUND_INTERVAL_TICKS = 40;
     public static final float IDLE_ROTATION_SPEED = 4F;
     public static final float CHARGE_ROTATION_SPEED = 16F;
 
@@ -12,6 +13,7 @@ public class BatteryClientData {
 
     private int chargingFlag = NO_ITEM;
 
+    private int ticksUntilSound;
     private float displayRotation;
     private float prevDisplayRotation;
     private float currentRotationSpeed = IDLE_ROTATION_SPEED;
@@ -22,6 +24,19 @@ public class BatteryClientData {
 
     public float getPreviousDisplayRotation() {
         return this.prevDisplayRotation;
+    }
+
+    public boolean incrementTicksUntilSound() {
+        if (this.ticksUntilSound > SOUND_INTERVAL_TICKS) {
+            this.ticksUntilSound = 0;
+            return false;
+        }
+
+        return ++this.ticksUntilSound == SOUND_INTERVAL_TICKS;
+    }
+
+    public void resetTicksUntilSound() {
+        this.ticksUntilSound = 0;
     }
 
     public void rotateDisplay(int flag) {

@@ -41,8 +41,8 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
         if (!useStack.isEmpty() && world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
             if (batteryBlockEntity.isEmpty()) {
                 player.incrementStat(Stats.USED.getOrCreateStat(useStack.getItem()));
-                ItemStack itemStack = useStack.splitUnlessCreative(1, player);
 
+                ItemStack itemStack = useStack.splitUnlessCreative(1, player);
                 batteryBlockEntity.setStack(itemStack);
 
                 playItemPlopSound(world, pos);
@@ -120,7 +120,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
         return validateTicker(type, ModBlockEntities.BATTERY, (worldx, pos, statex, blockEntity) -> {
             blockEntity.tick(worldx, pos, blockEntity);
             if (worldx.isClient) {
-                BatteryBlockEntity.Client.tick(worldx, pos, state, blockEntity.getClientData());
+                BatteryBlockEntity.Client.tick(worldx, pos, blockEntity.getClientData());
             }
         });
     }

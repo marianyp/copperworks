@@ -109,7 +109,9 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
 
     public void takeStack(PlayerEntity player) {
         this.chargingItem.remove(ModComponents.CHARGING);
-        player.giveItemStack(this.chargingItem);
+        if (!player.getWorld().isClient) {
+            player.giveItemStack(this.chargingItem);
+        }
         this.chargingItem = ItemStack.EMPTY;
         notifyChange(this);
     }
@@ -171,12 +173,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
                     notifyChange(batteryBlockEntity);
                 }
                 playDoneChargingSound(world, pos);
-            } else if (currentCharge > 0) {
-                if (world.getTime() % (20 * 4) == 0) {
-                    batteryBlockEntity.playChargeSound(world, pos);
-                }
             }
-
         }
     }
 
@@ -188,12 +185,12 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         }
     }
 
-    public void playChargeSound(@NotNull World world, BlockPos pos) {
+    private void playChargeSound(@NotNull World world, BlockPos pos) {
         world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.CHARGE,
                 SoundCategory.BLOCKS, 0.5F + world.random.nextFloat(), 0.7F + 0.5F * this.getChargeProgress(), false);
     }
 
-    public void playDoneChargingSound(@NotNull World world, BlockPos pos) {
+    private void playDoneChargingSound(@NotNull World world, BlockPos pos) {
         world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.DONE_CHARGING,
                 SoundCategory.BLOCKS, 0.2F, 1F, false);
     }
@@ -211,15 +208,20 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     public static final class Client {
-        public static void tick(World world, BlockPos pos, BlockState state, BatteryClientData clientData) {
+        public static void tick(World world, BlockPos pos, BatteryClientData clientData) {
             if (world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
                 if (batteryBlockEntity.getStack().isEmpty()) {
                     clientData.resetRotation();
+                    clientData.resetTicksUntilSound();
                 } else {
+                    boolean isCharging = batteryBlockEntity.isCharging();
                     int flag = BatteryClientData.NO_ITEM;
 
                     if (!batteryBlockEntity.getStack().isEmpty()) {
-                        flag = batteryBlockEntity.isCharging() ? BatteryClientData.CHARGING : BatteryClientData.NOT_CHARGING;
+                        flag = isCharging ? BatteryClientData.CHARGING : BatteryClientData.NOT_CHARGING;
+                        if (isCharging && clientData.incrementTicksUntilSound()) {
+                            batteryBlockEntity.playChargeSound(world, pos);
+                        }
                     }
 
                     clientData.rotateDisplay(flag);

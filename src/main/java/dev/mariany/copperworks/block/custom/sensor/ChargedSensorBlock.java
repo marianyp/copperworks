@@ -18,6 +18,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -44,12 +46,27 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
                                              PlayerEntity player, Hand hand, BlockHitResult hit) {
         int range = state.get(RANGE);
         if (range < ModConstants.MAX_SENSOR_RANGE && stack.getItem().equals(Items.DRAGON_BREATH)) {
-            world.setBlockState(pos, state.with(RANGE, range + 1), Block.NOTIFY_ALL);
+            int newRange = range + 1;
+            world.setBlockState(pos, state.with(RANGE, newRange), Block.NOTIFY_ALL);
             stack.decrementUnlessCreative(1, player);
             playFillSound(world, pos);
+            player.sendMessage(Text.translatable("block.copperworks.sensor_charged.upgraded", newRange), true);
             return ItemActionResult.success(world.isClient);
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (player.getMainHandStack().isEmpty()) {
+            player.sendMessage(Text.translatable("block.copperworks.sensor_charged.range", getRange(state)), true);
+            return ActionResult.success(world.isClient);
+        }
+        return super.onUse(state, world, pos, player, hit);
+    }
+
+    public static int getRange(BlockState state) {
+        return state.contains(RANGE) ? state.get(RANGE) : 0;
     }
 
     private static void playFillSound(World world, BlockPos pos) {

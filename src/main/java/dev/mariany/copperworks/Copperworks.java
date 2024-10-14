@@ -7,12 +7,14 @@ import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.entity.villager.ModTradesOffers;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
 import dev.mariany.copperworks.event.ServerTickHandler;
+import dev.mariany.copperworks.event.block.UseBlockHandler;
 import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,7 @@ public class Copperworks implements ModInitializer {
         ModSoundEvents.registerModSoundEvents();
 
         ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);
+        UseBlockCallback.EVENT.register(UseBlockHandler::onUseBlock);
     }
 
     public static Identifier id(String resource) {
