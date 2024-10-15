@@ -12,6 +12,7 @@
     "copperworks:sticky_copper_honey",
     "copperworks:copper_sensor",
     "copperworks:copper_sensor_charged",
-    "copperworks:comparator_mirror"
+    "copperworks:comparator_mirror",
+    "copperworks:deactivated_redstone_block"
   ]
 }

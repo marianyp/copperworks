@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-15T00:56:46.4661813	Copperworks/Model Definitions
+// 1.21.1	2024-10-15T03:12:37.0663673	Copperworks/Model Definitions
 6efe288b0191adac4cffcf30dd22ab1560862d1c assets\copperworks\blockstates\sticky_copper_honey.json
 5ffddc3adeca06f9215170a314c1e4d51ceb7f49 assets\copperworks\models\block\copper_relay_bound.json
 eb56c9eb1522874e9b8ae5a158af0c665c86f4a4 assets\copperworks\blockstates\copper_relay_charged.json
@@ -13,8 +13,8 @@ c5e9091bd2446d1d8a5669363af6f126f56d7d84 assets\copperworks\blockstates\copper_r
 bf709c2e967725875818586dfcf264ba67ccf05c assets\copperworks\models\block\copper_relay.json
 0cbed4461fbdbf80a5ed2317123f735fbc61bdf9 assets\copperworks\models\block\copper_clock.json
 43c6adeb71dc680392e2d07e6fc68ce58dbec961 assets\copperworks\models\item\copper_lever.json
-b7feb84d094c53b681918017fa83a83b409738c9 assets\copperworks\models\block\comparator_mirror.json
 cf928f271caea855819a1e1c52ef77913f36c112 assets\copperworks\models\item\sticky_copper_honey.json
+b7feb84d094c53b681918017fa83a83b409738c9 assets\copperworks\models\block\comparator_mirror.json
 711fbc97dd830d98afc89565f8914ef98ae1f001 assets\copperworks\models\block\copper_battery.json
 1641afe99771d44ea04d03e2db127a4f32747ac3 assets\copperworks\models\block\deactivated_redstone_block.json
 9678e04dad96ffaaace0910fdfb8ec533a09c7f4 assets\copperworks\blockstates\copper_clock.json
@@ -24,9 +24,9 @@ d768aa6652d190be7b2cbf058352169ee49b81f2 assets\copperworks\blockstates\copper_r
 d21d76bc346ada84a5467b1f752bca8876cdb689 assets\copperworks\models\item\ender_powder.json
 c25637c0274564ee059e8568998cc1569bbb049c assets\copperworks\models\item\copper_battery.json
 dc8c1594f0191a5bc676a6a873ed6750b5ebae89 assets\copperworks\models\item\deactivated_redstone_block.json
+941c7c702d4614f008071184e0a031eeabc80371 assets\copperworks\models\block\sticky_copper_honey.json
 9014751756510ea6efd62e314ab747fe55b8ea89 assets\copperworks\models\item\amethyst_piece.json
 65c338816f23df132dad059da7b87c18b0521fb2 assets\copperworks\models\block\comparator_mirror_locked.json
-941c7c702d4614f008071184e0a031eeabc80371 assets\copperworks\models\block\sticky_copper_honey.json
 0614e8018317e9a21e3a7e2ec54803bcea356c1a assets\copperworks\blockstates\comparator_mirror.json
 5064bb8f167519f70bc4e3fbc591438da3d62119 assets\copperworks\models\item\iron_plate.json
 2c1c9b317eb052b14368f6ce41fa3f90be5f7eb1 assets\copperworks\models\item\copper_relay_radio_bound.json

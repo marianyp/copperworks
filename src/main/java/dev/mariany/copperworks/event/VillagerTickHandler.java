@@ -10,7 +10,6 @@ import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
@@ -31,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.village.VillageGossipType;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
@@ -39,11 +39,13 @@ import java.util.Optional;
 
 public class VillagerTickHandler implements ServerWorldTickHandler {
     private static final int MAX_PROGRESS = 10;
-    private static final int GIVE_RANGE = 3;
 
-    private static final int MAX_ENCHANT_LEVEL = 30;
-    private static final int MIN_ENCHANT_LEVEL = 23;
-    private static final int ENCHANTABILITY = 13;
+    private static final int MAX_PLAYER_RANGE = 32; // max range for villager to look for player
+    private static final int GIVE_RANGE = 3; // range villager has to be to give item
+
+    private static final int MAX_ENCHANT_LEVEL = 32;
+    private static final int MIN_ENCHANT_LEVEL = 25;
+    private static final int ENCHANTABILITY = 15;
     private static final float REPUTATION_MULTIPLIER = 0.02F;
 
     // TODO: Implement advancement for upgrading item
@@ -51,7 +53,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
 
     @Override
     public void onServerWorldTick(ServerWorld world) {
-        for (VillagerEntity entity : world.getEntitiesByType(EntityType.VILLAGER, Entity::isAlive)) {
+        for (VillagerEntity entity : world.getEntitiesByType(EntityType.VILLAGER, entity -> !entity.isRemoved())) {
             onVillagerTick(entity);
         }
     }
@@ -60,6 +62,13 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         if (villager.getVillagerData().getProfession().equals(ModVillagers.ENGINEER)) {
             handleItemPickup(villager);
             handleItemUpgrade(villager);
+
+            if (villager.isDead()) {
+                ItemStack upgradingItem = getUpgradingItem(villager);
+                if (!upgradingItem.isEmpty()) {
+                    dropUpgradingItem(villager);
+                }
+            }
         }
     }
 
@@ -106,6 +115,17 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         villager.setAttached(ModAttachmentTypes.UPGRADING_ITEM, itemStack);
     }
 
+    private void dropUpgradingItem(VillagerEntity villager) {
+        ItemStack upgradingItem = getUpgradingItem(villager);
+        villager.dropStack(upgradingItem, 0.5F);
+        clearUpgradingItem(villager);
+    }
+
+    private void clearUpgradingItem(VillagerEntity villager) {
+        setUpgradingItem(villager, ItemStack.EMPTY);
+        setUpgradeProgress(villager, 0);
+    }
+
     private void startUpgrading(ItemEntity itemEntity, VillagerEntity villager) {
         ItemStack upgradingItem = itemEntity.getStack();
 
@@ -125,11 +145,14 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
     private void handleItemUpgrade(VillagerEntity villager) {
         ItemStack upgradingItem = getUpgradingItem(villager);
         int currentProgress = getUpgradeProgress(villager);
+
+        if (villager.hasCustomer() || villager.isPanicking()) {
+            return;
+        }
+
         if (!upgradingItem.isEmpty()) {
             if (ModUtils.getReputationFromItem(villager, upgradingItem) < 0) {
-                villager.dropStack(upgradingItem, 0.5F);
-                setUpgradingItem(villager, ItemStack.EMPTY);
-                setUpgradeProgress(villager, 0);
+                dropUpgradingItem(villager);
                 return;
             }
 
@@ -137,9 +160,8 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
 
             if (currentProgress >= MAX_PROGRESS) {
                 ItemStack upgradedItem = upgradeItem(villager, upgradingItem);
-                if (giveToNearestPlayer(villager, upgradedItem)) {
-                    setUpgradingItem(villager, ItemStack.EMPTY);
-                    setUpgradeProgress(villager, 0);
+                if (giveToPlayer(villager, upgradedItem)) {
+                    clearUpgradingItem(villager);
                     playSoundAtVillager(villager, SoundEvents.ENTITY_WANDERING_TRADER_YES, 1.2F);
                     return;
                 }
@@ -198,11 +220,15 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         return upgradedItem;
     }
 
-    private boolean giveToNearestPlayer(VillagerEntity villager, ItemStack upgradedItem) {
+    private boolean giveToPlayer(VillagerEntity villager, ItemStack upgradedItem) {
         ServerWorld world = (ServerWorld) villager.getWorld();
-        PlayerEntity player = world.getClosestPlayer(villager, 16);
+        PlayerEntity player = ModUtils.getItemStackOwner(world, upgradedItem);
 
         if (player == null) {
+            return false;
+        }
+
+        if (villager.distanceTo(player) > MAX_PLAYER_RANGE) {
             return false;
         }
 
@@ -210,11 +236,18 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
 
         if (isCloseEnough(villager, player)) {
             LookTargetUtil.give(villager, upgradedItem, player.getPos());
+            resetPlayerReputation(player, villager);
             return true;
         }
 
         LookTargetUtil.walkTowards(villager, player, 0.5F, GIVE_RANGE - 1);
         return false;
+    }
+
+    private void resetPlayerReputation(PlayerEntity player, VillagerEntity villager) {
+        for (VillageGossipType value : VillageGossipType.values()) {
+            villager.getGossip().remove(player.getUuid(), value);
+        }
     }
 
     private boolean isCloseEnough(VillagerEntity villager, PlayerEntity player) {
