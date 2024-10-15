@@ -13,6 +13,7 @@ import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.ai.brain.task.PanicTask;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -60,6 +61,10 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
 
     private void onVillagerTick(VillagerEntity villager) {
         if (villager.getVillagerData().getProfession().equals(ModVillagers.ENGINEER)) {
+            if (isBusy(villager)) {
+                return;
+            }
+
             handleItemPickup(villager);
             handleItemUpgrade(villager);
 
@@ -70,6 +75,11 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
                 }
             }
         }
+    }
+
+    private boolean isBusy(VillagerEntity villager) {
+        return villager.hasCustomer() || villager.isSleeping() || villager.isPanicking() || PanicTask.isHostileNearby(
+                villager) || PanicTask.wasHurt(villager);
     }
 
     private void handleItemPickup(VillagerEntity villager) {
@@ -146,10 +156,6 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         ItemStack upgradingItem = getUpgradingItem(villager);
         int currentProgress = getUpgradeProgress(villager);
 
-        if (villager.hasCustomer() || villager.isPanicking()) {
-            return;
-        }
-
         if (!upgradingItem.isEmpty()) {
             if (ModUtils.getReputationFromItem(villager, upgradingItem) < 0) {
                 dropUpgradingItem(villager);
@@ -224,7 +230,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         ServerWorld world = (ServerWorld) villager.getWorld();
         PlayerEntity player = ModUtils.getItemStackOwner(world, upgradedItem);
 
-        if (player == null) {
+        if (player == null || player.isSpectator()) {
             return false;
         }
 

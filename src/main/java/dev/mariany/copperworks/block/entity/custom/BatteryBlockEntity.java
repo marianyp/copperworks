@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.block.entity.custom;
 
 import dev.mariany.copperworks.block.ModProperties;
+import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.block.custom.battery.BatteryClientData;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.item.component.ModComponents;
@@ -136,8 +137,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
 
     public boolean isCharging() {
         if (this.world != null) {
-            if (this.world.getBlockState(this.pos).get(CHARGE) <= 0) {
-                return false;
+            BlockState blockState = this.world.getBlockState(this.pos);
+            if (blockState.getBlock() instanceof BatteryBlock) {
+                if (blockState.get(CHARGE) <= 0) {
+                    return false;
+                }
             }
         }
         return ModUtils.itemNeedsCharge(this.chargingItem);
