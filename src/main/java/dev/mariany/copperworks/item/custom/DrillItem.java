@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.tag.ModTags;
 import dev.mariany.copperworks.util.ModUtils;
@@ -19,8 +19,8 @@ import net.minecraft.world.World;
 public class DrillItem extends MiningToolItem {
     public DrillItem(ToolMaterial material, Item.Settings settings, int maxCharge, int chargeRate) {
         super(material, ModTags.Blocks.DRILLABLE,
-                settings.component(ModComponents.CHARGE, 0).component(ModComponents.MAX_CHARGE, maxCharge)
-                        .component(ModComponents.CHARGE_RATE, chargeRate));
+                settings.component(CopperworksComponents.CHARGE, 0).component(CopperworksComponents.MAX_CHARGE, maxCharge)
+                        .component(CopperworksComponents.CHARGE_RATE, chargeRate));
     }
 
     @Override

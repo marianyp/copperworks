@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CryingObsidianBlock;
@@ -57,18 +57,18 @@ public class PartialDragonBreathItem extends Item {
 
     private void attemptFill(ItemStack bottleToFill, @NotNull PlayerEntity player, Hand hand) {
         if (player.getRandom().nextBoolean()) {
-            int dragonBreathFill = bottleToFill.getOrDefault(ModComponents.DRAGON_BREATH_FILL, 0);
+            int dragonBreathFill = bottleToFill.getOrDefault(CopperworksComponents.DRAGON_BREATH_FILL, 0);
             int amount = bottleToFill.getCount();
 
             if (dragonBreathFill < MAX_FILL - 1) {
                 if (amount > 1) {
                     ItemStack newBottle = bottleToFill.copyWithCount(1);
-                    newBottle.set(ModComponents.DRAGON_BREATH_FILL, dragonBreathFill + 1);
+                    newBottle.set(CopperworksComponents.DRAGON_BREATH_FILL, dragonBreathFill + 1);
 
                     bottleToFill.decrementUnlessCreative(1, player);
                     player.giveItemStack(newBottle);
                 } else {
-                    bottleToFill.set(ModComponents.DRAGON_BREATH_FILL, dragonBreathFill + 1);
+                    bottleToFill.set(CopperworksComponents.DRAGON_BREATH_FILL, dragonBreathFill + 1);
                 }
             } else {
                 player.setStackInHand(hand, Items.DRAGON_BREATH.getDefaultStack().copyWithCount(amount));

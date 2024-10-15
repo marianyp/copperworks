@@ -1,8 +1,9 @@
-// 1.21.1	2024-10-15T03:12:37.0673771	Copperworks/Block Loot Tables
+// 1.21.1	2024-10-15T08:43:44.824649	Copperworks/Block Loot Tables
 f8c0587b7fa997a9f2dd27a89f65b826a8e85240 data\copperworks\loot_table\blocks\sticky_copper_honey.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_bound.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_radio_bound.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_charged.json
+6cba2db5323a0e52b46d61a7b3b159019a1ba63b data\copperworks\loot_table\blocks\copper_stasis_chamber_charged.json
 7926427f468aee2b820dafbf8a6a119fda278aa4 data\copperworks\loot_table\blocks\copper_frame.json
 6eb3044d95aa14cad8f02e1edaf549ce4e82019f data\copperworks\loot_table\blocks\copper_battery.json
 e9207f1b5540e51da6f53aaf542fa5e2a517da2e data\copperworks\loot_table\blocks\patina.json
@@ -13,4 +14,5 @@ e9207f1b5540e51da6f53aaf542fa5e2a517da2e data\copperworks\loot_table\blocks\pati
 daa0767f978ba0b3a7812bdaad099f6a0170d129 data\copperworks\loot_table\blocks\comparator_mirror.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay.json
 08bc68b56ef116010523c182be1e1ca4d81f9e01 data\copperworks\loot_table\blocks\copper_sensor.json
+9861c5b3a8db95b812b54e0ed908a83d0611e4b2 data\copperworks\loot_table\blocks\copper_stasis_chamber.json
 32916074b4bd0c4b37e5865858a4d0b96cc48a90 data\copperworks\loot_table\blocks\sticky_copper.json

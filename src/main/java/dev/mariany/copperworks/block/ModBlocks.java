@@ -9,7 +9,9 @@ import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.radio.RadioBoundRelayBlock;
 import dev.mariany.copperworks.block.custom.sensor.ChargedSensorBlock;
 import dev.mariany.copperworks.block.custom.sensor.SensorBlock;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.block.custom.stasis.StasisChamber;
+import dev.mariany.copperworks.block.custom.stasis.StasisChamberCharged;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.item.custom.CopperFrameBlockItem;
 import dev.mariany.copperworks.item.custom.PatinaItem;
 import dev.mariany.copperworks.util.ModConstants;
@@ -72,6 +74,14 @@ public class ModBlocks {
     public static final Block DEACTIVATED_REDSTONE_BLOCK = registerBlock("deactivated_redstone_block",
             new Block(AbstractBlock.Settings.copy(Blocks.REDSTONE_BLOCK)));
 
+    public static final Block COPPER_STASIS_CHAMBER_CHARGED = registerBlock("copper_stasis_chamber_charged",
+            new StasisChamberCharged(genericCopperSettings().sounds(BlockSoundGroup.COPPER_BULB)));
+
+    public static final Block COPPER_STASIS_CHAMBER = registerChargeable("copper_stasis_chamber",
+            new StasisChamber(AbstractBlock.Settings.copy(COPPER_STASIS_CHAMBER_CHARGED)),
+            ModConstants.DEFAULT_MAX_CHARGE * 2, ModConstants.DEFAULT_CHARGE_RATE, COPPER_STASIS_CHAMBER_CHARGED);
+
+
     private static AbstractBlock.Settings genericCopperSettings() {
         return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                 .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
@@ -99,11 +109,12 @@ public class ModBlocks {
     private static Block registerChargeable(String name, Block block, int maxCharge, int chargeRate,
                                             @Nullable Block convertsTo) {
         Identifier id = Copperworks.id(name);
-        Item.Settings settings = new Item.Settings().component(ModComponents.CHARGE, 0)
-                .component(ModComponents.MAX_CHARGE, maxCharge).component(ModComponents.CHARGE_RATE, chargeRate);
+        Item.Settings settings = new Item.Settings().component(CopperworksComponents.CHARGE, 0)
+                .component(CopperworksComponents.MAX_CHARGE, maxCharge)
+                .component(CopperworksComponents.CHARGE_RATE, chargeRate);
 
         if (convertsTo != null) {
-            settings.component(ModComponents.CONVERTS_TO,
+            settings.component(CopperworksComponents.CONVERTS_TO,
                     ContainerComponent.fromStacks(List.of(convertsTo.asItem().getDefaultStack())));
         }
 
@@ -155,6 +166,8 @@ public class ModBlocks {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
             entries.addBefore(Items.CRAFTING_TABLE, STICKY_COPPER);
             entries.addAfter(STICKY_COPPER, STICKY_COPPER_HONEY);
+            entries.addAfter(Items.RESPAWN_ANCHOR, COPPER_STASIS_CHAMBER);
+            entries.addAfter(COPPER_STASIS_CHAMBER, COPPER_STASIS_CHAMBER_CHARGED);
         });
     }
 }

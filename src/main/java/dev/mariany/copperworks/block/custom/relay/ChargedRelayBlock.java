@@ -3,7 +3,7 @@ package dev.mariany.copperworks.block.custom.relay;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
 import dev.mariany.copperworks.item.ModItems;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -64,7 +64,7 @@ public class ChargedRelayBlock extends AbstractRelayBlock {
 
     private ItemStack initiateBinding(World world, BlockPos pos) {
         ItemStack stack = ModItems.AMETHYST_PIECE.getDefaultStack();
-        stack.set(ModComponents.RELAY_POSITION, GlobalPos.create(world.getRegistryKey(), pos));
+        stack.set(CopperworksComponents.RELAY_POSITION, GlobalPos.create(world.getRegistryKey(), pos));
         return stack;
     }
 
@@ -76,7 +76,7 @@ public class ChargedRelayBlock extends AbstractRelayBlock {
                 return false;
             }
 
-            GlobalPos otherPos = piece.get(ModComponents.RELAY_POSITION);
+            GlobalPos otherPos = piece.get(CopperworksComponents.RELAY_POSITION);
 
             if (otherPos == null || otherPos.equals(thisPos)) {
                 return false;

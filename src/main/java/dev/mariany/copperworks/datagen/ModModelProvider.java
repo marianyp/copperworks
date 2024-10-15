@@ -55,6 +55,8 @@ public class ModModelProvider extends FabricModelProvider {
 
         Models.CUBE_BOTTOM_TOP.upload(battery, "_dead", deadTextureMap, blockStateModelGenerator.modelCollector);
 
+        blockStateModelGenerator.excludeFromSimpleItemModelGeneration(battery);
+
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(battery,
                         BlockStateVariant.create().put(VariantSettings.MODEL,
                                 Models.CUBE_BOTTOM_TOP.upload(battery, textureMap, blockStateModelGenerator.modelCollector)))

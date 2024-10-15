@@ -8,7 +8,7 @@ import dev.mariany.copperworks.block.entity.renderer.BoundRelayBlockEntityRender
 import dev.mariany.copperworks.block.entity.renderer.RadioBoundRelayBlockEntityRenderer;
 import dev.mariany.copperworks.client.shaders.CoreShaders;
 import dev.mariany.copperworks.item.ModItems;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.util.ModUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -52,12 +52,12 @@ public class CopperworksClient implements ClientModInitializer {
                 (itemStack, clientWorld, livingEntity, seed) -> ModUtils.itemNeedsCharge(itemStack) ? 0 : 1);
 
         ModelPredicateProviderRegistry.register(ModItems.PARTIAL_DRAGON_BREATH, DRAGON_BREATH_FILL,
-                (itemStack, clientWorld, livingEntity, seed) -> itemStack.getOrDefault(ModComponents.DRAGON_BREATH_FILL,
+                (itemStack, clientWorld, livingEntity, seed) -> itemStack.getOrDefault(CopperworksComponents.DRAGON_BREATH_FILL,
                         0));
 
         ModelPredicateProviderRegistry.register(ModItems.RADIO, BOUND,
                 (itemStack, clientWorld, livingEntity, seed) -> itemStack.get(
-                        ModComponents.RELAY_POSITION) == null ? 0 : 1);
+                        CopperworksComponents.RELAY_POSITION) == null ? 0 : 1);
     }
 
     private void registerCoreShaders() {

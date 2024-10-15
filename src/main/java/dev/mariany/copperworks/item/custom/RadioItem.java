@@ -3,7 +3,7 @@ package dev.mariany.copperworks.item.custom;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.radio.RadioBoundRelayBlock;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.Block;
@@ -51,16 +51,24 @@ public class RadioItem extends AbstractBindingItem {
         ItemStack stack = context.getStack();
 
         BlockState blockState = world.getBlockState(blockPos);
+        Block block = blockState.getBlock();
 
-        GlobalPos relayPosition = stack.get(ModComponents.RELAY_POSITION);
+        GlobalPos relayPosition = stack.get(CopperworksComponents.RELAY_POSITION);
 
-        if (blockState.getBlock() instanceof ChargedRelayBlock) {
+        boolean isChargedRelay = block instanceof ChargedRelayBlock;
+        boolean isRadioBoundRelay = block instanceof RadioBoundRelayBlock;
+
+        if (isChargedRelay || isRadioBoundRelay) {
             if (relayPosition != null && world instanceof ServerWorld serverWorld) {
-                resetRelay(serverWorld.getServer(), relayPosition);
+                boolean sameDimension = relayPosition.dimension().equals(serverWorld.getRegistryKey());
+                boolean samePos = relayPosition.pos().equals(blockPos);
+                if (!sameDimension || !samePos) {
+                    resetRelay(serverWorld.getServer(), relayPosition);
+                }
             }
 
             world.setBlockState(blockPos, ModBlocks.COPPER_RELAY_RADIO_BOUND.getDefaultState(), Block.NOTIFY_LISTENERS);
-            stack.set(ModComponents.RELAY_POSITION, GlobalPos.create(world.getRegistryKey(), blockPos));
+            stack.set(CopperworksComponents.RELAY_POSITION, GlobalPos.create(world.getRegistryKey(), blockPos));
 
             if (player != null && world.isClient) {
                 playUsedSound(player);
@@ -107,7 +115,7 @@ public class RadioItem extends AbstractBindingItem {
                 case NOT_LOADED, NO_DATA, NOT_FOUND -> {
                     playFailSound(serverPlayer);
                     if (result == NO_DATA || result == NOT_FOUND) {
-                        radioStack.remove(ModComponents.RELAY_POSITION);
+                        radioStack.remove(CopperworksComponents.RELAY_POSITION);
                     } else {
                         serverPlayer.sendMessage(Text.translatable("item.copperworks.radio.not_loaded"), true);
                     }
@@ -148,8 +156,8 @@ public class RadioItem extends AbstractBindingItem {
         }
 
         if (!blockState.get(Properties.POWERED)) {
-            world.getBlockTickScheduler().clearNextTicks(new BlockBox(boundBlockPos));
-            world.scheduleBlockTick(boundBlockPos, blockState.getBlock(), 0);
+            boundWorld.getBlockTickScheduler().clearNextTicks(new BlockBox(boundBlockPos));
+            boundWorld.scheduleBlockTick(boundBlockPos, blockState.getBlock(), 0);
         }
 
         return SUCCESS;
@@ -157,7 +165,7 @@ public class RadioItem extends AbstractBindingItem {
 
     @Nullable
     private GlobalPos getBoundPos(ItemStack radioStack) {
-        return radioStack.get(ModComponents.RELAY_POSITION);
+        return radioStack.get(CopperworksComponents.RELAY_POSITION);
     }
 
     private void playUsedSound(PlayerEntity player) {

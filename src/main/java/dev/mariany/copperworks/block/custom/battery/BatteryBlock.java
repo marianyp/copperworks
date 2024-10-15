@@ -9,7 +9,7 @@ import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.*;
@@ -117,7 +117,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     @Override
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos,
                                   boolean notify) {
-        boolean powered = isPowered(world, pos);
+        boolean powered = ModUtils.isPowered(world, pos);
         if (powered != state.get(POWERED)) {
             world.setBlockState(pos, state.with(POWERED, powered), Block.NOTIFY_LISTENERS);
 
@@ -125,16 +125,6 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
                 sendPulse(world, pos, getDirection(state));
             }
         }
-    }
-
-    private boolean isPowered(World world, BlockPos blockPos) {
-        for (Direction direction : Direction.values()) {
-            if (world.isEmittingRedstonePower(blockPos.offset(direction), direction)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override
@@ -213,7 +203,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
             ItemStack stack = batteryBlockEntity.getStack();
 
             if (ModUtils.isCharging(stack)) {
-                stack.remove(ModComponents.CHARGING);
+                stack.remove(CopperworksComponents.CHARGING);
                 batteryBlockEntity.setStack(stack);
             }
         }
@@ -272,20 +262,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
         super.appendTooltip(stack, context, tooltip, options);
-
-        int maxCharge = ModConstants.MAX_BATTERY_CHARGE;
-        int charge = maxCharge;
-
-        BlockStateComponent blockStateComponent = stack.get(DataComponentTypes.BLOCK_STATE);
-
-        if (blockStateComponent != null) {
-            Integer chargeState = blockStateComponent.getValue(ModProperties.CHARGE);
-            if (chargeState != null) {
-                charge = chargeState;
-            }
-        }
-
-        tooltip.add(ModUtils.generateChargeTooltip(charge, maxCharge));
+        ModUtils.appendBlockStateChargeTooltip(stack, tooltip, ModConstants.MAX_BATTERY_CHARGE);
     }
 
     @Override

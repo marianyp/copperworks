@@ -4,7 +4,7 @@ import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.block.custom.battery.BatteryClientData;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
@@ -110,14 +110,14 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     public void setStack(ItemStack chargingItem) {
         ItemStack itemStack = chargingItem.copy();
         if (ModUtils.itemNeedsCharge(itemStack)) {
-            itemStack.set(ModComponents.CHARGING, true);
+            itemStack.set(CopperworksComponents.CHARGING, true);
         }
         this.chargingItem = itemStack;
         notifyChange(this);
     }
 
     public void takeStack(PlayerEntity player) {
-        this.chargingItem.remove(ModComponents.CHARGING);
+        this.chargingItem.remove(CopperworksComponents.CHARGING);
         if (!player.getWorld().isClient) {
             player.giveItemStack(this.chargingItem);
         }
@@ -148,8 +148,8 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     public float getChargeProgress() {
-        int charge = this.chargingItem.getOrDefault(ModComponents.CHARGE, 0);
-        int maxCharge = this.chargingItem.getOrDefault(ModComponents.MAX_CHARGE, 0);
+        int charge = this.chargingItem.getOrDefault(CopperworksComponents.CHARGE, 0);
+        int maxCharge = this.chargingItem.getOrDefault(CopperworksComponents.MAX_CHARGE, 0);
         if (maxCharge == 0) {
             return 0;
         }
@@ -157,7 +157,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     public int getChargeRate() {
-        return this.chargingItem.getOrDefault(ModComponents.CHARGE_RATE, 1);
+        return this.chargingItem.getOrDefault(CopperworksComponents.CHARGE_RATE, 1);
     }
 
     public void tick(World world, BlockPos pos, BlockState blockState, BatteryBlockEntity batteryBlockEntity) {
@@ -166,7 +166,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         boolean stackCharging = ModUtils.isCharging(chargeStack);
 
         if (isCharging != stackCharging) {
-            chargeStack.set(ModComponents.CHARGING, isCharging);
+            chargeStack.set(CopperworksComponents.CHARGING, isCharging);
             notifyChange(batteryBlockEntity);
         }
 
@@ -182,10 +182,10 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
                 }
             }
 
-            int maxCharge = chargeStack.getOrDefault(ModComponents.MAX_CHARGE, 0);
-            int currentCharge = chargeStack.getOrDefault(ModComponents.CHARGE, 0);
+            int maxCharge = chargeStack.getOrDefault(CopperworksComponents.MAX_CHARGE, 0);
+            int currentCharge = chargeStack.getOrDefault(CopperworksComponents.CHARGE, 0);
 
-            ContainerComponent convertsToContainer = chargeStack.getOrDefault(ModComponents.CONVERTS_TO,
+            ContainerComponent convertsToContainer = chargeStack.getOrDefault(CopperworksComponents.CONVERTS_TO,
                     ContainerComponent.DEFAULT);
             ItemStack convertsTo = convertsToContainer.copyFirstStack();
 
@@ -241,11 +241,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     private boolean chargeItem(ItemStack itemStack) {
-        Integer charge = itemStack.getOrDefault(ModComponents.CHARGE, 0);
-        Integer maxCharge = itemStack.getOrDefault(ModComponents.MAX_CHARGE, 0);
+        Integer charge = itemStack.getOrDefault(CopperworksComponents.CHARGE, 0);
+        Integer maxCharge = itemStack.getOrDefault(CopperworksComponents.MAX_CHARGE, 0);
 
         if (charge < maxCharge) {
-            itemStack.set(ModComponents.CHARGE, Math.min(charge + 1, maxCharge));
+            itemStack.set(CopperworksComponents.CHARGE, Math.min(charge + 1, maxCharge));
             return true;
         }
 

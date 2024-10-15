@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.event;
 
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.tag.ModTags;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,11 +28,11 @@ public class ItemEntityTickHandler implements ServerWorldTickHandler {
 
         // Only works for item stacks with a max size of 1 to avoid inventory stacking issues
         if (itemStack.getMaxCount() == 1 && itemStack.isIn(ModTags.Items.ENGINEER_CAN_UPGRADE)) {
-            boolean justCreated = itemEntity.age == 1 || !itemStack.contains(ModComponents.LAST_THROWN);
+            boolean justCreated = itemEntity.age == 1 || !itemStack.contains(CopperworksComponents.LAST_THROWN);
             if (justCreated) {
                 PlayerEntity player = world.getClosestPlayer(itemEntity, 3);
                 if (player != null) {
-                    itemStack.set(ModComponents.LAST_THROWN, player.getUuid());
+                    itemStack.set(CopperworksComponents.LAST_THROWN, player.getUuid());
                     itemEntity.setStack(itemStack);
                 }
             }

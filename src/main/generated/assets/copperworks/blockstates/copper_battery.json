@@ -530,6 +530,112 @@
       "x": 90,
       "y": 270
     },
+    "charge=18,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=18,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=18,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=18,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=18,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=18,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=18,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=18,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=18,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=18,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=18,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=18,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=19,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=19,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=19,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=19,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=19,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=19,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=19,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=19,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=19,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=19,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=19,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=19,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
     "charge=2,face=ceiling,facing=east": {
       "model": "copperworks:block/copper_battery",
       "x": 180,
@@ -583,6 +689,536 @@
       "x": 90,
       "y": 270
     },
+    "charge=20,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=20,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=20,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=20,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=20,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=20,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=20,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=20,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=20,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=20,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=20,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=20,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=21,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=21,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=21,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=21,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=21,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=21,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=21,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=21,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=21,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=21,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=21,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=21,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=22,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=22,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=22,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=22,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=22,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=22,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=22,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=22,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=22,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=22,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=22,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=22,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=23,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=23,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=23,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=23,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=23,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=23,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=23,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=23,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=23,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=23,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=23,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=23,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=24,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=24,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=24,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=24,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=24,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=24,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=24,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=24,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=24,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=24,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=24,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=24,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=25,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=25,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=25,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=25,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=25,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=25,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=25,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=25,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=25,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=25,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=25,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=25,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=26,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=26,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=26,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=26,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=26,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=26,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=26,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=26,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=26,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=26,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=26,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=26,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=27,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=27,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=27,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=27,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=27,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=27,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=27,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=27,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=27,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=27,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=27,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=27,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=28,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=28,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=28,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=28,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=28,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=28,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=28,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=28,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=28,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=28,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=28,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=28,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=29,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=29,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=29,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=29,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=29,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=29,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=29,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=29,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=29,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=29,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=29,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=29,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
     "charge=3,face=ceiling,facing=east": {
       "model": "copperworks:block/copper_battery",
       "x": 180,
@@ -632,6 +1268,165 @@
       "y": 180
     },
     "charge=3,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=30,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=30,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=30,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=30,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=30,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=30,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=30,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=30,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=30,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=30,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=30,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=30,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=31,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=31,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=31,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=31,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=31,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=31,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=31,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=31,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=31,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=31,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=31,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=31,face=wall,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 270
+    },
+    "charge=32,face=ceiling,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 270
+    },
+    "charge=32,face=ceiling,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 180
+    },
+    "charge=32,face=ceiling,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180
+    },
+    "charge=32,face=ceiling,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "x": 180,
+      "y": 90
+    },
+    "charge=32,face=floor,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "y": 90
+    },
+    "charge=32,face=floor,facing=north": {
+      "model": "copperworks:block/copper_battery"
+    },
+    "charge=32,face=floor,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "y": 180
+    },
+    "charge=32,face=floor,facing=west": {
+      "model": "copperworks:block/copper_battery",
+      "y": 270
+    },
+    "charge=32,face=wall,facing=east": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 90
+    },
+    "charge=32,face=wall,facing=north": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90
+    },
+    "charge=32,face=wall,facing=south": {
+      "model": "copperworks:block/copper_battery",
+      "x": 90,
+      "y": 180
+    },
+    "charge=32,face=wall,facing=west": {
       "model": "copperworks:block/copper_battery",
       "x": 90,
       "y": 270

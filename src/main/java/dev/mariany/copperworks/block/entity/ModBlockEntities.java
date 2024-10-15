@@ -2,10 +2,7 @@ package dev.mariany.copperworks.block.entity;
 
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.ModBlocks;
-import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
-import dev.mariany.copperworks.block.entity.custom.ClockBlockEntity;
-import dev.mariany.copperworks.block.entity.custom.ComparatorMirrorBlockEntity;
-import dev.mariany.copperworks.block.entity.custom.SensorBlockEntity;
+import dev.mariany.copperworks.block.entity.custom.*;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
 import dev.mariany.copperworks.block.entity.custom.relay.RadioBoundRelayBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -31,6 +28,10 @@ public class ModBlockEntities {
 
     public static final BlockEntityType<ComparatorMirrorBlockEntity> COMPARATOR_MIRROR = register("comparator_mirror",
             BlockEntityType.Builder.create(ComparatorMirrorBlockEntity::new, ModBlocks.COMPARATOR_MIRROR).build());
+
+    public static final BlockEntityType<StasisChamberBlockEntity> STASIS_CHAMBER = register("stasis_chamber",
+            BlockEntityType.Builder.create(StasisChamberBlockEntity::new, ModBlocks.COPPER_STASIS_CHAMBER_CHARGED)
+                    .build());
 
     public static <T extends BlockEntityType<?>> T register(String name, T blockEntityType) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, Copperworks.id(name), blockEntityType);

@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-15T03:12:37.0628546	Copperworks/Recipes
+// 1.21.1	2024-10-15T08:43:44.8186477	Copperworks/Recipes
 7fcdd120f9d538fe7bcf1ad00bdd06ed4ad5f0b0 data\copperworks\recipe\copper_frame.json
 685641e6b8c7110eb2d1e64a32a6fe6d354e0aa6 data\copperworks\advancement\recipes\combat\copper_battery.json
 7d5bf932e9b75b40bc5f363571516bb231677fc0 data\copperworks\advancement\recipes\misc\copper_plate.json
@@ -14,7 +14,9 @@ bc781189654d97f163a9a000ed78a1699f38763b data\copperworks\advancement\recipes\re
 4363afd11313e6c92865c7bffe5ddb6d8f692610 data\copperworks\recipe\copper_battery.json
 bb885c98464c836796c8f6a65c31b55d69f12574 data\copperworks\recipe\copper_sensor.json
 cd5ff002da13be9fdde62bef6aef68c0f6275ecf data\copperworks\recipe\radio.json
+bcbd6b89f39e4eb0af52fa9e1e5c638a86a53ea6 data\copperworks\recipe\copper_stasis_chamber.json
 5c172fa53c576c159ca9725fce71eecd83c97410 data\copperworks\recipe\comparator_mirror.json
+15f73ec612bd7154f1c69fe22360df4893b50201 data\copperworks\advancement\recipes\redstone\copper_stasis_chamber.json
 289e63589eedab34307e1c07fedb75b52824d0cf data\copperworks\recipe\copper_bracer.json
 b38467a609beb9709e30da4c640533495f13a26c data\copperworks\recipe\copper_relay.json
 8a7b1754bd12602bc78022833199c1fc5be54a79 data\copperworks\advancement\recipes\redstone\copper_lever.json

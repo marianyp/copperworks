@@ -26,7 +26,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.COPPER_BATTERY, this::batteryDrop);
+        addDrop(ModBlocks.COPPER_BATTERY, this::chargeDrop);
         addDrop(ModBlocks.COPPER_CLOCK);
         addDrop(ModBlocks.COPPER_FRAME);
         addDrop(ModBlocks.COPPER_LEVER);
@@ -37,6 +37,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.COPPER_SENSOR_CHARGED);
         addDrop(ModBlocks.COMPARATOR_MIRROR);
         addDrop(ModBlocks.DEACTIVATED_REDSTONE_BLOCK);
+        addDrop(ModBlocks.COPPER_STASIS_CHAMBER);
+        addDrop(ModBlocks.COPPER_STASIS_CHAMBER_CHARGED, this::chargeDrop);
 
         addRelayDrops();
     }
@@ -49,7 +51,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         }
     }
 
-    private LootTable.Builder batteryDrop(Block drop) {
+    private LootTable.Builder chargeDrop(Block drop) {
         return LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
                 .with(ItemEntry.builder(drop)
                         .apply(CopyStateLootFunction.builder(drop).addProperty(ModProperties.CHARGE))));

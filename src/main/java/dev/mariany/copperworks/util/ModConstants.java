@@ -6,4 +6,5 @@ public final class ModConstants {
     public static final int DEFAULT_CHARGE_RATE = 40;
 
     public static final int MAX_BATTERY_CHARGE = 16;
+    public static final int MAX_STASIS_CHAMBER_CHARGE = 32;
 }

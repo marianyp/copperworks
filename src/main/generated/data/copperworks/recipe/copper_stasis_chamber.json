@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "copperworks:copper_plate"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "O": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "P": {
+      "item": "copperworks:ender_powder"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "PEP",
+    "OOO"
+  ],
+  "result": {
+    "count": 1,
+    "id": "copperworks:copper_stasis_chamber"
+  }
+}

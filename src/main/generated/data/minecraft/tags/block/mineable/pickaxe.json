@@ -13,6 +13,8 @@
     "copperworks:copper_sensor",
     "copperworks:copper_sensor_charged",
     "copperworks:comparator_mirror",
-    "copperworks:deactivated_redstone_block"
+    "copperworks:deactivated_redstone_block",
+    "copperworks:copper_stasis_chamber",
+    "copperworks:copper_stasis_chamber_charged"
   ]
 }

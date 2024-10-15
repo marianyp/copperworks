@@ -1,7 +1,7 @@
 package dev.mariany.copperworks.block.entity.renderer;
 
 import dev.mariany.copperworks.block.entity.custom.relay.RadioBoundRelayBlockEntity;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.item.custom.RadioItem;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.client.MinecraftClient;
@@ -70,7 +70,7 @@ public class RadioBoundRelayBlockEntityRenderer extends AbstractBoundRelayBlockE
 
     @Nullable
     private GlobalPos getRadioBoundPos(ItemStack itemStack) {
-        return itemStack.get(ModComponents.RELAY_POSITION);
+        return itemStack.get(CopperworksComponents.RELAY_POSITION);
     }
 
     private boolean globalPosIsHere(ClientWorld world, @Nullable GlobalPos globalPos, BlockPos thisPos) {

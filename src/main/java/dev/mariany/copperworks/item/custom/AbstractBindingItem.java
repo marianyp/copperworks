@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -31,7 +31,7 @@ public abstract class AbstractBindingItem extends Item {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         super.appendTooltip(stack, context, tooltip, type);
 
-        GlobalPos globalPos = stack.get(ModComponents.RELAY_POSITION);
+        GlobalPos globalPos = stack.get(CopperworksComponents.RELAY_POSITION);
         if (globalPos != null) {
             Text positionText = Text.translatable("item.copperworks.radio.position.tooltip",
                     Text.of(globalPos.pos().toShortString())).copy().withColor(Colors.GRAY);

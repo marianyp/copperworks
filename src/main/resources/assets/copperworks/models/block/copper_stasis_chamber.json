@@ -1,0 +1,7 @@
+{
+	"parent": "copperworks:block/stasis_chamber_template",
+	"textures": {
+		"top": "copperworks:block/copper_stasis_chamber_top",
+		"side": "copperworks:block/copper_stasis_chamber_side"
+	}
+}

@@ -2,7 +2,7 @@ package dev.mariany.copperworks.item;
 
 import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.block.ModBlocks;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.item.custom.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -19,7 +19,7 @@ public class ModItems {
     public static final Item COPPER_BRACER = registerItem("copper_bracer", new CopperBracerItem());
     public static final Item PARTIAL_DRAGON_BREATH = registerItem("partial_dragon_breath", new PartialDragonBreathItem(
             new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).rarity(Rarity.UNCOMMON)
-                    .component(ModComponents.DRAGON_BREATH_FILL, 0)));
+                    .component(CopperworksComponents.DRAGON_BREATH_FILL, 0)));
     public static final Item ENDER_POWDER = registerItem("ender_powder", new Item(new Item.Settings()));
     public static final Item ROCKET_BOOTS = registerItem("rocket_boots",
             new RocketBootsItem(new Item.Settings().maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(33)).fireproof()));
@@ -60,7 +60,7 @@ public class ModItems {
     private static void partialDragonBreathItemGroup(FabricItemGroupEntries entries) {
         for (int i = 0; i < PartialDragonBreathItem.MAX_FILL; i++) {
             ItemStack itemStack = PARTIAL_DRAGON_BREATH.getDefaultStack();
-            itemStack.set(ModComponents.DRAGON_BREATH_FILL, i);
+            itemStack.set(CopperworksComponents.DRAGON_BREATH_FILL, i);
             entries.addBefore(Items.DRAGON_BREATH, itemStack);
         }
     }

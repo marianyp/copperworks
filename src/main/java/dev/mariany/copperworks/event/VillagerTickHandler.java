@@ -3,7 +3,7 @@ package dev.mariany.copperworks.event;
 import com.google.common.collect.Lists;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.tag.ModTags;
 import dev.mariany.copperworks.util.ModUtils;
@@ -221,7 +221,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
             upgradedItem.addEnchantment(enchantmentLevelEntry.enchantment, enchantmentLevelEntry.level);
         }
 
-        upgradedItem.set(ModComponents.UPGRADED, true);
+        upgradedItem.set(CopperworksComponents.UPGRADED, true);
 
         return upgradedItem;
     }

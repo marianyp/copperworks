@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "block": "copperworks:copper_stasis_chamber_charged",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "charge"
+              ]
+            }
+          ],
+          "name": "copperworks:copper_stasis_chamber_charged"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

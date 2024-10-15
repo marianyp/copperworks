@@ -1,6 +1,6 @@
 package dev.mariany.copperworks.mixin;
 
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -31,8 +31,8 @@ public abstract class ItemStackMixin {
                                      CallbackInfoReturnable<List<Text>> cir, List<Text> list, MutableText mutableText,
                                      Consumer<Text> consumer) {
         ItemStack stack = (ItemStack) (Object) this;
-        Integer charge = stack.get(ModComponents.CHARGE);
-        Integer maxCharge = stack.get(ModComponents.MAX_CHARGE);
+        Integer charge = stack.get(CopperworksComponents.CHARGE);
+        Integer maxCharge = stack.get(CopperworksComponents.MAX_CHARGE);
         if (charge != null && maxCharge != null) {
             consumer.accept(ModUtils.generateChargeTooltip(charge, maxCharge));
         }

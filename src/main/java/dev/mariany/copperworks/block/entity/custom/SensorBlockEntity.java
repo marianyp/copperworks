@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.block.entity.custom;
 
 import dev.mariany.copperworks.block.ModProperties;
+import dev.mariany.copperworks.block.custom.sensor.ChargedSensorBlock;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -35,7 +36,7 @@ public class SensorBlockEntity extends BlockEntity {
 
     public void tick(World world, BlockPos pos, BlockState blockState) {
         Block block = blockState.getBlock();
-        Direction facing = getDirection(blockState);
+        Direction facing = ChargedSensorBlock.getDirection(blockState);
 
         Box visibleArea = Box.enclosing(pos, pos.offset(facing, blockState.get(RANGE)));
 
@@ -47,15 +48,7 @@ public class SensorBlockEntity extends BlockEntity {
         if (blockState.get(POWER) != power) {
             world.setBlockState(pos, blockState.with(POWER, power), Block.NOTIFY_ALL);
             world.updateNeighborsAlways(pos, block);
-            world.updateNeighborsAlways(pos.offset(facing), block);
+            world.updateNeighborsAlways(pos.offset(facing.getOpposite()), block);
         }
-    }
-
-    private static Direction getDirection(BlockState state) {
-        return switch (state.get(FACE)) {
-            case CEILING -> Direction.DOWN;
-            case FLOOR -> Direction.UP;
-            default -> state.get(FACING);
-        };
     }
 }

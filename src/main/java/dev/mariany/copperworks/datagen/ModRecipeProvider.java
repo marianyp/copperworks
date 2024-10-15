@@ -38,7 +38,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createCopperRelayRecipe(exporter);
         createStickyCopperRecipes(exporter);
         createCopperSensorRecipe(exporter);
-        createComparatorMirror(exporter);
+        createComparatorMirrorRecipe(exporter);
+        createCopperStasisChamberRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -127,11 +128,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
     }
 
-    private void createComparatorMirror(RecipeExporter exporter) {
+    private void createComparatorMirrorRecipe(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COMPARATOR_MIRROR)
                 .input('C', ModItems.COPPER_PLATE).input('G', Items.COMPARATOR).input('P', Items.PRISMARINE_CRYSTALS)
                 .pattern("CGC").pattern("GPG").pattern("CGC")
                 .criterion(hasItem(Items.PRISMARINE_CRYSTALS), conditionsFromItem(Items.PRISMARINE_CRYSTALS))
                 .offerTo(exporter);
+    }
+
+    private void createCopperStasisChamberRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.REDSTONE, ModBlocks.COPPER_STASIS_CHAMBER)
+                .input('C', ModItems.COPPER_PLATE).input('P', ModItems.ENDER_POWDER).input('O', Items.CRYING_OBSIDIAN)
+                .input('E', Items.ENDER_PEARL).pattern("CCC").pattern("PEP").pattern("OOO")
+                .criterion(hasItem(ModItems.ENDER_POWDER), conditionsFromItem(ModItems.ENDER_POWDER)).offerTo(exporter);
     }
 }

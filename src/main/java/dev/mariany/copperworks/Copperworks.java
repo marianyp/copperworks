@@ -3,6 +3,7 @@ package dev.mariany.copperworks;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
+import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import dev.mariany.copperworks.data.BatteryInteractionLoader;
 import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.entity.villager.ModTradesOffers;
@@ -11,9 +12,10 @@ import dev.mariany.copperworks.event.ServerTickHandler;
 import dev.mariany.copperworks.event.block.UseBlockHandler;
 import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.util.Identifier;
@@ -30,7 +32,7 @@ public class Copperworks implements ModInitializer {
         BatteryInteractionLoader.register();
 
         ModArmorMaterials.registerModArmorMaterials();
-        ModComponents.registerModComponents();
+        CopperworksComponents.registerModComponents();
         ModAttachmentTypes.registerAttachmentTypes();
         ModItems.registerModItems();
         ModEnchantments.registerModEnchantments();
@@ -40,6 +42,7 @@ public class Copperworks implements ModInitializer {
         ModTradesOffers.registerVillagerTrades();
         ModSoundEvents.registerModSoundEvents();
 
+        ServerLifecycleEvents.SERVER_STARTED.register(ChunkLoadingManager::onServerStart);
         ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);
         UseBlockCallback.EVENT.register(UseBlockHandler::onUseBlock);
     }

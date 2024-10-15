@@ -1,12 +1,14 @@
 package dev.mariany.copperworks.util;
 
+import dev.mariany.copperworks.StateSaverAndLoader;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.StickyBlock;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.tag.ModTags;
+import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.Entity;
@@ -53,8 +55,8 @@ public class ModUtils {
     }
 
     public static boolean itemNeedsCharge(ItemStack itemStack) {
-        Integer chargeComponent = itemStack.get(ModComponents.CHARGE);
-        Integer maxChargeComponent = itemStack.get(ModComponents.MAX_CHARGE);
+        Integer chargeComponent = itemStack.get(CopperworksComponents.CHARGE);
+        Integer maxChargeComponent = itemStack.get(CopperworksComponents.MAX_CHARGE);
 
         if (itemStack.isEmpty()) {
             return false;
@@ -73,7 +75,7 @@ public class ModUtils {
                 BlockStateComponent blockStateComponent = itemStack.get(DataComponentTypes.BLOCK_STATE);
 
                 if (blockStateComponent == null) {
-                    return 0;
+                    return ModConstants.MAX_BATTERY_CHARGE;
                 }
 
                 Integer charge = blockStateComponent.getValue(ModProperties.CHARGE);
@@ -88,7 +90,7 @@ public class ModUtils {
     }
 
     public static boolean itemHasSomeCharge(ItemStack itemStack) {
-        Integer chargeComponent = itemStack.get(ModComponents.CHARGE);
+        Integer chargeComponent = itemStack.get(CopperworksComponents.CHARGE);
 
         if (itemStack.isEmpty()) {
             return false;
@@ -109,7 +111,7 @@ public class ModUtils {
 
     @Nullable
     public static PlayerEntity getItemStackOwner(World world, ItemStack itemStack) {
-        UUID lastThrownUUID = itemStack.get(ModComponents.LAST_THROWN);
+        UUID lastThrownUUID = itemStack.get(CopperworksComponents.LAST_THROWN);
 
         if (lastThrownUUID != null) {
             return world.getPlayerByUuid(lastThrownUUID);
@@ -134,11 +136,11 @@ public class ModUtils {
     }
 
     public static boolean isUpgraded(ItemStack itemStack) {
-        return itemStack.getOrDefault(ModComponents.UPGRADED, false);
+        return itemStack.getOrDefault(CopperworksComponents.UPGRADED, false);
     }
 
     public static boolean isCharging(ItemStack itemStack) {
-        return Boolean.TRUE.equals(itemStack.get(ModComponents.CHARGING));
+        return Boolean.TRUE.equals(itemStack.get(CopperworksComponents.CHARGING));
     }
 
     public static void decrementCharge(LivingEntity entity, ItemStack itemStack) {
@@ -149,18 +151,33 @@ public class ModUtils {
         Random random = entity.getRandom();
         World world = entity.getWorld();
 
-        Integer charge = itemStack.get(ModComponents.CHARGE);
-        Integer maxCharge = itemStack.get(ModComponents.MAX_CHARGE);
+        Integer charge = itemStack.get(CopperworksComponents.CHARGE);
+        Integer maxCharge = itemStack.get(CopperworksComponents.MAX_CHARGE);
 
         if (charge != null && maxCharge != null && charge > 0) {
             int newCharge = MathHelper.clamp(charge - MathHelper.nextInt(random, min, max), 0, maxCharge);
-            itemStack.set(ModComponents.CHARGE, newCharge);
+            itemStack.set(CopperworksComponents.CHARGE, newCharge);
 
             if (newCharge <= 0) {
                 world.playSoundFromEntity(null, entity, ModSoundEvents.OUT_OF_CHARGE, SoundCategory.NEUTRAL, 0.375F,
                         1F);
             }
         }
+    }
+
+    public static void appendBlockStateChargeTooltip(ItemStack itemStack, List<Text> tooltip, int maxCharge) {
+        int charge = maxCharge;
+
+        BlockStateComponent blockStateComponent = itemStack.get(DataComponentTypes.BLOCK_STATE);
+
+        if (blockStateComponent != null) {
+            Integer chargeState = blockStateComponent.getValue(ModProperties.CHARGE);
+            if (chargeState != null) {
+                charge = chargeState;
+            }
+        }
+
+        tooltip.add(ModUtils.generateChargeTooltip(charge, maxCharge));
     }
 
     public static Text generateChargeTooltip(int charge, int max) {
@@ -290,7 +307,14 @@ public class ModUtils {
     }
 
     public static boolean isChunkLoaded(ServerWorld world, BlockPos pos) {
-        ChunkPos chunkPos = new ChunkPos(pos);
+        ChunkPos chunkPos = ChunkLoadingManager.getChunkPos(world, pos);
+
+        boolean chunkLoaderPresent = StateSaverAndLoader.getWorldState(world).chunkLoaders.containsKey(chunkPos);
+
+        if (chunkLoaderPresent) {
+            return true;
+        }
+
         WorldChunk worldChunk = world.getChunkManager().getWorldChunk(chunkPos.x, chunkPos.z);
         return worldChunk != null && worldChunk.getLevelType() == ChunkLevelType.ENTITY_TICKING && world.isChunkLoaded(
                 chunkPos.toLong());
@@ -306,5 +330,15 @@ public class ModUtils {
         }
 
         return entity.getSteppingBlockState().getBlock() instanceof StickyBlock;
+    }
+
+    public static boolean isPowered(World world, BlockPos blockPos) {
+        for (Direction direction : Direction.values()) {
+            if (world.isEmittingRedstonePower(blockPos.offset(direction), direction)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

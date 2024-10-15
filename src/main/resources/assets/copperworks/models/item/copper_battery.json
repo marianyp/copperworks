@@ -1,0 +1,11 @@
+{
+	"parent": "copperworks:block/copper_battery_dead",
+	"overrides": [
+		{
+			"predicate": {
+				"copperworks:charged": 1
+			},
+			"model": "copperworks:block/copper_battery"
+		}
+	]
+}

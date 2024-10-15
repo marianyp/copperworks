@@ -7,6 +7,7 @@ import dev.mariany.copperworks.block.entity.custom.SensorBlockEntity;
 import dev.mariany.copperworks.util.ModConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.WallMountedBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -85,6 +86,11 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     }
 
     @Override
+    protected int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return direction == getDirection(state) ? state.getWeakRedstonePower(world, pos, direction) : 0;
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(POWER, RANGE);
@@ -93,6 +99,10 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     @Override
     protected BlockState applyDefaultState(BlockState state) {
         return super.applyDefaultState(state).with(POWER, 0).with(RANGE, DEFAULT_RANGE);
+    }
+
+    public static Direction getDirection(BlockState state) {
+        return WallMountedBlock.getDirection(state);
     }
 
     @Override

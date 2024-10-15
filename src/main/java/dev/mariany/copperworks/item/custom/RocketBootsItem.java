@@ -1,7 +1,7 @@
 package dev.mariany.copperworks.item.custom;
 
 import dev.mariany.copperworks.item.ModArmorMaterials;
-import dev.mariany.copperworks.item.component.ModComponents;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
@@ -30,8 +30,8 @@ public class RocketBootsItem extends ArmorItem {
 
     public RocketBootsItem(Settings settings) {
         super(ModArmorMaterials.ROCKET_BOOTS, Type.BOOTS,
-                settings.component(ModComponents.CHARGE, 0).component(ModComponents.MAX_CHARGE, MAX_CHARGE)
-                        .component(ModComponents.CHARGE_RATE, CHARGE_RATE));
+                settings.component(CopperworksComponents.CHARGE, 0).component(CopperworksComponents.MAX_CHARGE, MAX_CHARGE)
+                        .component(CopperworksComponents.CHARGE_RATE, CHARGE_RATE));
     }
 
     public static boolean isHalting(LivingEntity entity, ItemStack boots) {
@@ -46,7 +46,7 @@ public class RocketBootsItem extends ArmorItem {
         World world = entity.getWorld();
 
         boolean halting = (isHalting(entity, bootsStack) && !entity.isOnGround()) || isOutOfBounds(entity);
-        boolean thrusting = bootsStack.getOrDefault(ModComponents.THRUST, 0F) > 0F;
+        boolean thrusting = bootsStack.getOrDefault(CopperworksComponents.THRUST, 0F) > 0F;
 
         if (!halting && !thrusting) {
             return;
@@ -89,7 +89,7 @@ public class RocketBootsItem extends ArmorItem {
     private void decrementChargeAndDamage(ItemStack stack, LivingEntity entity) {
         Random random = entity.getRandom();
         if (entity.age % 15 == 0) {
-            int currentCharge = stack.getOrDefault(ModComponents.CHARGE, 0);
+            int currentCharge = stack.getOrDefault(CopperworksComponents.CHARGE, 0);
 
             if (random.nextBoolean()) {
                 if (entity.getRandom().nextBoolean() && currentCharge > 0) {
@@ -114,7 +114,7 @@ public class RocketBootsItem extends ArmorItem {
 
     private void resetThrust(LivingEntity entity, ItemStack stack) {
         if (!entity.getWorld().isClient) {
-            stack.set(ModComponents.THRUST, 0F);
+            stack.set(CopperworksComponents.THRUST, 0F);
         }
     }
 
@@ -122,7 +122,7 @@ public class RocketBootsItem extends ArmorItem {
         if (entity.age % Math.round(SECONDS_TO_INCREASE_THRUST * 20) == 0) {
             float newThrust = MathHelper.clamp(currentThrust + WIND_UP, MIN_SPEED, MAX_SPEED);
             if (!entity.getWorld().isClient) {
-                stack.set(ModComponents.THRUST, newThrust);
+                stack.set(CopperworksComponents.THRUST, newThrust);
             }
         }
     }
@@ -131,12 +131,12 @@ public class RocketBootsItem extends ArmorItem {
         if (!entity.getWorld().isClient) {
             float thrustDecrease = (float) (MAX_SPEED * (MAX_THRUST_ALLOWANCE - angleChange));
             float newThrust = MathHelper.clamp(thrustDecrease, WIND_UP, MAX_SPEED);
-            stack.set(ModComponents.THRUST, newThrust);
+            stack.set(CopperworksComponents.THRUST, newThrust);
         }
     }
 
     private boolean applyThrust(ItemStack bootsStack, LivingEntity entity) {
-        float currentThrust = MathHelper.clamp(bootsStack.getOrDefault(ModComponents.THRUST, 0F), MIN_SPEED, MAX_SPEED);
+        float currentThrust = MathHelper.clamp(bootsStack.getOrDefault(CopperworksComponents.THRUST, 0F), MIN_SPEED, MAX_SPEED);
 
         if (isHalting(entity, bootsStack)) {
             resetThrust(entity, bootsStack);
@@ -177,7 +177,7 @@ public class RocketBootsItem extends ArmorItem {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (entity instanceof LivingEntity livingEntity) {
-            if (stack.getOrDefault(ModComponents.THRUST, 0F) != 0F) {
+            if (stack.getOrDefault(CopperworksComponents.THRUST, 0F) != 0F) {
                 resetThrust(livingEntity, stack);
             }
 
