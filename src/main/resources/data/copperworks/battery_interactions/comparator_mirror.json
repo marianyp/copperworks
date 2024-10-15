@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "type": "copperworks:property_toggle",
+  "property": "locked",
+  "sound": {
+    "id": "minecraft:block.glass.break",
+    "sound": 0.35,
+    "pitch": 1.3
+  }
+}

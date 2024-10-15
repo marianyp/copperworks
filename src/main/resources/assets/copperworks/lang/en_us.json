@@ -34,6 +34,7 @@
   "block.copperworks.sensor_charged.range": "Sensor distance: %s",
   "block.copperworks.sensor_charged.upgraded": "Sensor distance increased to: %s",
   "block.copperworks.comparator_mirror": "Comparator Mirror",
+  "block.copperworks.deactivated_redstone_block": "Deactivated Redstone",
   "enchantment.copperworks.shock": "Shock",
   "enchantment.copperworks.life_current": "Life Current",
   "enchantment.copperworks.charged_attraction": "Charged Attraction",

@@ -14,6 +14,7 @@ import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -23,14 +24,16 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BatteryBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
+public class BatteryBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory, SidedInventory {
     private static final String CHARGING_ITEM_NBT = "ChargingItem";
     private static final IntProperty CHARGE = ModProperties.CHARGE;
 
@@ -109,7 +112,7 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
             itemStack.set(ModComponents.CHARGING, true);
         }
         this.chargingItem = itemStack;
-        this.markDirty();
+        notifyChange(this);
     }
 
     public void takeStack(PlayerEntity player) {
@@ -119,6 +122,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         }
         this.chargingItem = ItemStack.EMPTY;
         notifyChange(this);
+    }
+
+    @Override
+    public int getMaxCountPerStack() {
+        return 1;
     }
 
     @Override
@@ -205,8 +213,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     public static void notifyChange(BatteryBlockEntity batteryBlockEntity) {
         World world = batteryBlockEntity.getWorld();
         if (world != null) {
+            BlockPos blockPos = batteryBlockEntity.getPos();
+            BlockState blockState = batteryBlockEntity.getCachedState();
             batteryBlockEntity.markDirty();
-            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, batteryBlockEntity.getPos());
+            world.updateListeners(blockPos, blockState, blockState, 0);
+            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, blockPos);
         }
     }
 
@@ -235,6 +246,21 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
         }
 
         return false;
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return new int[]{0};
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return this.chargingItem.isEmpty();
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return true;
     }
 
     public static final class Client {

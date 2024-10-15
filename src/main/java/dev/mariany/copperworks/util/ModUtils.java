@@ -1,10 +1,14 @@
 package dev.mariany.copperworks.util;
 
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
+import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.StickyBlock;
+import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.tag.ModTags;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -13,6 +17,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ChunkLevelType;
 import net.minecraft.server.world.ServerWorld;
@@ -26,10 +31,27 @@ import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class ModUtils {
+    public static int wrapIncrement(int value, int min, int max) {
+        if (value < min || value > max) {
+            throw new IllegalArgumentException("Value is out of bounds.");
+        }
+
+        value++;
+
+        if (value > max) {
+            value = min;
+        }
+
+        return value;
+    }
+
     public static boolean itemNeedsCharge(ItemStack itemStack) {
         Integer chargeComponent = itemStack.get(ModComponents.CHARGE);
         Integer maxChargeComponent = itemStack.get(ModComponents.MAX_CHARGE);
@@ -45,11 +67,37 @@ public class ModUtils {
         return chargeComponent < maxChargeComponent;
     }
 
+    private static int getChargeFromBatteryStack(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof BlockItem blockItem) {
+            if (blockItem.getBlock() instanceof BatteryBlock) {
+                BlockStateComponent blockStateComponent = itemStack.get(DataComponentTypes.BLOCK_STATE);
+
+                if (blockStateComponent == null) {
+                    return 0;
+                }
+
+                Integer charge = blockStateComponent.getValue(ModProperties.CHARGE);
+
+                if (charge != null) {
+                    return charge;
+                }
+            }
+        }
+
+        return 0;
+    }
+
     public static boolean itemHasSomeCharge(ItemStack itemStack) {
         Integer chargeComponent = itemStack.get(ModComponents.CHARGE);
 
         if (itemStack.isEmpty()) {
             return false;
+        }
+
+        int batteryCharge = getChargeFromBatteryStack(itemStack);
+
+        if (batteryCharge > 0) {
+            return true;
         }
 
         if (chargeComponent == null) {

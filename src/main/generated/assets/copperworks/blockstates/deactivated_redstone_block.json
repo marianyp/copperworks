@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "copperworks:block/deactivated_redstone_block"
+    }
+  }
+}

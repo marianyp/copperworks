@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "type": "copperworks:reset_clock",
+  "sound": {
+    "id": "minecraft:block.note.hat",
+    "sound": 0.6,
+    "pitch": 0.6
+  }
+}

@@ -42,14 +42,14 @@ public class ModBlocks {
             new ChargedRelayBlock(genericCopperSettings()));
 
     public static final Block COPPER_RELAY = registerChargeable("copper_relay",
-            new RelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
+            new RelayBlock(AbstractBlock.Settings.copy(COPPER_RELAY_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
             ModConstants.DEFAULT_CHARGE_RATE, COPPER_RELAY_CHARGED);
 
     public static final Block COPPER_RELAY_BOUND = registerBlock("copper_relay_bound",
-            new BoundRelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)));
+            new BoundRelayBlock(AbstractBlock.Settings.copy(COPPER_RELAY_CHARGED)));
 
     public static final Block COPPER_RELAY_RADIO_BOUND = registerBlock("copper_relay_radio_bound",
-            new RadioBoundRelayBlock(AbstractBlock.Settings.copyShallow(COPPER_RELAY_CHARGED)));
+            new RadioBoundRelayBlock(AbstractBlock.Settings.copy(COPPER_RELAY_CHARGED)));
 
     public static final Block PATINA = registerPatina();
 
@@ -57,17 +57,20 @@ public class ModBlocks {
             new StickyBlock(genericCopperSettings().velocityMultiplier(0)));
 
     public static final Block STICKY_COPPER_HONEY = registerBlock("sticky_copper_honey",
-            new StickyBlock(AbstractBlock.Settings.copyShallow(STICKY_COPPER)));
+            new StickyBlock(AbstractBlock.Settings.copy(STICKY_COPPER)));
 
     public static final Block COPPER_SENSOR_CHARGED = registerBlock("copper_sensor_charged",
             new ChargedSensorBlock(genericCopperSettings().strength(2)));
 
     public static final Block COPPER_SENSOR = registerChargeable("copper_sensor",
-            new SensorBlock(AbstractBlock.Settings.copyShallow(COPPER_SENSOR_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
+            new SensorBlock(AbstractBlock.Settings.copy(COPPER_SENSOR_CHARGED)), ModConstants.DEFAULT_MAX_CHARGE,
             ModConstants.DEFAULT_CHARGE_RATE, COPPER_SENSOR_CHARGED);
 
     public static final Block COMPARATOR_MIRROR = registerBlock("comparator_mirror",
             new ComparatorMirrorBlock(genericCopperSettings().sounds(BlockSoundGroup.COPPER_BULB)));
+
+    public static final Block DEACTIVATED_REDSTONE_BLOCK = registerBlock("deactivated_redstone_block",
+            new Block(AbstractBlock.Settings.copy(Blocks.REDSTONE_BLOCK)));
 
     private static AbstractBlock.Settings genericCopperSettings() {
         return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
@@ -129,6 +132,8 @@ public class ModBlocks {
         Copperworks.LOGGER.info("Registering Mod Blocks for " + Copperworks.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
+            entries.addAfter(Items.REDSTONE_BLOCK, DEACTIVATED_REDSTONE_BLOCK);
+            entries.addAfter(Items.COMPARATOR, COMPARATOR_MIRROR);
             entries.addAfter(Items.TARGET, COPPER_CLOCK);
             entries.addAfter(Items.LEVER, COPPER_LEVER);
 

@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "type": "copperworks:property_increment",
+  "wrap": true,
+  "property": "note"
+}

@@ -42,7 +42,7 @@ public class ClockBlockEntity extends BlockEntity {
         return this.progress >= this.targetProgress;
     }
 
-    private void resetProgress() {
+    public void resetProgress() {
         if (this.progress > 0) {
             this.progress = 0;
             if (this.world != null) {

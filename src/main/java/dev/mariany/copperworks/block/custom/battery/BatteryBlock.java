@@ -1,6 +1,10 @@
 package dev.mariany.copperworks.block.custom.battery;
 
 import com.mojang.serialization.MapCodec;
+import dev.mariany.copperworks.api.interaction.AbstractBatteryInteraction;
+import dev.mariany.copperworks.api.interaction.ExtendPulseInteraction;
+import dev.mariany.copperworks.api.interaction.InteractionSound;
+import dev.mariany.copperworks.api.registry.BatteryInteractionRegistry;
 import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
@@ -8,9 +12,7 @@ import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
 import dev.mariany.copperworks.item.component.ModComponents;
 import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -19,15 +21,19 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -35,49 +41,141 @@ import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEntityProvider {
     public static final MapCodec<BatteryBlock> CODEC = BatteryBlock.createCodec(BatteryBlock::new);
     public static final IntProperty CHARGE = ModProperties.CHARGE;
+    public static final BooleanProperty POWERED = Properties.POWERED;
 
     public BatteryBlock(Settings settings) {
         super(settings);
     }
 
     protected BlockState applyDefaultState(BlockState state) {
-        return super.applyDefaultState(state).with(CHARGE, ModConstants.MAX_BATTERY_CHARGE);
+        return super.applyDefaultState(state).with(CHARGE, ModConstants.MAX_BATTERY_CHARGE).with(POWERED, false);
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(CHARGE);
+        builder.add(CHARGE, POWERED);
+    }
+
+    private void sendPulse(World world, BlockPos pos, Direction direction) {
+        BlockPos iterationPosition = pos.offset(direction, 1);
+        while (true) {
+            BlockState iterationBlockState = world.getBlockState(iterationPosition);
+            Block iterationBlock = iterationBlockState.getBlock();
+            AbstractBatteryInteraction interaction = BatteryInteractionRegistry.getInteraction(iterationBlock);
+
+            if (iterationBlock instanceof BatteryBlock) {
+                sendPulse(world, iterationPosition, getDirection(iterationBlockState));
+                return;
+            }
+
+            if (interaction == null) {
+                return;
+            }
+
+            if (interaction instanceof ExtendPulseInteraction extendPulseInteraction) {
+                if (extendPulseInteraction.sameAxis) {
+                    if (iterationBlockState.contains(Properties.FACING)) {
+                        if (!iterationBlockState.get(Properties.FACING).getAxis().equals(direction.getAxis())) {
+                            return;
+                        }
+                    }
+                }
+            } else {
+                interaction.executeInteraction(world, iterationPosition);
+                if (!world.isClient) {
+                    playInteractionSound(world, iterationPosition, interaction.getSound());
+                }
+                return;
+            }
+
+            iterationPosition = iterationPosition.offset(direction, 1);
+        }
+    }
+
+    private void playInteractionSound(World world, BlockPos pos, InteractionSound interactionSound) {
+        float volume = interactionSound.volume();
+        float pitch = interactionSound.pitch();
+        Optional<SoundEvent> optionalSoundEvent = interactionSound.sound();
+        optionalSoundEvent.ifPresent(
+                soundEvent -> world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, soundEvent,
+                        SoundCategory.BLOCKS, volume, pitch));
+    }
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos,
+                                  boolean notify) {
+        boolean powered = isPowered(world, pos);
+        if (powered != state.get(POWERED)) {
+            world.setBlockState(pos, state.with(POWERED, powered), Block.NOTIFY_LISTENERS);
+
+            if (powered && state.get(CHARGE) > 0) {
+                sendPulse(world, pos, getDirection(state));
+            }
+        }
+    }
+
+    private boolean isPowered(World world, BlockPos blockPos) {
+        for (Direction direction : Direction.values()) {
+            if (world.isEmittingRedstonePower(blockPos.offset(direction), direction)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
     protected ItemActionResult onUseWithItem(ItemStack useStack, BlockState state, World world, BlockPos pos,
                                              PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!useStack.isEmpty() && world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
-            if (batteryBlockEntity.isEmpty()) {
-                player.incrementStat(Stats.USED.getOrCreateStat(useStack.getItem()));
+        if (useStack.isEmpty()) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
 
-                ItemStack itemStack = useStack.splitUnlessCreative(1, player);
-                batteryBlockEntity.setStack(itemStack);
+        if (useStack.getItem() instanceof BlockItem blockItem) {
+            Block block = blockItem.getBlock();
 
-                playItemPlopSound(world, pos);
+            if (block instanceof BatteryBlock) {
+                return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            }
 
-                BatteryBlockEntity.notifyChange(batteryBlockEntity);
-                return ItemActionResult.success(world.isClient);
+            if (BatteryInteractionRegistry.getInteraction(block) != null) {
+                return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
         }
 
-        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        Block aboveBlock = world.getBlockState(pos.up()).getBlock();
+
+        if (!(aboveBlock instanceof AirBlock) && !(aboveBlock instanceof FluidBlock)) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        if (!(world.getBlockEntity(
+                pos) instanceof BatteryBlockEntity batteryBlockEntity) || !batteryBlockEntity.isEmpty()) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        player.incrementStat(Stats.USED.getOrCreateStat(useStack.getItem()));
+
+        ItemStack itemStack = useStack.splitUnlessCreative(1, player);
+        batteryBlockEntity.setStack(itemStack);
+
+        playItemPlopSound(world, pos);
+
+        BatteryBlockEntity.notifyChange(batteryBlockEntity);
+        return ItemActionResult.success(world.isClient);
     }
 
     @Override
@@ -149,6 +247,26 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
         }
 
         return super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    protected boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        if (world.getBlockEntity(pos) instanceof BatteryBlockEntity batteryBlockEntity) {
+            if (batteryBlockEntity.isCharging()) {
+                return 15;
+            }
+
+            if (!batteryBlockEntity.getStack().isEmpty()) {
+                return 1;
+            }
+        }
+
+        return 0;
     }
 
     @Override

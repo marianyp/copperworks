@@ -3,6 +3,7 @@ package dev.mariany.copperworks;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
+import dev.mariany.copperworks.data.BatteryInteractionLoader;
 import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.entity.villager.ModTradesOffers;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
@@ -26,6 +27,8 @@ public class Copperworks implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        BatteryInteractionLoader.register();
+
         ModArmorMaterials.registerModArmorMaterials();
         ModComponents.registerModComponents();
         ModAttachmentTypes.registerAttachmentTypes();

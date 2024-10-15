@@ -36,6 +36,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.COPPER_SENSOR);
         addDrop(ModBlocks.COPPER_SENSOR_CHARGED);
         addDrop(ModBlocks.COMPARATOR_MIRROR);
+        addDrop(ModBlocks.DEACTIVATED_REDSTONE_BLOCK);
 
         addRelayDrops();
     }

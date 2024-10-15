@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "type": "copperworks:convert_block",
+  "convert_to": "minecraft:redstone_block",
+  "sound": {
+    "id": "minecraft:block.end_portal_frame.fill",
+    "sound": 0.4,
+    "pitch": 2
+  }
+}
