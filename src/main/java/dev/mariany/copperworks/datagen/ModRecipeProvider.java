@@ -42,6 +42,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createComparatorMirrorRecipe(exporter);
         createCopperStasisChamberRecipe(exporter);
         createWoodenRailRecipe(exporter);
+        createWrenchRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -149,5 +150,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TRANSPORTATION, ModBlocks.WOODEN_RAIL).input('P', ItemTags.PLANKS)
                 .input('S', Items.STICK).pattern("P P").pattern("PSP").pattern("P P")
                 .criterion(hasItem(Items.MINECART), conditionsFromItem(Items.MINECART)).offerTo(exporter);
+    }
+
+    private void createWrenchRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.WRENCH).input('C', Items.COPPER_INGOT)
+                .input('I', Items.IRON_INGOT).pattern("I I").pattern(" C ").pattern(" C ")
+                .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT)).offerTo(exporter);
     }
 }

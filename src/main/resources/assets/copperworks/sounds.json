@@ -1,4 +1,13 @@
 {
+	"wrench": {
+		"subtitle": "subtitles.item.copperworks.wrench",
+		"sounds": [
+			{
+				"name": "copperworks:wrench",
+				"stream": false
+			}
+		]
+	},
 	"charge": {
 		"subtitle": "subtitles.block.copperworks.charge",
 		"sounds": [

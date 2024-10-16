@@ -27,6 +27,7 @@ public class ModItems {
     public static final Item RADIO = registerItem("radio", new RadioItem(new Item.Settings().maxCount(1)));
     public static final Item COPPER_UPGRADE_SMITHING_TEMPLATE = registerItem("copper_upgrade_smithing_template",
             new CopperSmithingTemplateItem(64));
+    public static final Item WRENCH = registerItem("wrench", new WrenchItem(new Item.Settings().maxDamage(200)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Copperworks.id(name), item);
@@ -53,6 +54,7 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.addBefore(Items.COMPASS, RADIO);
             entries.addAfter(Items.NETHERITE_HOE, COPPER_DRILL);
+            entries.addAfter(COPPER_DRILL, ModItems.WRENCH);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {

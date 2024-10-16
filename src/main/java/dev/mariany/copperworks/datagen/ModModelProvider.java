@@ -45,6 +45,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.ENDER_POWDER, Models.GENERATED);
         itemModelGenerator.register(ModItems.AMETHYST_PIECE, Models.GENERATED);
         itemModelGenerator.register(ModItems.COPPER_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WRENCH, Models.HANDHELD);
     }
 
     private void registerBattery(BlockStateModelGenerator blockStateModelGenerator, Block battery) {
