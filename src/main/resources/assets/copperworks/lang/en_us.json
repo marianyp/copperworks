@@ -10,6 +10,11 @@
   "item.copperworks.amethyst_piece": "Amethyst Piece",
   "item.copperworks.radio": "Radio",
   "item.copperworks.radio.not_loaded": "Activation failed; relay isn't loaded",
+  "item.copperworks.copper_upgrade_smithing_template": "Smithing Template",
+  "item.copperworks.smithing_template.copper_upgrade.additions_slot_description": "Add Copper Ingot",
+  "item.copperworks.smithing_template.copper_upgrade.applies_to": "Redstone Components and Wooden Rails",
+  "item.copperworks.smithing_template.copper_upgrade.base_slot_description": "Add applicable redstone component",
+  "item.copperworks.smithing_template.copper_upgrade.ingredients": "Copper Ingot",
   "item.copperworks.charge.tooltip": "Charge: %s",
   "item.copperworks.radio.dimension.tooltip": "%s",
   "item.copperworks.radio.dimension.overworld.tooltip": "Overworld",
@@ -37,6 +42,8 @@
   "block.copperworks.deactivated_redstone_block": "Deactivated Redstone",
   "block.copperworks.copper_stasis_chamber": "Copper Stasis Chamber",
   "block.copperworks.copper_stasis_chamber_charged": "Copper Stasis Chamber",
+  "block.copperworks.wooden_rail": "Wooden Rail",
+  "block.copperworks.copper_rail": "Copper Rail",
   "enchantment.copperworks.shock": "Shock",
   "enchantment.copperworks.life_current": "Life Current",
   "enchantment.copperworks.charged_attraction": "Charged Attraction",
@@ -49,5 +56,6 @@
   "subtitles.block.copperworks.charge": "Item Charging",
   "subtitles.block.copperworks.done_charging": "Item Done Charging",
   "subtitles.item.copperworks.radio_used": "Radio Used",
-  "subtitles.item.copperworks.radio_fail": "Radio Fail"
+  "subtitles.item.copperworks.radio_fail": "Radio Fail",
+  "upgrade.copperworks.copper_upgrade": "Copper Upgrade"
 }

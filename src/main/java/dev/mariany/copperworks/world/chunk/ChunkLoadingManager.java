@@ -46,11 +46,17 @@ public class ChunkLoadingManager {
             existingChunkLoaders.addAll(worldState.chunkLoaders.get(chunkPos));
         }
 
+
         if (existingChunkLoaders.remove(blockPos)) {
             world.setChunkForced(chunkPos.x, chunkPos.z, !existingChunkLoaders.isEmpty());
         }
 
-        worldState.chunkLoaders.put(chunkPos, existingChunkLoaders);
+        if (existingChunkLoaders.isEmpty()) {
+            worldState.chunkLoaders.remove(chunkPos);
+        } else {
+            worldState.chunkLoaders.put(chunkPos, existingChunkLoaders);
+        }
+
         worldState.markDirty();
 
         Copperworks.LOGGER.info("Removed chunk loader at block position {} for chunk {}", blockPos.toShortString(),

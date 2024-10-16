@@ -1,5 +1,6 @@
-package dev.mariany.copperworks.event;
+package dev.mariany.copperworks.event.entity;
 
+import dev.mariany.copperworks.event.server.ServerWorldTickHandler;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.tag.ModTags;
 import net.minecraft.entity.ItemEntity;

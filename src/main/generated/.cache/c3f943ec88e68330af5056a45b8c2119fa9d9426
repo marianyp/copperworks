@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-15T08:43:44.8186477	Copperworks/Recipes
+// 1.21.1	2024-10-16T16:14:02.2875514	Copperworks/Recipes
 7fcdd120f9d538fe7bcf1ad00bdd06ed4ad5f0b0 data\copperworks\recipe\copper_frame.json
 685641e6b8c7110eb2d1e64a32a6fe6d354e0aa6 data\copperworks\advancement\recipes\combat\copper_battery.json
 7d5bf932e9b75b40bc5f363571516bb231677fc0 data\copperworks\advancement\recipes\misc\copper_plate.json
@@ -27,9 +27,11 @@ ebe01d53de6f8f591cabd1caa2dd705d268173e8 data\copperworks\recipe\copper_plate.js
 be1e2ea7c398bb8e693211757e66f6836e01bc98 data\copperworks\recipe\reset_radio.json
 4bacbcac60c51d61ccec0bc6a062969d91e87653 data\copperworks\advancement\recipes\misc\iron_plate.json
 f69f6fdb3c988e8a47ed171aa8c51d7b5c0fcf0f data\copperworks\advancement\recipes\misc\ender_powder.json
+340be3451fc06ee337ac183539ac34d3e2228de5 data\copperworks\recipe\wooden_rail.json
 cfdd586cd96ecaa9dd86721056edbcd261dee274 data\copperworks\advancement\recipes\building_blocks\copper_frame.json
 c17369abab34a7d651dbc9ff8beeca952f4ed1c3 data\copperworks\recipe\ender_powder.json
 43397960a4b1d4591a71e09d7a4821a991509c85 data\copperworks\advancement\recipes\redstone\reset_radio.json
 048ba4c798a2cb74ee059f4d0541cf22ee6c7a97 data\copperworks\recipe\copper_clock.json
 d52659a2124d25bc46f3081e396c9d12ac3d1fce data\copperworks\recipe\sticky_copper_honey.json
 10b5208b1d8aa48f63c5e49c5e8ad044738403cb data\copperworks\recipe\iron_plate.json
+332dec9826338e771d5ed25b4ce9a0f06dde892d data\copperworks\advancement\recipes\transportation\wooden_rail.json

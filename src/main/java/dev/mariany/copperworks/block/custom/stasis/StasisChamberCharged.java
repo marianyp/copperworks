@@ -4,9 +4,9 @@ import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.entity.custom.StasisChamberBlockEntity;
-import dev.mariany.copperworks.world.chunk.ChunkLoaderBlock;
 import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
+import dev.mariany.copperworks.world.chunk.ChunkLoaderBlock;
 import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,6 +31,7 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
@@ -73,6 +74,14 @@ public class StasisChamberCharged extends AbstractStasisChamber implements Chunk
     }
 
     @Override
+    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        super.onStateReplaced(state, world, pos, newState, moved);
+        if (!(newState.getBlock() instanceof StasisChamberCharged)) {
+            ChunkLoadingManager.stopLoading((ServerWorld) world, pos);
+        }
+    }
+
+    @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient && player.isCreative() && world.getGameRules()
                 .getBoolean(GameRules.DO_TILE_DROPS) && world.getBlockEntity(
@@ -86,8 +95,6 @@ public class StasisChamberCharged extends AbstractStasisChamber implements Chunk
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             }
-
-            ChunkLoadingManager.stopLoading((ServerWorld) world, pos);
         }
 
         return super.onBreak(world, pos, state, player);
@@ -104,8 +111,11 @@ public class StasisChamberCharged extends AbstractStasisChamber implements Chunk
                 if (world instanceof ServerWorld serverWorld) {
                     LivingEntity owner = stasisChamberBlockEntity.getOwner();
                     if (owner != null) {
-                        owner.teleportTo(new TeleportTarget(serverWorld, pos.up().toBottomCenterPos(), Vec3d.ZERO,
-                                owner.getYaw(), owner.getPitch(), TeleportTarget.NO_OP));
+                        Vec3d abovePos = Vec3d.of(pos.up());
+                        float teleportY = (float) (pos.getY() + SHAPE.getMax(Direction.Axis.Y));
+                        Vec3d teleportPos = new Vec3d(abovePos.x + 0.5, teleportY, abovePos.z + 0.5);
+                        owner.teleportTo(new TeleportTarget(serverWorld, teleportPos, Vec3d.ZERO, owner.getYaw(),
+                                owner.getPitch(), TeleportTarget.NO_OP));
                         owner.onLanding();
 
                         if (owner instanceof ServerPlayerEntity serverPlayer) {

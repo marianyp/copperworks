@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "P P",
+    "PSP",
+    "P P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "copperworks:wooden_rail"
+  }
+}

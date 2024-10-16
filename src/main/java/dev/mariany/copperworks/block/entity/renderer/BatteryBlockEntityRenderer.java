@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.block.entity.renderer;
 
+import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.block.custom.battery.BatteryClientData;
 import dev.mariany.copperworks.block.entity.custom.BatteryBlockEntity;
@@ -15,6 +16,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
@@ -42,7 +44,8 @@ public class BatteryBlockEntityRenderer implements BlockEntityRenderer<BatteryBl
             return;
         }
 
-        BlockState state = world.getBlockState(batteryBlockEntity.getPos());
+        BlockPos pos = batteryBlockEntity.getPos();
+        BlockState state = world.getBlockState(pos);
 
         if (!(state.getBlock() instanceof BatteryBlock)) {
             return;
@@ -51,7 +54,8 @@ public class BatteryBlockEntityRenderer implements BlockEntityRenderer<BatteryBl
         Direction facing = state.get(Properties.HORIZONTAL_FACING);
         BlockFace face = state.get(Properties.BLOCK_FACE);
 
-        int lightAbove = WorldRenderer.getLightmapCoordinates(world, batteryBlockEntity.getPos().up());
+        int lightAbove = WorldRenderer.getLightmapCoordinates(world,
+                pos.offset(WallMountedBlockWithEntity.getDirection(state)));
         BatteryClientData clientData = batteryBlockEntity.getClientData();
 
         float previousRotation = clientData.getPreviousDisplayRotation();

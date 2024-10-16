@@ -81,6 +81,12 @@ public class ModBlocks {
             new StasisChamber(AbstractBlock.Settings.copy(COPPER_STASIS_CHAMBER_CHARGED)),
             ModConstants.DEFAULT_MAX_CHARGE * 2, ModConstants.DEFAULT_CHARGE_RATE, COPPER_STASIS_CHAMBER_CHARGED);
 
+    public static final Block WOODEN_RAIL = registerBlock("wooden_rail", new RailBlock(
+            AbstractBlock.Settings.create().noCollision().strength(0.4F).sounds(BlockSoundGroup.LADDER)
+                    .pistonBehavior(PistonBehavior.DESTROY)));
+
+    public static final Block COPPER_RAIL = registerBlock("copper_rail",
+            new RailBlock(AbstractBlock.Settings.copy(Blocks.RAIL)));
 
     private static AbstractBlock.Settings genericCopperSettings() {
         return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
@@ -147,6 +153,9 @@ public class ModBlocks {
             entries.addAfter(Items.COMPARATOR, COMPARATOR_MIRROR);
             entries.addAfter(Items.TARGET, COPPER_CLOCK);
             entries.addAfter(Items.LEVER, COPPER_LEVER);
+
+            entries.addBefore(Items.RAIL, WOODEN_RAIL);
+            entries.addAfter(Items.RAIL, COPPER_RAIL);
 
             entries.add(COPPER_BATTERY);
             entries.add(COPPER_RELAY);

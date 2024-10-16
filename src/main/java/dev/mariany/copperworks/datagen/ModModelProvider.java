@@ -26,6 +26,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_BOUND);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_RADIO_BOUND);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEACTIVATED_REDSTONE_BLOCK);
+        blockStateModelGenerator.registerTurnableRail(ModBlocks.WOODEN_RAIL);
+        blockStateModelGenerator.registerTurnableRail(ModBlocks.COPPER_RAIL);
 
         registerBattery(blockStateModelGenerator, ModBlocks.COPPER_BATTERY);
         registerStickyBlocks(blockStateModelGenerator);
@@ -42,6 +44,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.COPPER_LEVER.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDER_POWDER, Models.GENERATED);
         itemModelGenerator.register(ModItems.AMETHYST_PIECE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COPPER_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
     }
 
     private void registerBattery(BlockStateModelGenerator blockStateModelGenerator, Block battery) {

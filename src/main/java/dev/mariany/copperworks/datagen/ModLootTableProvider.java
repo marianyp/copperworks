@@ -39,6 +39,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.DEACTIVATED_REDSTONE_BLOCK);
         addDrop(ModBlocks.COPPER_STASIS_CHAMBER);
         addDrop(ModBlocks.COPPER_STASIS_CHAMBER_CHARGED, this::chargeDrop);
+        addDrop(ModBlocks.WOODEN_RAIL);
+        addDrop(ModBlocks.COPPER_RAIL);
 
         addRelayDrops();
     }

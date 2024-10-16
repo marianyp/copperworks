@@ -29,6 +29,10 @@ public abstract class WallMountedBlockWithEntity extends WallMountedBlock implem
         builder.add(FACING, FACE);
     }
 
+    public static Direction getDirection(BlockState state) {
+        return WallMountedBlock.getDirection(state);
+    }
+
     @Override
     protected abstract MapCodec<? extends WallMountedBlockWithEntity> getCodec();
 

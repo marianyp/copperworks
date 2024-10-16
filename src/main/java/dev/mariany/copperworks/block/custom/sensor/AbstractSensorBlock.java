@@ -2,10 +2,7 @@ package dev.mariany.copperworks.block.custom.sensor;
 
 import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.custom.WallMountedBlockWithEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;

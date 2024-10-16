@@ -42,6 +42,8 @@ public class CopperworksClient implements ClientModInitializer {
 
     private void registerBlockRenderLayers() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PATINA, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WOODEN_RAIL, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPER_RAIL, RenderLayer.getCutout());
     }
 
     public static void registerModelPredicateProviders() {
@@ -52,8 +54,8 @@ public class CopperworksClient implements ClientModInitializer {
                 (itemStack, clientWorld, livingEntity, seed) -> ModUtils.itemNeedsCharge(itemStack) ? 0 : 1);
 
         ModelPredicateProviderRegistry.register(ModItems.PARTIAL_DRAGON_BREATH, DRAGON_BREATH_FILL,
-                (itemStack, clientWorld, livingEntity, seed) -> itemStack.getOrDefault(CopperworksComponents.DRAGON_BREATH_FILL,
-                        0));
+                (itemStack, clientWorld, livingEntity, seed) -> itemStack.getOrDefault(
+                        CopperworksComponents.DRAGON_BREATH_FILL, 0));
 
         ModelPredicateProviderRegistry.register(ModItems.RADIO, BOUND,
                 (itemStack, clientWorld, livingEntity, seed) -> itemStack.get(

@@ -27,6 +27,10 @@ public class StateSaverAndLoader extends PersistentState {
             ChunkPos chunkPos = entry.getKey();
             Set<BlockPos> blockPositions = entry.getValue();
 
+            if (blockPositions.isEmpty()) {
+                continue;
+            }
+
             NbtCompound chunkPosNbt = new NbtCompound();
             chunkPosNbt.putInt("x", chunkPos.x);
             chunkPosNbt.putInt("z", chunkPos.z);
@@ -65,6 +69,10 @@ public class StateSaverAndLoader extends PersistentState {
 
             for (String key : chunkLoadersNbt.getKeys()) {
                 NbtList posList = chunkLoadersNbt.getList(key, NbtCompound.COMPOUND_TYPE);
+
+                if (posList.isEmpty()) {
+                    continue;
+                }
 
                 ChunkPos chunkPos = getChunkPosFromKey(key);
 

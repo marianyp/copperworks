@@ -8,7 +8,7 @@ import dev.mariany.copperworks.data.BatteryInteractionLoader;
 import dev.mariany.copperworks.enchantment.ModEnchantments;
 import dev.mariany.copperworks.entity.villager.ModTradesOffers;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
-import dev.mariany.copperworks.event.ServerTickHandler;
+import dev.mariany.copperworks.event.server.ServerTickHandler;
 import dev.mariany.copperworks.event.block.UseBlockHandler;
 import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;

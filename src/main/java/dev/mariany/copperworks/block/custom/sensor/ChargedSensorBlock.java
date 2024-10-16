@@ -7,7 +7,6 @@ import dev.mariany.copperworks.block.entity.custom.SensorBlockEntity;
 import dev.mariany.copperworks.util.ModConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.WallMountedBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -99,10 +98,6 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     @Override
     protected BlockState applyDefaultState(BlockState state) {
         return super.applyDefaultState(state).with(POWER, 0).with(RANGE, DEFAULT_RANGE);
-    }
-
-    public static Direction getDirection(BlockState state) {
-        return WallMountedBlock.getDirection(state);
     }
 
     @Override

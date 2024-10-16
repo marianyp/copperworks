@@ -13,6 +13,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -40,6 +41,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createCopperSensorRecipe(exporter);
         createComparatorMirrorRecipe(exporter);
         createCopperStasisChamberRecipe(exporter);
+        createWoodenRailRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -141,5 +143,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('C', ModItems.COPPER_PLATE).input('P', ModItems.ENDER_POWDER).input('O', Items.CRYING_OBSIDIAN)
                 .input('E', Items.ENDER_PEARL).pattern("CCC").pattern("PEP").pattern("OOO")
                 .criterion(hasItem(ModItems.ENDER_POWDER), conditionsFromItem(ModItems.ENDER_POWDER)).offerTo(exporter);
+    }
+
+    private void createWoodenRailRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TRANSPORTATION, ModBlocks.WOODEN_RAIL).input('P', ItemTags.PLANKS)
+                .input('S', Items.STICK).pattern("P P").pattern("PSP").pattern("P P")
+                .criterion(hasItem(Items.MINECART), conditionsFromItem(Items.MINECART)).offerTo(exporter);
     }
 }

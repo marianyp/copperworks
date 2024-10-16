@@ -1,4 +1,5 @@
-// 1.21.1	2024-10-15T08:43:44.824649	Copperworks/Block Loot Tables
+// 1.21.1	2024-10-16T16:14:02.295069	Copperworks/Block Loot Tables
+3faa6442371695ccef2977abf0e7129c89371eaa data\copperworks\loot_table\blocks\copper_rail.json
 f8c0587b7fa997a9f2dd27a89f65b826a8e85240 data\copperworks\loot_table\blocks\sticky_copper_honey.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_bound.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_radio_bound.json
@@ -8,6 +9,7 @@ b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copp
 6eb3044d95aa14cad8f02e1edaf549ce4e82019f data\copperworks\loot_table\blocks\copper_battery.json
 e9207f1b5540e51da6f53aaf542fa5e2a517da2e data\copperworks\loot_table\blocks\patina.json
 5f5d5c1bcba29b7f837467e3fb80aa63476931ed data\copperworks\loot_table\blocks\copper_sensor_charged.json
+8cc385da410c61ef51cef6e50fb457a8814fbc9e data\copperworks\loot_table\blocks\wooden_rail.json
 63802977bdbe55321fbe234dcd53a38c798f2372 data\copperworks\loot_table\blocks\copper_lever.json
 7b0b95e8a500d06de94ede7ca519c999c9ae826b data\copperworks\loot_table\blocks\copper_clock.json
 0ae35808a24036a9256cb3e4951a6e2f2feb5a98 data\copperworks\loot_table\blocks\deactivated_redstone_block.json

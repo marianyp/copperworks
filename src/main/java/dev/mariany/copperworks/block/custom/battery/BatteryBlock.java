@@ -69,15 +69,19 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
         builder.add(CHARGE, POWERED);
     }
 
-    private void sendPulse(World world, BlockPos pos, Direction direction) {
+    private void sendPulse(World world, BlockPos pos, BlockPos origin, Direction direction) {
         BlockPos iterationPosition = pos.offset(direction, 1);
         while (true) {
+            if (iterationPosition.equals(origin)) {
+                return;
+            }
+
             BlockState iterationBlockState = world.getBlockState(iterationPosition);
             Block iterationBlock = iterationBlockState.getBlock();
             AbstractBatteryInteraction interaction = BatteryInteractionRegistry.getInteraction(iterationBlock);
 
             if (iterationBlock instanceof BatteryBlock) {
-                sendPulse(world, iterationPosition, getDirection(iterationBlockState));
+                sendPulse(world, iterationPosition, origin, getDirection(iterationBlockState));
                 return;
             }
 
@@ -122,7 +126,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
             world.setBlockState(pos, state.with(POWERED, powered), Block.NOTIFY_LISTENERS);
 
             if (powered && state.get(CHARGE) > 0) {
-                sendPulse(world, pos, getDirection(state));
+                sendPulse(world, pos, pos, getDirection(state));
             }
         }
     }
@@ -146,7 +150,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
             }
         }
 
-        Block aboveBlock = world.getBlockState(pos.up()).getBlock();
+        Block aboveBlock = world.getBlockState(pos.offset(getDirection(state))).getBlock();
 
         if (!(aboveBlock instanceof AirBlock) && !(aboveBlock instanceof FluidBlock)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -204,7 +208,7 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
 
             if (ModUtils.isCharging(stack)) {
                 stack.remove(CopperworksComponents.CHARGING);
-                batteryBlockEntity.setStack(stack);
+                batteryBlockEntity.setStack(stack, false);
             }
         }
         ItemScatterer.onStateReplaced(state, newState, world, pos);

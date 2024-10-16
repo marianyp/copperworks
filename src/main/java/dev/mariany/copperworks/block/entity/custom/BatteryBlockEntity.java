@@ -108,8 +108,12 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
 
     @Override
     public void setStack(ItemStack chargingItem) {
+        setStack(chargingItem, true);
+    }
+
+    public void setStack(ItemStack chargingItem, boolean applyCharging) {
         ItemStack itemStack = chargingItem.copy();
-        if (ModUtils.itemNeedsCharge(itemStack)) {
+        if (applyCharging && ModUtils.itemNeedsCharge(itemStack)) {
             itemStack.set(CopperworksComponents.CHARGING, true);
         }
         this.chargingItem = itemStack;
