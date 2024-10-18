@@ -19,8 +19,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
             ModBlocks.COPPER_RELAY_CHARGED, ModBlocks.COPPER_RELAY_RADIO_BOUND, ModBlocks.STICKY_COPPER,
             ModBlocks.STICKY_COPPER_HONEY, ModBlocks.COPPER_SENSOR, ModBlocks.COPPER_SENSOR_CHARGED,
             ModBlocks.COMPARATOR_MIRROR, ModBlocks.DEACTIVATED_REDSTONE_BLOCK, ModBlocks.COPPER_STASIS_CHAMBER,
-            ModBlocks.COPPER_STASIS_CHAMBER_CHARGED);
+            ModBlocks.COPPER_STASIS_CHAMBER_CHARGED, ModBlocks.ENHANCED_SCULK_SENSOR);
     private static final List<Block> AXE_MINEABLE = List.of(ModBlocks.WOODEN_RAIL);
+    private static final List<Block> HOE_MINEABLE = List.of(ModBlocks.ENHANCED_SCULK_SENSOR);
     private static final List<Block> NEEDS_STONE_TOOL = List.of(ModBlocks.COPPER_CLOCK, ModBlocks.COPPER_LEVER,
             ModBlocks.COPPER_FRAME, ModBlocks.COPPER_BATTERY, ModBlocks.COPPER_RELAY, ModBlocks.COPPER_RELAY_BOUND,
             ModBlocks.COPPER_RELAY_CHARGED, ModBlocks.COPPER_RELAY_RADIO_BOUND, ModBlocks.STICKY_COPPER,
@@ -40,8 +41,13 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         for (Block block : PICKAXE_MINEABLE) {
             getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(block);
         }
+
         for (Block block : AXE_MINEABLE) {
             getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).add(block);
+        }
+
+        for (Block block : HOE_MINEABLE) {
+            getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(block);
         }
 
         for (Block block : NEEDS_STONE_TOOL) {

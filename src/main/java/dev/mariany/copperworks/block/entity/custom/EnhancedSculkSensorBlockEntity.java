@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -103,12 +104,20 @@ public class EnhancedSculkSensorBlockEntity extends SculkSensorBlockEntity imple
         };
     }
 
-    private Set<Integer> getFrequencyWhitelist() {
-        return frequencyWhitelist;
+    public void setFrequencyWhitelist(List<Integer> newFrequencyWhitelist) {
+        this.frequencyWhitelist = new HashSet<>(newFrequencyWhitelist);
     }
 
-    private int getRange() {
-        return range;
+    public void setRange(int value) {
+        this.range = value;
+    }
+
+    public Set<Integer> getFrequencyWhitelist() {
+        return this.frequencyWhitelist;
+    }
+
+    public int getRange() {
+        return this.range;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package dev.mariany.copperworks.item.custom;
 
 import dev.mariany.copperworks.block.custom.ComparatorMirrorBlock;
+import dev.mariany.copperworks.block.entity.custom.EnhancedSculkSensorBlockEntity;
+import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockFace;
@@ -12,11 +14,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
+import net.minecraft.text.Text;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -25,7 +27,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class WrenchItem extends Item {
     public WrenchItem(Settings settings) {
@@ -38,6 +42,25 @@ public class WrenchItem extends Item {
     }
 
     @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
+        List<Integer> frequencyWhitelist = stack.get(CopperworksComponents.COPIED_FREQUENCY_WHITELIST);
+        Integer range = stack.get(CopperworksComponents.COPIED_RANGE);
+        if (frequencyWhitelist != null) {
+            Text formattedFrequencies = frequencyWhitelist.isEmpty() ? Text.translatable(
+                    "item.copperworks.wrench.copied_frequencies.none.tooltip") : Text.of(
+                    frequencyWhitelist.stream().map(String::valueOf).collect(Collectors.joining(", ")));
+            tooltip.add(Text.translatable("item.copperworks.wrench.copied_frequencies.tooltip", formattedFrequencies)
+                    .withColor(Colors.GRAY));
+        }
+
+        if (range != null) {
+            tooltip.add(
+                    Text.translatable("item.copperworks.wrench.copied_range.tooltip", range).withColor(Colors.GRAY));
+        }
+    }
+
+    @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
         PlayerEntity player = context.getPlayer();
@@ -47,8 +70,8 @@ public class WrenchItem extends Item {
         Direction side = context.getSide();
         BlockState blockState = world.getBlockState(blockPos);
 
-        if (wrench(world, player, blockState, blockPos, side) || wrench(world, player, blockState, blockPos,
-                side.getOpposite())) {
+        if (wrench(world, player, itemStack, blockState, blockPos, side) || wrench(world, player, itemStack, blockState,
+                blockPos, side.getOpposite())) {
             damage(itemStack, player, hand);
             world.playSoundFromEntity(null, player, ModSoundEvents.WRENCH, SoundCategory.NEUTRAL, 0.24F,
                     MathHelper.nextBetween(world.random, 0.8F, 1F));
@@ -58,12 +81,48 @@ public class WrenchItem extends Item {
         return super.useOnBlock(context);
     }
 
-    private boolean wrench(World world, @Nullable PlayerEntity player, BlockState blockState, BlockPos blockPos,
-                           Direction side) {
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack itemStack = user.getStackInHand(hand);
+        if (itemStack.contains(CopperworksComponents.COPIED_FREQUENCY_WHITELIST) && user.isSneaking()) {
+            itemStack.remove(CopperworksComponents.COPIED_FREQUENCY_WHITELIST);
+            itemStack.remove(CopperworksComponents.COPIED_RANGE);
+            user.sendMessage(Text.translatable("item.copperworks.wrench.cleared_settings.tooltip"), true);
+            if (world.isClient) {
+                user.swingHand(hand);
+            }
+        }
+        return super.use(world, user, hand);
+    }
+
+    private boolean wrench(World world, @Nullable PlayerEntity player, ItemStack itemStack, BlockState blockState,
+                           BlockPos blockPos, Direction side) {
         if (blockState.getBlock() instanceof ComparatorMirrorBlock comparatorMirrorBlock) {
             boolean locked = blockState.get(Properties.LOCKED);
             world.setBlockState(blockPos, comparatorMirrorBlock.getDefaultState().with(Properties.LOCKED, !locked));
             world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, blockPos);
+            return true;
+        }
+
+        if (world.getBlockEntity(blockPos) instanceof EnhancedSculkSensorBlockEntity enhancedSculkSensorBlockEntity) {
+            if (player != null) {
+                if (player.isSneaking() && itemStack.contains(CopperworksComponents.COPIED_FREQUENCY_WHITELIST)) {
+                    List<Integer> frequencyWhitelist = itemStack.getOrDefault(
+                            CopperworksComponents.COPIED_FREQUENCY_WHITELIST, List.of());
+                    Integer range = itemStack.get(CopperworksComponents.COPIED_RANGE);
+                    enhancedSculkSensorBlockEntity.setFrequencyWhitelist(frequencyWhitelist);
+                    if (range != null) {
+                        enhancedSculkSensorBlockEntity.setRange(range);
+                    }
+                    player.sendMessage(Text.translatable("item.copperworks.wrench.applied_settings"), true);
+                } else {
+                    List<Integer> frequencyWhitelist = enhancedSculkSensorBlockEntity.getFrequencyWhitelist().stream()
+                            .toList();
+                    itemStack.set(CopperworksComponents.COPIED_FREQUENCY_WHITELIST, frequencyWhitelist);
+                    itemStack.set(CopperworksComponents.COPIED_RANGE, enhancedSculkSensorBlockEntity.getRange());
+                    player.sendMessage(Text.translatable("item.copperworks.wrench.copied_settings"), true);
+                }
+            }
             return true;
         }
 

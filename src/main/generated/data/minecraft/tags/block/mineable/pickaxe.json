@@ -15,6 +15,7 @@
     "copperworks:comparator_mirror",
     "copperworks:deactivated_redstone_block",
     "copperworks:copper_stasis_chamber",
-    "copperworks:copper_stasis_chamber_charged"
+    "copperworks:copper_stasis_chamber_charged",
+    "copperworks:enhanced_sculk_sensor"
   ]
 }

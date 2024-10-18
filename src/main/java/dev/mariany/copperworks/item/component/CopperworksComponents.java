@@ -10,6 +10,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.GlobalPos;
 
+import java.util.List;
 import java.util.UUID;
 
 public class CopperworksComponents {
@@ -34,6 +35,11 @@ public class CopperworksComponents {
             ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).cache());
     public static final ComponentType<GlobalPos> RELAY_POSITION = register("relay_position",
             ComponentType.<GlobalPos>builder().codec(GlobalPos.CODEC).packetCodec(GlobalPos.PACKET_CODEC).cache());
+    public static final ComponentType<List<Integer>> COPIED_FREQUENCY_WHITELIST = register("copied_frequency_whitelist",
+            ComponentType.<List<Integer>>builder().codec(Codec.INT.listOf())
+                    .packetCodec(PacketCodecs.VAR_INT.collect(PacketCodecs.toList())).cache());
+    public static final ComponentType<Integer> COPIED_RANGE = register("copied_range",
+            ComponentType.<Integer>builder().codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT).cache());
 
     private static <T> ComponentType<T> register(String name, ComponentType.Builder<T> builder) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Copperworks.id(name), builder.build());

@@ -9,6 +9,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -30,9 +31,15 @@ public abstract class ItemStackMixin {
     private void injectChargeTooltip(Item.TooltipContext context, PlayerEntity player, TooltipType type,
                                      CallbackInfoReturnable<List<Text>> cir, List<Text> list, MutableText mutableText,
                                      Consumer<Text> consumer) {
-        ItemStack stack = (ItemStack) (Object) this;
-        Integer charge = stack.get(CopperworksComponents.CHARGE);
-        Integer maxCharge = stack.get(CopperworksComponents.MAX_CHARGE);
+        ItemStack itemStack = (ItemStack) (Object) this;
+
+        addChargeTooltip(itemStack, consumer);
+    }
+
+    @Unique
+    private void addChargeTooltip(ItemStack itemStack, Consumer<Text> consumer) {
+        Integer charge = itemStack.get(CopperworksComponents.CHARGE);
+        Integer maxCharge = itemStack.get(CopperworksComponents.MAX_CHARGE);
         if (charge != null && maxCharge != null) {
             consumer.accept(ModUtils.generateChargeTooltip(charge, maxCharge));
         }

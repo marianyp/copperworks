@@ -3,6 +3,7 @@ package dev.mariany.copperworks.block.custom;
 import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.EnhancedSculkSensorBlockEntity;
+import dev.mariany.copperworks.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,6 +27,13 @@ public class EnhancedSculkSensorBlock extends SculkSensorBlock {
 
     public EnhancedSculkSensorBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos,
+                                             PlayerEntity player, Hand hand, BlockHitResult hit) {
+        return stack.isOf(ModItems.WRENCH) ? ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.onUseWithItem(
+                stack, state, world, pos, player, hand, hit);
     }
 
     @Override

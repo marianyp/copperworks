@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:copper_ingot"
+  },
+  "base": {
+    "item": "minecraft:calibrated_sculk_sensor"
+  },
+  "result": {
+    "count": 1,
+    "id": "copperworks:enhanced_sculk_sensor"
+  },
+  "template": {
+    "item": "copperworks:copper_upgrade_smithing_template"
+  }
+}
