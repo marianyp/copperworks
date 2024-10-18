@@ -3,6 +3,7 @@ package dev.mariany.copperworks;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
+import dev.mariany.copperworks.loot.ModLootTableModifiers;
 import dev.mariany.copperworks.screen.ModScreenHandlers;
 import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import dev.mariany.copperworks.data.BatteryInteractionLoader;
@@ -43,6 +44,7 @@ public class Copperworks implements ModInitializer {
         ModTradesOffers.registerVillagerTrades();
         ModSoundEvents.registerModSoundEvents();
         ModScreenHandlers.registerScreenHandlers();
+        ModLootTableModifiers.modifyLootTables();
 
         ServerLifecycleEvents.SERVER_STARTED.register(ChunkLoadingManager::onServerStart);
         ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);
