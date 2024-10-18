@@ -40,7 +40,7 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
 
     private static final int RANGE_SLIDER_HEIGHT = 44;
 
-    private static final float RANGE_SLIDER_DAMPING = 0.7F;
+    private static final float RANGE_SLIDER_DAMPING = 0.75F;
 
     private boolean initializedRange = false;
     private boolean sliding;
@@ -188,10 +188,10 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
             int x = buttonX + col * (FREQUENCY_BUTTON_SIZE[0] + 2);
             int y = buttonY + row * (FREQUENCY_BUTTON_SIZE[1] + 2);
 
-            boolean isSelected = (i == this.handler.getFrequency() - 1);
+            boolean isEnabled = this.handler.isFrequencyEnabled(i + 1);
             boolean isHovered = mouseX >= x && mouseX < x + FREQUENCY_BUTTON_SIZE[0] && mouseY >= y && mouseY < y + FREQUENCY_BUTTON_SIZE[1];
 
-            Identifier texture = isSelected || isHovered ? FREQUENCY_SELECTED_TEXTURE : FREQUENCY_BACKGROUND_TEXTURE;
+            Identifier texture = isEnabled || isHovered ? FREQUENCY_SELECTED_TEXTURE : FREQUENCY_BACKGROUND_TEXTURE;
             context.drawGuiTexture(texture, x, y, FREQUENCY_BUTTON_SIZE[0], FREQUENCY_BUTTON_SIZE[1]);
             context.drawGuiTexture(textures.get(i), x + 2, y + 2, 16, 16);
 

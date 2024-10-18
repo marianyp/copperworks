@@ -7,6 +7,7 @@ import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -20,24 +21,55 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.Vibrations;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class EnhancedSculkSensorBlockEntity extends SculkSensorBlockEntity implements NamedScreenHandlerFactory {
-    private static final String FREQUENCY_NBT = "Frequency";
+    private static final String FREQUENCY_WHITELIST_NBT = "FrequencyWhitelist";
     private static final String RANGE_NBT = "Range";
 
     private final PropertyDelegate propertyDelegate;
 
-    private int frequency = -1;
+    private Set<Integer> frequencyWhitelist = new HashSet<>();
     private int range = 16;
 
     public EnhancedSculkSensorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ENHANCED_SCULK_SENSOR, blockPos, blockState);
 
         this.propertyDelegate = new PropertyDelegate() {
+            private int containsFrequency(int frequency) {
+                return frequencyWhitelist.contains(frequency) ? 1 : 0;
+            }
+
+            private void toggleFrequency(int frequency) {
+                if (frequencyWhitelist.contains(frequency)) {
+                    frequencyWhitelist.remove(frequency);
+                } else {
+                    frequencyWhitelist.add(frequency);
+                }
+            }
+
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> EnhancedSculkSensorBlockEntity.this.frequency;
-                    case 1 -> EnhancedSculkSensorBlockEntity.this.range;
+                    case 0 -> EnhancedSculkSensorBlockEntity.this.range;
+                    case 1 -> containsFrequency(1);
+                    case 2 -> containsFrequency(2);
+                    case 3 -> containsFrequency(3);
+                    case 4 -> containsFrequency(4);
+                    case 5 -> containsFrequency(5);
+                    case 6 -> containsFrequency(6);
+                    case 7 -> containsFrequency(7);
+                    case 8 -> containsFrequency(8);
+                    case 9 -> containsFrequency(9);
+                    case 10 -> containsFrequency(10);
+                    case 11 -> containsFrequency(11);
+                    case 12 -> containsFrequency(12);
+                    case 13 -> containsFrequency(13);
+                    case 14 -> containsFrequency(14);
+                    case 15 -> containsFrequency(15);
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
@@ -45,20 +77,34 @@ public class EnhancedSculkSensorBlockEntity extends SculkSensorBlockEntity imple
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> EnhancedSculkSensorBlockEntity.this.frequency = value;
-                    case 1 -> EnhancedSculkSensorBlockEntity.this.range = value;
+                    case 0 -> EnhancedSculkSensorBlockEntity.this.range = value;
+                    case 1 -> toggleFrequency(1);
+                    case 2 -> toggleFrequency(2);
+                    case 3 -> toggleFrequency(3);
+                    case 4 -> toggleFrequency(4);
+                    case 5 -> toggleFrequency(5);
+                    case 6 -> toggleFrequency(6);
+                    case 7 -> toggleFrequency(7);
+                    case 8 -> toggleFrequency(8);
+                    case 9 -> toggleFrequency(9);
+                    case 10 -> toggleFrequency(10);
+                    case 11 -> toggleFrequency(11);
+                    case 12 -> toggleFrequency(12);
+                    case 13 -> toggleFrequency(13);
+                    case 14 -> toggleFrequency(14);
+                    case 15 -> toggleFrequency(15);
                 }
             }
 
             @Override
             public int size() {
-                return 2;
+                return 16;
             }
         };
     }
 
-    private int getFrequency() {
-        return frequency;
+    private Set<Integer> getFrequencyWhitelist() {
+        return frequencyWhitelist;
     }
 
     private int getRange() {
@@ -68,15 +114,19 @@ public class EnhancedSculkSensorBlockEntity extends SculkSensorBlockEntity imple
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        this.frequency = nbt.getInt(FREQUENCY_NBT);
         this.range = nbt.getInt(RANGE_NBT);
+
+        if (nbt.contains(FREQUENCY_WHITELIST_NBT, NbtElement.INT_ARRAY_TYPE)) {
+            this.frequencyWhitelist = Arrays.stream(nbt.getIntArray(FREQUENCY_WHITELIST_NBT)).boxed()
+                    .collect(Collectors.toSet());
+        }
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        nbt.putInt(FREQUENCY_NBT, this.frequency);
         nbt.putInt(RANGE_NBT, this.range);
+        nbt.putIntArray(FREQUENCY_WHITELIST_NBT, this.frequencyWhitelist.stream().toList());
     }
 
     @Override
@@ -117,14 +167,12 @@ public class EnhancedSculkSensorBlockEntity extends SculkSensorBlockEntity imple
         @Override
         public boolean accepts(ServerWorld world, BlockPos pos, RegistryEntry<GameEvent> event,
                                @Nullable GameEvent.Emitter emitter) {
-            int calibratedFrequency = EnhancedSculkSensorBlockEntity.this.getFrequency();
-
-            if (calibratedFrequency == -1) {
+            Set<Integer> frequencyWhitelist = EnhancedSculkSensorBlockEntity.this.getFrequencyWhitelist();
+            if (frequencyWhitelist.isEmpty()) {
                 return false;
             }
-
-            return (calibratedFrequency == 0 || Vibrations.getFrequency(event) == calibratedFrequency) && super.accepts(
-                    world, pos, event, emitter);
+            int frequency = Vibrations.getFrequency(event);
+            return frequencyWhitelist.contains(frequency) && super.accepts(world, pos, event, emitter);
         }
     }
 }

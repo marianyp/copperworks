@@ -1,6 +1,5 @@
 package dev.mariany.copperworks.screen;
 
-import dev.mariany.copperworks.Copperworks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,7 @@ public class EnhancedSculkSensorScreenHandler extends ScreenHandler {
     private final PropertyDelegate propertyDelegate;
 
     public EnhancedSculkSensorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new ArrayPropertyDelegate(2));
+        this(syncId, playerInventory, new ArrayPropertyDelegate(16));
     }
 
     public EnhancedSculkSensorScreenHandler(int syncId, PlayerInventory playerInventory,
@@ -65,33 +64,29 @@ public class EnhancedSculkSensorScreenHandler extends ScreenHandler {
         return STEPS.length;
     }
 
-    public int getFrequency() {
-        return this.propertyDelegate.get(0);
+    public boolean isFrequencyEnabled(int frequency) {
+        return this.propertyDelegate.get(frequency) == 1;
     }
 
     public int getRange() {
-        return this.propertyDelegate.get(1);
+        return this.propertyDelegate.get(0);
     }
 
-    public void setFrequency(int value) {
-        if (getFrequency() == value) {
-            value = -1;
-        }
-        this.propertyDelegate.set(0, value);
+    public void toggleFrequency(int value) {
+        this.propertyDelegate.set(value, 0);
     }
 
     public void setRange(int value) {
-        this.propertyDelegate.set(1, value);
+        this.propertyDelegate.set(0, value);
     }
 
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (id >= 1 && id <= 15) {
-            setFrequency(id);
+            toggleFrequency(id);
         } else if (id > 15) {
             int stepIndex = id - 16;
             setRange(calculateStepValue(stepIndex));
-            Copperworks.LOGGER.info("Setting range to {}", calculateStepValue(stepIndex));
         }
         return true;
     }
