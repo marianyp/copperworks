@@ -47,7 +47,8 @@ public class WrenchItem extends Item {
         Direction side = context.getSide();
         BlockState blockState = world.getBlockState(blockPos);
 
-        if (wrench(world, player, blockState, blockPos, side)) {
+        if (wrench(world, player, blockState, blockPos, side) || wrench(world, player, blockState, blockPos,
+                side.getOpposite())) {
             damage(itemStack, player, hand);
             world.playSoundFromEntity(null, player, ModSoundEvents.WRENCH, SoundCategory.NEUTRAL, 0.24F,
                     MathHelper.nextBetween(world.random, 0.8F, 1F));
@@ -101,9 +102,9 @@ public class WrenchItem extends Item {
                 return Optional.of(rotated);
             }
         } else if (state.contains(Properties.BLOCK_FACE) && state.contains(Properties.HORIZONTAL_FACING)) {
-            var res = getRotatedHorizontalFaceBlock(state, direction, clockwise);
-            if (res.isPresent()) {
-                return res;
+            Optional<BlockState> optionalRotated = getRotatedHorizontalFaceBlock(state, direction, clockwise);
+            if (optionalRotated.isPresent()) {
+                return optionalRotated;
             }
         }
 
@@ -163,9 +164,6 @@ public class WrenchItem extends Item {
 
     private Optional<BlockState> getRotatedHorizontalFaceBlock(BlockState original, Direction axis, boolean clockwise) {
         Direction facingDirection = original.get(Properties.HORIZONTAL_FACING);
-        if (facingDirection.getAxis() == axis.getAxis()) {
-            return Optional.empty();
-        }
 
         BlockFace face = original.get(Properties.BLOCK_FACE);
 

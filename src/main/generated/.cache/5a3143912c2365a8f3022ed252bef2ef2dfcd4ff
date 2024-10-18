@@ -1,6 +1,7 @@
-// 1.21.1	2024-10-16T17:43:57.6353071	Copperworks/Block Loot Tables
+// 1.21.1	2024-10-16T19:10:28.7355787	Copperworks/Block Loot Tables
 3faa6442371695ccef2977abf0e7129c89371eaa data\copperworks\loot_table\blocks\copper_rail.json
 f8c0587b7fa997a9f2dd27a89f65b826a8e85240 data\copperworks\loot_table\blocks\sticky_copper_honey.json
+e2ccb3a50ab2f15409eb532ef9d5bde9bd2b99c2 data\copperworks\loot_table\blocks\enhanced_sculk_sensor.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_bound.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_radio_bound.json
 b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copper_relay_charged.json

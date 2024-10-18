@@ -5,6 +5,7 @@ import dev.mariany.copperworks.block.custom.relay.AbstractRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.BindableRelay;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
+import dev.mariany.copperworks.item.custom.WrenchItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,6 +13,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -53,8 +55,21 @@ public class BoundRelayBlock extends AbstractRelayBlock implements BindableRelay
     }
 
     @Override
+    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        super.onStateReplaced(state, world, pos, newState, moved);
+        if (!(newState.getBlock() instanceof BoundRelayBlock)) {
+            if (!world.isClient) {
+                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
+                        RegistryEntry.of(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK), SoundCategory.BLOCKS, 1F, 1F,
+                        world.getRandom().nextLong());
+            }
+        }
+    }
+
+    @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!player.getMainHandStack().isEmpty()) {
+        ItemStack heldItem = player.getMainHandStack();
+        if (!heldItem.isEmpty() && !(heldItem.getItem() instanceof WrenchItem)) {
             return ActionResult.PASS;
         }
         if (world.getBlockEntity(pos) instanceof BoundRelayBlockEntity boundRelayBlockEntity) {

@@ -88,6 +88,9 @@ public class ModBlocks {
     public static final Block COPPER_RAIL = registerBlock("copper_rail",
             new RailBlock(AbstractBlock.Settings.copy(Blocks.RAIL)));
 
+    public static final Block ENHANCED_SCULK_SENSOR = registerBlock("enhanced_sculk_sensor",
+            new EnhancedSculkSensorBlock(AbstractBlock.Settings.copy(Blocks.CALIBRATED_SCULK_SENSOR)));
+
     private static AbstractBlock.Settings genericCopperSettings() {
         return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                 .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
@@ -153,6 +156,8 @@ public class ModBlocks {
             entries.addAfter(Items.COMPARATOR, COMPARATOR_MIRROR);
             entries.addAfter(Items.TARGET, COPPER_CLOCK);
             entries.addAfter(Items.LEVER, COPPER_LEVER);
+
+            entries.addAfter(Items.CALIBRATED_SCULK_SENSOR, ENHANCED_SCULK_SENSOR);
 
             entries.addBefore(Items.RAIL, WOODEN_RAIL);
             entries.addAfter(Items.RAIL, COPPER_RAIL);

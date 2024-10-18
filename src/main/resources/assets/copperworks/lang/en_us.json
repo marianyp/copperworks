@@ -45,6 +45,7 @@
   "block.copperworks.copper_stasis_chamber_charged": "Copper Stasis Chamber",
   "block.copperworks.wooden_rail": "Wooden Rail",
   "block.copperworks.copper_rail": "Copper Rail",
+  "block.copperworks.enhanced_sculk_sensor": "Enhanced Sculk Sensor",
   "enchantment.copperworks.shock": "Shock",
   "enchantment.copperworks.life_current": "Life Current",
   "enchantment.copperworks.charged_attraction": "Charged Attraction",
@@ -59,5 +60,7 @@
   "subtitles.block.copperworks.done_charging": "Item Done Charging",
   "subtitles.item.copperworks.radio_used": "Radio Used",
   "subtitles.item.copperworks.radio_fail": "Radio Fail",
+  "container.copperworks.enhanced_sculk_sensor": "Enhanced Sculk Sensor",
+  "container.copperworks.enhanced_sculk_sensor.range.tooltip": "Range: %s Blocks",
   "upgrade.copperworks.copper_upgrade": "Copper Upgrade"
 }

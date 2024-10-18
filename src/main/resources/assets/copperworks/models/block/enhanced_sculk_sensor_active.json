@@ -1,0 +1,6 @@
+{
+	"parent": "copperworks:block/enhanced_sculk_sensor",
+	"textures": {
+		"tendrils": "minecraft:block/sculk_sensor_tendril_active"
+	}
+}

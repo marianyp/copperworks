@@ -41,6 +41,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.COPPER_STASIS_CHAMBER_CHARGED, this::chargeDrop);
         addDrop(ModBlocks.WOODEN_RAIL);
         addDrop(ModBlocks.COPPER_RAIL);
+        addDrop(ModBlocks.ENHANCED_SCULK_SENSOR);
 
         addRelayDrops();
     }

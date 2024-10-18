@@ -33,6 +33,11 @@ public class ModBlockEntities {
             BlockEntityType.Builder.create(StasisChamberBlockEntity::new, ModBlocks.COPPER_STASIS_CHAMBER_CHARGED)
                     .build());
 
+    public static final BlockEntityType<EnhancedSculkSensorBlockEntity> ENHANCED_SCULK_SENSOR = register(
+            "stasis_chamber",
+            BlockEntityType.Builder.create(EnhancedSculkSensorBlockEntity::new, ModBlocks.ENHANCED_SCULK_SENSOR)
+                    .build());
+
     public static <T extends BlockEntityType<?>> T register(String name, T blockEntityType) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, Copperworks.id(name), blockEntityType);
     }
