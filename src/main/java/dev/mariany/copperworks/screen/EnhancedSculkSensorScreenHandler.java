@@ -11,10 +11,10 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.MathHelper;
 
 public class EnhancedSculkSensorScreenHandler extends ScreenHandler {
-    private static final int[] STEPS = {1, 16, 32, 64};
+    private static final int[] STEPS = {1, 8, 16, 32, 64};
 
-    private static final int[] INVENTORY_TOP_LEFT = {8, 111};
-    private static final int[] HOTBAR_TOP_LEFT = {8, 169};
+    private static final int[] INVENTORY_TOP_LEFT = {8, 107};
+    private static final int[] HOTBAR_TOP_LEFT = {8, 165};
 
     private final PropertyDelegate propertyDelegate;
 

@@ -12,11 +12,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.List;
+
 public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensorScreenHandler> {
     private static final Identifier TEXTURE = Copperworks.id(
             "textures/gui/container/enhanced_sculk_sensor/enhanced_sculk_sensor_gui.png");
 
-    private static final Identifier FREQUENCY_TEXTURE = Copperworks.id(
+    private static final Identifier FREQUENCY_BACKGROUND_TEXTURE = Copperworks.id(
             "container/enhanced_sculk_sensor/frequency_background");
     private static final Identifier FREQUENCY_SELECTED_TEXTURE = Copperworks.id(
             "container/enhanced_sculk_sensor/frequency_background_selected");
@@ -45,7 +47,7 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
 
     public EnhancedSculkSensorScreen(EnhancedSculkSensorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.backgroundHeight = 193;
+        this.backgroundHeight = 189;
         this.playerInventoryTitleY = this.backgroundHeight - 94;
     }
 
@@ -83,7 +85,7 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.client != null && this.client.interactionManager != null) {
+        if (button == 0 && this.client != null && this.client.interactionManager != null) {
             this.sliding = false;
 
             int buttonX = this.x + FREQUENCY_TOP_LEFT[0];
@@ -113,6 +115,7 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
                 return true;
             }
         }
+
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -171,6 +174,20 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
     }
 
     private void drawFrequencyOptions(DrawContext context) {
+        int buttonX = this.x + FREQUENCY_TOP_LEFT[0];
+        int buttonY = this.y + FREQUENCY_TOP_LEFT[1];
+
+        List<Identifier> textures = FrequencyIcons.all();
+
+        for (int i = 0; i < 15; i++) {
+            int col = i % 5;
+            int row = i / 5;
+
+            int x = buttonX + col * (FREQUENCY_BUTTON_SIZE[0] + 2);
+            int y = buttonY + row * (FREQUENCY_BUTTON_SIZE[1] + 2);
+
+            context.drawGuiTexture(textures.get(i), x + 2, y + 2, 16, 16);
+        }
     }
 
     private void drawFrequencyOptionsBackground(DrawContext context, int mouseX, int mouseY) {
@@ -187,7 +204,7 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
             boolean isSelected = (i == this.handler.getFrequency() - 1);
             boolean isHovered = mouseX >= x && mouseX < x + FREQUENCY_BUTTON_SIZE[0] && mouseY >= y && mouseY < y + FREQUENCY_BUTTON_SIZE[1];
 
-            Identifier texture = isSelected || isHovered ? FREQUENCY_SELECTED_TEXTURE : FREQUENCY_TEXTURE;
+            Identifier texture = isSelected || isHovered ? FREQUENCY_SELECTED_TEXTURE : FREQUENCY_BACKGROUND_TEXTURE;
             context.drawGuiTexture(texture, x, y, FREQUENCY_BUTTON_SIZE[0], FREQUENCY_BUTTON_SIZE[1]);
         }
     }
@@ -208,9 +225,12 @@ public class EnhancedSculkSensorScreen extends HandledScreen<EnhancedSculkSensor
             context.drawGuiTexture(texture, sliderX, sliderY, RANGE_SLIDER_HANDLE_SIZE[0], RANGE_SLIDER_HANDLE_SIZE[1]);
 
             if (isHovered || this.sliding) {
+                int tooltipX = sliderX + 24;
+                int tooltipY = Math.clamp(mouseY, maxY, minY) + 10;
+
                 context.drawTooltip(this.textRenderer,
                         Text.translatable(RANGE_TOOLTIP_TRANSLATION_KEY, this.handler.calculateStepValue(this.step)),
-                        mouseX + 16, sliderY + 10);
+                        tooltipX, tooltipY);
             }
         }
     }
