@@ -1,4 +1,4 @@
-package dev.mariany.copperworks.screen;
+package dev.mariany.copperworks.screen.frequency;
 
 import dev.mariany.copperworks.Copperworks;
 import net.minecraft.util.Identifier;
