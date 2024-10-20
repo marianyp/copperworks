@@ -11,8 +11,7 @@ import java.util.*;
 
 public class ChunkLoadingManager {
     public static ChunkPos getChunkPos(ServerWorld world, BlockPos blockPos) {
-        ChunkPos chunkPos = world.getChunk(blockPos).getPos();
-        return new ChunkPos(new BlockPos(chunkPos.getCenterX(), blockPos.getY(), chunkPos.getCenterZ()));
+        return world.getChunk(blockPos).getPos();
     }
 
     public static void startLoading(ServerWorld world, BlockPos blockPos) {

@@ -2,6 +2,7 @@ package dev.mariany.copperworks.block.custom.relay;
 
 import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.ModBlocks;
+import dev.mariany.copperworks.block.custom.relay.bound.BindableRelay;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;

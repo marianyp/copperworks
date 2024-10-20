@@ -91,6 +91,9 @@ public class ModBlocks {
     public static final Block ENHANCED_SCULK_SENSOR = registerBlock("enhanced_sculk_sensor",
             new EnhancedSculkSensorBlock(AbstractBlock.Settings.copy(Blocks.CALIBRATED_SCULK_SENSOR)));
 
+    public static final Block MUFFLER = registerBlock("muffler",
+            new MufflerBlock(genericCopperSettings().pistonBehavior(PistonBehavior.NORMAL)));
+
     private static AbstractBlock.Settings genericCopperSettings() {
         return AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.COPPER).strength(3, 6)
                 .requiresTool().solidBlock(Blocks::never).pistonBehavior(PistonBehavior.BLOCK);
@@ -182,6 +185,7 @@ public class ModBlocks {
             entries.addAfter(STICKY_COPPER, STICKY_COPPER_HONEY);
             entries.addAfter(Items.RESPAWN_ANCHOR, COPPER_STASIS_CHAMBER);
             entries.addAfter(COPPER_STASIS_CHAMBER, COPPER_STASIS_CHAMBER_CHARGED);
+            entries.addAfter(Items.JUKEBOX, MUFFLER);
         });
     }
 }

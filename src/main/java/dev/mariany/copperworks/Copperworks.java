@@ -4,6 +4,8 @@ import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.loot.ModLootTableModifiers;
+import dev.mariany.copperworks.packets.Packets;
+import dev.mariany.copperworks.packets.serverbound.ServerboundPackets;
 import dev.mariany.copperworks.screen.ModScreenHandlers;
 import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import dev.mariany.copperworks.data.BatteryInteractionLoader;
@@ -16,6 +18,7 @@ import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
+import dev.mariany.copperworks.world.poi.ModPointOfInterestTypes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -40,11 +43,15 @@ public class Copperworks implements ModInitializer {
         ModEnchantments.registerModEnchantments();
         ModBlocks.registerModBlocks();
         ModBlockEntities.registerModBlockEntities();
+        ModPointOfInterestTypes.registerModPointOfInterestTypes();
         ModVillagers.registerVillagers();
         ModTradesOffers.registerVillagerTrades();
         ModSoundEvents.registerModSoundEvents();
         ModScreenHandlers.registerScreenHandlers();
         ModLootTableModifiers.modifyLootTables();
+
+        Packets.register();
+        ServerboundPackets.init();
 
         ServerLifecycleEvents.SERVER_STARTED.register(ChunkLoadingManager::onServerStart);
         ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);

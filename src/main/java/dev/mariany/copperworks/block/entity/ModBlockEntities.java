@@ -34,7 +34,7 @@ public class ModBlockEntities {
                     .build());
 
     public static final BlockEntityType<EnhancedSculkSensorBlockEntity> ENHANCED_SCULK_SENSOR = register(
-            "stasis_chamber",
+            "enhanced_sculk_sensor",
             BlockEntityType.Builder.create(EnhancedSculkSensorBlockEntity::new, ModBlocks.ENHANCED_SCULK_SENSOR)
                     .build());
 

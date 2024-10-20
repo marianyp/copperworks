@@ -57,7 +57,7 @@ public record ShockEnchantmentEffect(FloatProvider shockDamagePercentage,
                     ignore.add(user);
                     ignore.add(livingEntityVictim);
 
-                    ModUtils.shockEntity(ignore, livingEntityVictim, level + 1, damage, delay, true);
+                    ModUtils.shockEntity(ignore, livingEntityVictim, level, damage, delay, true);
                 }
             }
 

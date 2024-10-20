@@ -42,6 +42,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.WOODEN_RAIL);
         addDrop(ModBlocks.COPPER_RAIL);
         addDrop(ModBlocks.ENHANCED_SCULK_SENSOR);
+        addDrop(ModBlocks.MUFFLER);
 
         addRelayDrops();
     }

@@ -2,7 +2,6 @@ package dev.mariany.copperworks.block.custom.relay.bound;
 
 import com.mojang.serialization.MapCodec;
 import dev.mariany.copperworks.block.custom.relay.AbstractRelayBlock;
-import dev.mariany.copperworks.block.custom.relay.BindableRelay;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
 import dev.mariany.copperworks.item.custom.WrenchItem;

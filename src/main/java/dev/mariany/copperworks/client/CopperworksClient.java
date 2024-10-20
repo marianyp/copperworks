@@ -7,13 +7,16 @@ import dev.mariany.copperworks.block.entity.renderer.BatteryBlockEntityRenderer;
 import dev.mariany.copperworks.block.entity.renderer.BoundRelayBlockEntityRenderer;
 import dev.mariany.copperworks.block.entity.renderer.RadioBoundRelayBlockEntityRenderer;
 import dev.mariany.copperworks.client.shaders.CoreShaders;
+import dev.mariany.copperworks.event.client.ChunkEventHandler;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
+import dev.mariany.copperworks.packets.clientbound.ClientboundPackets;
 import dev.mariany.copperworks.screen.EnhancedSculkSensorScreen;
 import dev.mariany.copperworks.screen.ModScreenHandlers;
 import dev.mariany.copperworks.util.ModUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -37,6 +40,11 @@ public class CopperworksClient implements ClientModInitializer {
         registerModelPredicateProviders();
         registryBlockEntityRenderers();
         registerBlockRenderLayers();
+
+        ClientboundPackets.init();
+
+        ClientChunkEvents.CHUNK_LOAD.register(ChunkEventHandler::onChunkLoad);
+        ClientChunkEvents.CHUNK_UNLOAD.register(ChunkEventHandler::onChunkUnload);
     }
 
     private void registerCoreShaders() {

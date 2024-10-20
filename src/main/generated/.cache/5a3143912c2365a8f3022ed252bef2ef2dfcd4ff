@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-18T08:02:59.4945997	Copperworks/Block Loot Tables
+// 1.21.1	2024-10-20T11:19:31.4857653	Copperworks/Block Loot Tables
 3faa6442371695ccef2977abf0e7129c89371eaa data\copperworks\loot_table\blocks\copper_rail.json
 f8c0587b7fa997a9f2dd27a89f65b826a8e85240 data\copperworks\loot_table\blocks\sticky_copper_honey.json
 e2ccb3a50ab2f15409eb532ef9d5bde9bd2b99c2 data\copperworks\loot_table\blocks\enhanced_sculk_sensor.json
@@ -19,3 +19,4 @@ b94a4a0c5d6eb8aaf8e9d7daa9a68d1fc68dd2f1 data\copperworks\loot_table\blocks\copp
 08bc68b56ef116010523c182be1e1ca4d81f9e01 data\copperworks\loot_table\blocks\copper_sensor.json
 9861c5b3a8db95b812b54e0ed908a83d0611e4b2 data\copperworks\loot_table\blocks\copper_stasis_chamber.json
 32916074b4bd0c4b37e5865858a4d0b96cc48a90 data\copperworks\loot_table\blocks\sticky_copper.json
+4dc022a8ed42849d43c05f5063a9bc7dc0a1a1d7 data\copperworks\loot_table\blocks\muffler.json

@@ -5,6 +5,7 @@ import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
@@ -46,6 +47,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createWoodenRailRecipe(exporter);
         createWrenchRecipe(exporter);
         createCopperUpgradeRecipes(exporter);
+        createMufflerRecipe(exporter);
     }
 
     private void createCopperBatteryRecipe(RecipeExporter exporter) {
@@ -173,5 +175,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private void createCopperUpgradeRecipes(RecipeExporter exporter) {
         offerCopperUpgradeRecipe(exporter, Items.CALIBRATED_SCULK_SENSOR, RecipeCategory.REDSTONE,
                 ModBlocks.ENHANCED_SCULK_SENSOR);
+    }
+
+    private void createMufflerRecipe(RecipeExporter exporter) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.MUFFLER, 4).input('P', ModItems.COPPER_PLATE)
+                .input('W', ItemTags.WOOL).input('N', Blocks.NOTE_BLOCK).pattern("PWP").pattern("WNW").pattern("PWP")
+                .criterion(hasItem(Blocks.NOTE_BLOCK), conditionsFromItem(Blocks.NOTE_BLOCK)).offerTo(exporter);
     }
 }

@@ -26,6 +26,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_BOUND);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COPPER_RELAY_RADIO_BOUND);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEACTIVATED_REDSTONE_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.MUFFLER);
         blockStateModelGenerator.registerTurnableRail(ModBlocks.WOODEN_RAIL);
         blockStateModelGenerator.registerTurnableRail(ModBlocks.COPPER_RAIL);
 

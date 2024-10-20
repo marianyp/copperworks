@@ -1,7 +1,7 @@
 package dev.mariany.copperworks.block.custom.relay.bound.radio;
 
 import dev.mariany.copperworks.block.custom.relay.AbstractRelayBlock;
-import dev.mariany.copperworks.block.custom.relay.BindableRelay;
+import dev.mariany.copperworks.block.custom.relay.bound.BindableRelay;
 import dev.mariany.copperworks.block.entity.custom.relay.RadioBoundRelayBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

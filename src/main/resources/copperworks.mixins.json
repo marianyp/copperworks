@@ -10,6 +10,7 @@
     "LivingEntityAccessor",
     "LivingEntityMixin",
     "NearestItemsSensorMixin",
+    "ServerWorldMixin",
     "SpawnRestrictionMixin"
   ],
   "injectors": {
@@ -18,6 +19,7 @@
   "client": [
     "ArmorFeatureRendererMixin",
     "BufferBuilderStorageMixin",
+    "SoundSystemMixin",
     "ElytraFeatureRendererMixin",
     "EntityRenderDispatcherMixin",
     "ItemRendererMixin",

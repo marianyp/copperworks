@@ -16,6 +16,7 @@
     "copperworks:deactivated_redstone_block",
     "copperworks:copper_stasis_chamber",
     "copperworks:copper_stasis_chamber_charged",
-    "copperworks:enhanced_sculk_sensor"
+    "copperworks:enhanced_sculk_sensor",
+    "copperworks:muffler"
   ]
 }
