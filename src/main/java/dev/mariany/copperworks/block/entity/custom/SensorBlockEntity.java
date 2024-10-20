@@ -7,10 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.BlockFace;
 import net.minecraft.entity.Entity;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -22,9 +19,7 @@ import java.util.List;
 
 public class SensorBlockEntity extends BlockEntity {
     private static final IntProperty POWER = Properties.POWER;
-    private static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    private static final EnumProperty<BlockFace> FACE = Properties.BLOCK_FACE;
-    private static final IntProperty RANGE = ModProperties.RANGE;
+    private static final IntProperty SENSOR_RANGE = ModProperties.SENSOR_RANGE;
 
     public SensorBlockEntity(BlockPos pos, BlockState state) {
         this(ModBlockEntities.SENSOR, pos, state);
@@ -38,7 +33,7 @@ public class SensorBlockEntity extends BlockEntity {
         Block block = blockState.getBlock();
         Direction facing = ChargedSensorBlock.getDirection(blockState);
 
-        Box visibleArea = Box.enclosing(pos, pos.offset(facing, blockState.get(RANGE)));
+        Box visibleArea = Box.enclosing(pos, pos.offset(facing, blockState.get(SENSOR_RANGE)));
 
         List<Entity> visibleEntities = world.getEntitiesByClass(Entity.class, visibleArea,
                 entity -> !entity.isRemoved());

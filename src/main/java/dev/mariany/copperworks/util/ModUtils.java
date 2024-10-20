@@ -41,14 +41,16 @@ import java.util.stream.Stream;
 
 public class ModUtils {
     public static int wrapIncrement(int value, int min, int max) {
-        if (value < min || value > max) {
-            throw new IllegalArgumentException("Value is out of bounds.");
-        }
+        return wrapIncrement(value, min, max, 1);
+    }
 
-        value++;
+    public static int wrapIncrement(int value, int min, int max, int incrementAmount) {
+        value += incrementAmount;
 
         if (value > max) {
             value = min;
+        } else if (value < min) {
+            value = max;
         }
 
         return value;

@@ -7,4 +7,6 @@ public final class ModConstants {
 
     public static final int MAX_BATTERY_CHARGE = 16;
     public static final int MAX_STASIS_CHAMBER_CHARGE = 32;
+
+    public static final int MAX_MUFFLER_RANGE = 8;
 }

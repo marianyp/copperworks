@@ -18,6 +18,7 @@
   "item.copperworks.wrench": "Wrench",
   "item.copperworks.wrench.applied_settings": "Applied copied settings from Wrench",
   "item.copperworks.wrench.copied_settings": "Copied settings from Enhanced Sculk Sensor",
+  "item.copperworks.wrench.muffler_range_changed": "Muffler range set to %s",
   "item.copperworks.wrench.copied_frequencies.tooltip": "Copied Frequencies: %s",
   "item.copperworks.wrench.copied_range.tooltip": "Copied Range: %s",
   "item.copperworks.wrench.copied_frequencies.none.tooltip": "None",

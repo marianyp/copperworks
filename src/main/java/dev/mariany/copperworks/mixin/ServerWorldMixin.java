@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.mixin;
 
+import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.MufflerBlock;
 import dev.mariany.copperworks.packets.clientbound.MufflerUpdatedPayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -22,19 +23,23 @@ public class ServerWorldMixin {
     public void injectOnBlockChanged(BlockPos pos, BlockState oldBlockState, BlockState newBlockState,
                                      CallbackInfo ci) {
         ServerWorld world = (ServerWorld) (Object) this;
+        ChunkPos chunkPos = new ChunkPos(pos);
         Block oldBlock = oldBlockState.getBlock();
         Block newBlock = newBlockState.getBlock();
+        int oldRange = oldBlockState.contains(ModProperties.MUFFLER_RANGE) ? oldBlockState.get(
+                ModProperties.MUFFLER_RANGE) : -1;
+        int newRange = newBlockState.contains(ModProperties.MUFFLER_RANGE) ? newBlockState.get(
+                ModProperties.MUFFLER_RANGE) : -1;
 
-        ChunkPos chunkPos = new ChunkPos(pos);
-
-        if (!oldBlock.equals(newBlock)) {
+        if ((oldRange != newRange) || !oldBlock.equals(newBlock)) {
             if (oldBlock instanceof MufflerBlock) {
-                sendToPlayers(world, new MufflerUpdatedPayload(chunkPos, pos, true));
+                sendToPlayers(world, new MufflerUpdatedPayload(chunkPos, -1, pos, true));
             }
 
             if (newBlock instanceof MufflerBlock) {
                 if (newBlockState.getBlock() instanceof MufflerBlock) {
-                    sendToPlayers(world, new MufflerUpdatedPayload(chunkPos, pos, false));
+                    int range = newBlockState.get(ModProperties.MUFFLER_RANGE);
+                    sendToPlayers(world, new MufflerUpdatedPayload(chunkPos, range, pos, false));
                 }
             }
         }

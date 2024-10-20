@@ -1,8 +1,11 @@
 package dev.mariany.copperworks.packets.serverbound;
 
+import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.packets.clientbound.ChunkMufflersPayload;
 import dev.mariany.copperworks.tag.ModPointOfInterestTypeTags;
+import dev.mariany.copperworks.util.ModConstants;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.BlockState;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +26,15 @@ public class ServerboundPackets {
                     .getInChunk(poiType -> poiType.isIn(ModPointOfInterestTypeTags.MUFFLER), chunkPos,
                             PointOfInterestStorage.OccupationStatus.ANY).map(PointOfInterest::getPos).toList();
 
-            context.responseSender().sendPacket(new ChunkMufflersPayload(chunkPos, mufflerPositions));
+            List<Integer> mufflerRanges = mufflerPositions.stream().map(pos -> {
+                BlockState blockState = world.getBlockState(pos);
+                if (blockState.contains(ModProperties.MUFFLER_RANGE)) {
+                    return blockState.get(ModProperties.MUFFLER_RANGE);
+                }
+                return ModConstants.MAX_MUFFLER_RANGE;
+            }).toList();
+
+            context.responseSender().sendPacket(new ChunkMufflersPayload(chunkPos, mufflerRanges, mufflerPositions));
         });
 
     }

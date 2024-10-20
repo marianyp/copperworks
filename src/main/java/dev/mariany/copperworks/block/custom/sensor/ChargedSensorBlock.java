@@ -33,7 +33,7 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     public static final MapCodec<ChargedSensorBlock> CODEC = ChargedSensorBlock.createCodec(ChargedSensorBlock::new);
 
     public static final IntProperty POWER = Properties.POWER;
-    public static final IntProperty RANGE = ModProperties.RANGE;
+    public static final IntProperty SENSOR_RANGE = ModProperties.SENSOR_RANGE;
 
     private static final int DEFAULT_RANGE = 5;
 
@@ -44,10 +44,10 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     @Override
     protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos,
                                              PlayerEntity player, Hand hand, BlockHitResult hit) {
-        int range = state.get(RANGE);
+        int range = state.get(SENSOR_RANGE);
         if (range < ModConstants.MAX_SENSOR_RANGE && stack.getItem().equals(Items.DRAGON_BREATH)) {
             int newRange = range + 1;
-            world.setBlockState(pos, state.with(RANGE, newRange), Block.NOTIFY_ALL);
+            world.setBlockState(pos, state.with(SENSOR_RANGE, newRange), Block.NOTIFY_ALL);
             stack.decrementUnlessCreative(1, player);
             playFillSound(world, pos);
             player.sendMessage(Text.translatable("block.copperworks.sensor_charged.upgraded", newRange), true);
@@ -66,7 +66,7 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     }
 
     public static int getRange(BlockState state) {
-        return state.contains(RANGE) ? state.get(RANGE) : 0;
+        return state.contains(SENSOR_RANGE) ? state.get(SENSOR_RANGE) : 0;
     }
 
     private static void playFillSound(World world, BlockPos pos) {
@@ -92,12 +92,12 @@ public class ChargedSensorBlock extends AbstractSensorBlock {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(POWER, RANGE);
+        builder.add(POWER, SENSOR_RANGE);
     }
 
     @Override
     protected BlockState applyDefaultState(BlockState state) {
-        return super.applyDefaultState(state).with(POWER, 0).with(RANGE, DEFAULT_RANGE);
+        return super.applyDefaultState(state).with(POWER, 0).with(SENSOR_RANGE, DEFAULT_RANGE);
     }
 
     @Override

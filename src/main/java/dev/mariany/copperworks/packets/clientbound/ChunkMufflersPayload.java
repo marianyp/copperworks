@@ -10,11 +10,13 @@ import net.minecraft.util.math.ChunkPos;
 
 import java.util.List;
 
-public record ChunkMufflersPayload(ChunkPos chunkPos, List<BlockPos> mufflers) implements CustomPayload {
+public record ChunkMufflersPayload(ChunkPos chunkPos, List<Integer> mufflerRanges,
+                                   List<BlockPos> mufflers) implements CustomPayload {
     public static final CustomPayload.Id<ChunkMufflersPayload> ID = new CustomPayload.Id<>(
             Copperworks.id("chunk_mufflers"));
     public static final PacketCodec<RegistryByteBuf, ChunkMufflersPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.VAR_LONG.xmap(ChunkPos::new, ChunkPos::toLong), ChunkMufflersPayload::chunkPos,
+            PacketCodecs.VAR_INT.collect(PacketCodecs.toList()), ChunkMufflersPayload::mufflerRanges,
             BlockPos.PACKET_CODEC.collect(PacketCodecs.toList()), ChunkMufflersPayload::mufflers,
             ChunkMufflersPayload::new);
 
