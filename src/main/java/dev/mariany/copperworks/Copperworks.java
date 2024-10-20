@@ -18,8 +18,10 @@ import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
+import dev.mariany.copperworks.world.client.MufflerStorage;
 import dev.mariany.copperworks.world.poi.ModPointOfInterestTypes;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -56,6 +58,10 @@ public class Copperworks implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTED.register(ChunkLoadingManager::onServerStart);
         ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);
         UseBlockCallback.EVENT.register(UseBlockHandler::onUseBlock);
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            LOGGER.info("Clearing Muffler Storage");
+            MufflerStorage.clear();
+        });
     }
 
     public static Identifier id(String resource) {

@@ -34,4 +34,8 @@ public class MufflerStorage {
     public static void removeChunk(long chunkPos) {
         loadedMufflers.remove(chunkPos);
     }
+
+    public static void clear() {
+        loadedMufflers.clear();
+    }
 }
