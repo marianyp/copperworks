@@ -5,6 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.CrafterBlockEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Pair;
@@ -46,6 +48,20 @@ public class ComparatorMirrorBlockEntity extends BlockEntity {
 
                 if (iterationBlockState.getComparatorOutput(world, iterationPos) > 0) {
                     powered = true;
+                }
+
+                if (world.getBlockEntity(iterationPos) instanceof CrafterBlockEntity crafterBlockEntity) {
+                    List<ItemStack> heldStacks = crafterBlockEntity.getHeldStacks();
+                    for (int i = 0; i < heldStacks.size(); i++) {
+                        ItemStack heldStack = heldStacks.get(i);
+                        if (crafterBlockEntity.isSlotDisabled(i)) {
+                            continue;
+                        }
+                        if (heldStack.isEmpty() || (heldStack.getMaxCount() > 1 && heldStack.getCount() == 1)) {
+                            powered = false;
+                            break;
+                        }
+                    }
                 }
             }
         }

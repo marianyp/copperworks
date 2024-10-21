@@ -92,8 +92,37 @@ public class EnhancedSculkSensorScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
-        return null;
+    public ItemStack quickMove(PlayerEntity player, int slotIndex) {
+        Slot slot = this.slots.get(slotIndex);
+        if (slot.hasStack()) {
+            ItemStack slotStack = slot.getStack();
+            ItemStack itemStack = slotStack.copy();
+            if (slotIndex >= 0 && slotIndex < 27) {
+                if (!this.insertItem(slotStack, 27, 36, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (slotIndex >= 27 && slotIndex < 36) {
+                if (!this.insertItem(slotStack, 0, 27, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.insertItem(slotStack, 0, 36, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (slotStack.isEmpty()) {
+                slot.setStack(ItemStack.EMPTY);
+            } else {
+                slot.markDirty();
+            }
+
+            if (slotStack.getCount() == itemStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTakeItem(player, slotStack);
+            return itemStack;
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override
