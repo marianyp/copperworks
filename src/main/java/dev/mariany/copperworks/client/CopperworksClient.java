@@ -14,9 +14,11 @@ import dev.mariany.copperworks.packets.clientbound.ClientboundPackets;
 import dev.mariany.copperworks.screen.EnhancedSculkSensorScreen;
 import dev.mariany.copperworks.screen.ModScreenHandlers;
 import dev.mariany.copperworks.util.ModUtils;
+import dev.mariany.copperworks.world.client.MufflerStorage;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -45,6 +47,11 @@ public class CopperworksClient implements ClientModInitializer {
 
         ClientChunkEvents.CHUNK_LOAD.register(ChunkEventHandler::onChunkLoad);
         ClientChunkEvents.CHUNK_UNLOAD.register(ChunkEventHandler::onChunkUnload);
+
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            Copperworks.LOGGER.info("Clearing Muffler Storage");
+            MufflerStorage.clear();
+        });
     }
 
     private void registerCoreShaders() {
