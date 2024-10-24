@@ -6,7 +6,7 @@ import dev.mariany.copperworks.entity.villager.ModVillagers;
 import dev.mariany.copperworks.event.server.ServerWorldTickHandler;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
-import dev.mariany.copperworks.tag.ModTags;
+import dev.mariany.copperworks.tag.CopperworksTags;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -274,7 +274,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         level = MathHelper.clamp(Math.round(level + level * f), 1, Integer.MAX_VALUE);
 
         Optional<RegistryEntryList.Named<Enchantment>> registryEntries = registryManager.get(RegistryKeys.ENCHANTMENT)
-                .getEntryList(ModTags.Enchantments.FROM_UPGRADE);
+                .getEntryList(CopperworksTags.Enchantments.FROM_UPGRADE);
 
         if (registryEntries.isEmpty()) {
             return enchantments;

@@ -7,7 +7,7 @@ import dev.mariany.copperworks.block.custom.StickyBlock;
 import dev.mariany.copperworks.block.custom.battery.BatteryBlock;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
-import dev.mariany.copperworks.tag.ModTags;
+import dev.mariany.copperworks.tag.CopperworksTags;
 import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
@@ -57,6 +57,10 @@ public class ModUtils {
     }
 
     public static boolean itemNeedsCharge(ItemStack itemStack) {
+        return itemNeedsCharge(itemStack, false);
+    }
+
+    public static boolean itemNeedsCharge(ItemStack itemStack, boolean offset) {
         Integer chargeComponent = itemStack.get(CopperworksComponents.CHARGE);
         Integer maxChargeComponent = itemStack.get(CopperworksComponents.MAX_CHARGE);
 
@@ -66,6 +70,10 @@ public class ModUtils {
 
         if (chargeComponent == null || maxChargeComponent == null) {
             return false;
+        }
+
+        if (offset) {
+            ++maxChargeComponent;
         }
 
         return chargeComponent < maxChargeComponent;
@@ -134,7 +142,7 @@ public class ModUtils {
         if (getReputationFromItem(villager, itemStack) < 0) {
             return false;
         }
-        return itemStack.isIn(ModTags.Items.ENGINEER_CAN_UPGRADE) && !itemStack.hasEnchantments();
+        return itemStack.isIn(CopperworksTags.Items.ENGINEER_CAN_UPGRADE) && !itemStack.hasEnchantments();
     }
 
     public static boolean isUpgraded(ItemStack itemStack) {

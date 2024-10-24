@@ -1,7 +1,7 @@
 package dev.mariany.copperworks.datagen;
 
 import dev.mariany.copperworks.block.ModBlocks;
-import dev.mariany.copperworks.tag.ModTags;
+import dev.mariany.copperworks.tag.CopperworksTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
@@ -59,7 +59,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         }
 
         for (TagKey<Block> blockTagKey : DRILLABLE) {
-            getOrCreateTagBuilder(ModTags.Blocks.DRILLABLE).forceAddTag(blockTagKey);
+            getOrCreateTagBuilder(CopperworksTags.Blocks.DRILLABLE).forceAddTag(blockTagKey);
         }
     }
 }

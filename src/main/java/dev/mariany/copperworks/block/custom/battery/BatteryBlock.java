@@ -98,6 +98,11 @@ public class BatteryBlock extends WallMountedBlockWithEntity implements BlockEnt
                     }
                 }
             } else {
+                // Prevent non Extend Pulse Interaction's from being used directly
+                if (origin.offset(direction).equals(iterationPosition)) {
+                    return;
+                }
+
                 interaction.executeInteraction(world, iterationPosition);
                 if (!world.isClient) {
                     playInteractionSound(world, iterationPosition, interaction.getSound());

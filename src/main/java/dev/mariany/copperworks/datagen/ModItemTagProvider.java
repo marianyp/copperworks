@@ -1,7 +1,7 @@
 package dev.mariany.copperworks.datagen;
 
 import dev.mariany.copperworks.item.ModItems;
-import dev.mariany.copperworks.tag.ModTags;
+import dev.mariany.copperworks.tag.CopperworksTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -36,7 +36,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.CHEST_ARMOR_ENCHANTABLE).add(ModItems.COPPER_BRACER);
         getOrCreateTagBuilder(ItemTags.FOOT_ARMOR_ENCHANTABLE).add(ModItems.ROCKET_BOOTS);
 
-        getOrCreateTagBuilder(ModTags.Items.DRILLS).add(ModItems.COPPER_DRILL);
+        getOrCreateTagBuilder(CopperworksTags.Items.DRILLS).add(ModItems.COPPER_DRILL);
 
         addEngineerCanUpgrade();
         addDrillCapabilities();
@@ -44,13 +44,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     private void addDrillCapabilities() {
         for (TagKey<Item> tag : DRILL_CAPABILITIES) {
-            getOrCreateTagBuilder(tag).addTag(ModTags.Items.DRILLS);
+            getOrCreateTagBuilder(tag).addTag(CopperworksTags.Items.DRILLS);
         }
     }
 
     private void addEngineerCanUpgrade() {
         for (Item item : ENGINEER_CAN_UPGRADE) {
-            getOrCreateTagBuilder(ModTags.Items.ENGINEER_CAN_UPGRADE).add(item);
+            getOrCreateTagBuilder(CopperworksTags.Items.ENGINEER_CAN_UPGRADE).add(item);
         }
     }
 }

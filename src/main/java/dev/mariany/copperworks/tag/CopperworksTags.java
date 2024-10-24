@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
-public class ModTags {
+public class CopperworksTags {
     public static class Blocks {
         public static TagKey<Block> DRILLABLE = createTag("mineable/drill");
 

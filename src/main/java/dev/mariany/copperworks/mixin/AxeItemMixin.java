@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.mixin;
 
 import dev.mariany.copperworks.block.ModBlocks;
+import dev.mariany.copperworks.util.ModConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Oxidizable;
@@ -30,7 +31,7 @@ public class AxeItemMixin {
                               CallbackInfoReturnable<Optional<BlockState>> cir) {
         Optional<BlockState> optionalDecreasedOxidationState = Oxidizable.getDecreasedOxidationState(state);
         Random random = world.getRandom();
-        if (random.nextBoolean()) {
+        if (random.nextFloat() <= ModConstants.HARVEST_PATINA_CHANCE) {
             return;
         }
 

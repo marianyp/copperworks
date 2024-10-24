@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.item.custom;
 
 import dev.mariany.copperworks.item.component.CopperworksComponents;
+import dev.mariany.copperworks.util.ModConstants;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CryingObsidianBlock;
@@ -56,7 +57,7 @@ public class PartialDragonBreathItem extends Item {
     }
 
     private void attemptFill(ItemStack bottleToFill, @NotNull PlayerEntity player, Hand hand) {
-        if (player.getRandom().nextBoolean()) {
+        if (player.getRandom().nextFloat() <= ModConstants.COLLECT_DRAGON_BREATH_CHANCE) {
             int dragonBreathFill = bottleToFill.getOrDefault(CopperworksComponents.DRAGON_BREATH_FILL, 0);
             int amount = bottleToFill.getCount();
 

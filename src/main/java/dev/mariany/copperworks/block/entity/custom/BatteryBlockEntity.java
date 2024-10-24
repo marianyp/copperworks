@@ -148,20 +148,28 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
                 }
             }
         }
-        return ModUtils.itemNeedsCharge(this.chargingItem);
-    }
-
-    public float getChargeProgress() {
-        int charge = this.chargingItem.getOrDefault(CopperworksComponents.CHARGE, 0);
-        int maxCharge = this.chargingItem.getOrDefault(CopperworksComponents.MAX_CHARGE, 0);
-        if (maxCharge == 0) {
-            return 0;
-        }
-        return (float) charge / (float) maxCharge;
+        return ModUtils.itemNeedsCharge(this.chargingItem, true);
     }
 
     public int getChargeRate() {
         return this.chargingItem.getOrDefault(CopperworksComponents.CHARGE_RATE, 1);
+    }
+
+    private int getMaxCharge() {
+        return this.chargingItem.getOrDefault(CopperworksComponents.MAX_CHARGE, 0) + 1;
+    }
+
+    private int getCurrentCharge() {
+        return this.chargingItem.getOrDefault(CopperworksComponents.CHARGE, 0);
+    }
+
+    public float getChargeProgress() {
+        int maxCharge = this.getMaxCharge();
+        int charge = this.getCurrentCharge();
+        if (maxCharge == 0) {
+            return 0;
+        }
+        return (float) charge / (float) maxCharge;
     }
 
     public void tick(World world, BlockPos pos, BlockState blockState, BatteryBlockEntity batteryBlockEntity) {
@@ -186,14 +194,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
                 }
             }
 
-            int maxCharge = chargeStack.getOrDefault(CopperworksComponents.MAX_CHARGE, 0);
-            int currentCharge = chargeStack.getOrDefault(CopperworksComponents.CHARGE, 0);
-
             ContainerComponent convertsToContainer = chargeStack.getOrDefault(CopperworksComponents.CONVERTS_TO,
                     ContainerComponent.DEFAULT);
             ItemStack convertsTo = convertsToContainer.copyFirstStack();
 
-            if (currentCharge >= maxCharge) {
+            if (batteryBlockEntity.getCurrentCharge() >= batteryBlockEntity.getMaxCharge()) {
                 if (!convertsTo.isEmpty()) {
                     setStack(convertsTo);
                     notifyChange(batteryBlockEntity);
@@ -245,11 +250,11 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
     }
 
     private boolean chargeItem(ItemStack itemStack) {
-        Integer charge = itemStack.getOrDefault(CopperworksComponents.CHARGE, 0);
-        Integer maxCharge = itemStack.getOrDefault(CopperworksComponents.MAX_CHARGE, 0);
+        int maxCharge = this.getMaxCharge();
+        int charge = this.getCurrentCharge();
 
-        if (charge < maxCharge) {
-            itemStack.set(CopperworksComponents.CHARGE, Math.min(charge + 1, maxCharge));
+        if (maxCharge > charge) {
+            itemStack.set(CopperworksComponents.CHARGE, charge + 1);
             return true;
         }
 

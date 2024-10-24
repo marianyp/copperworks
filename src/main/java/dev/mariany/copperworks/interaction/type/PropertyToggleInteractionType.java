@@ -5,13 +5,11 @@ import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.api.interaction.AbstractBatteryInteraction;
 import dev.mariany.copperworks.api.interaction.BatteryInteractionType;
 import dev.mariany.copperworks.api.interaction.InteractionSound;
+import dev.mariany.copperworks.interaction.PropertyToggleInteraction;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -29,20 +27,10 @@ public class PropertyToggleInteractionType implements BatteryInteractionType {
         if (matchedProperties.isEmpty()) {
             Copperworks.LOGGER.info("Boolean property {} does not exist on block {}", propertyString,
                     Registries.BLOCK.getEntry(block).getIdAsString());
+            return null;
         }
 
         BooleanProperty booleanProperty = (BooleanProperty) matchedProperties.getFirst();
-
-        return new AbstractBatteryInteraction(this, sound) {
-            @Override
-            public void executeInteraction(World world, BlockPos pos) {
-                BlockState blockState = world.getBlockState(pos);
-
-                boolean currentValue = blockState.get(booleanProperty);
-
-                world.setBlockState(pos, blockState.with(booleanProperty, !currentValue));
-                world.updateNeighborsAlways(pos, block);
-            }
-        };
+        return PropertyToggleInteraction.create(this, sound, booleanProperty);
     }
 }

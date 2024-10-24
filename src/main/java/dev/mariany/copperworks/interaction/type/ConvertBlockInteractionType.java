@@ -5,11 +5,10 @@ import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.api.interaction.AbstractBatteryInteraction;
 import dev.mariany.copperworks.api.interaction.BatteryInteractionType;
 import dev.mariany.copperworks.api.interaction.InteractionSound;
+import dev.mariany.copperworks.interaction.ConvertBlockInteraction;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -33,14 +32,6 @@ public class ConvertBlockInteractionType implements BatteryInteractionType {
             return null;
         }
 
-        Block convertToBlock = convertToBlockOptional.get();
-
-        return new AbstractBatteryInteraction(this, sound) {
-            @Override
-            public void executeInteraction(World world, BlockPos pos) {
-                world.setBlockState(pos, convertToBlock.getDefaultState());
-                world.updateNeighborsAlways(pos, convertToBlock);
-            }
-        };
+        return ConvertBlockInteraction.create(this, sound, convertToBlockOptional.get());
     }
 }

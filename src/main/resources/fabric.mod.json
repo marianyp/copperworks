@@ -22,6 +22,9 @@
     ],
     "fabric-datagen": [
       "dev.mariany.copperworks.CopperworksDataGenerator"
+    ],
+    "jei_mod_plugin": [
+      "dev.mariany.copperworks.compat.jei.JEICopperworksPlugin"
     ]
   },
   "mixins": [

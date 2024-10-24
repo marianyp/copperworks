@@ -5,15 +5,11 @@ import dev.mariany.copperworks.Copperworks;
 import dev.mariany.copperworks.api.interaction.AbstractBatteryInteraction;
 import dev.mariany.copperworks.api.interaction.BatteryInteractionType;
 import dev.mariany.copperworks.api.interaction.InteractionSound;
-import dev.mariany.copperworks.util.ModUtils;
+import dev.mariany.copperworks.interaction.PropertyIncrementInteraction;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -34,6 +30,7 @@ public class PropertyIncrementInteractionType implements BatteryInteractionType 
         if (matchedProperties.isEmpty()) {
             Copperworks.LOGGER.info("Integer property {} does not exist on block {}", propertyString,
                     Registries.BLOCK.getEntry(block).getIdAsString());
+            return null;
         }
 
         IntProperty intProperty = (IntProperty) matchedProperties.getFirst();
@@ -43,18 +40,6 @@ public class PropertyIncrementInteractionType implements BatteryInteractionType 
         int max = Collections.max(values);
         int min = Collections.min(values);
 
-        return new AbstractBatteryInteraction(this, sound) {
-            @Override
-            public void executeInteraction(World world, BlockPos pos) {
-                BlockState blockState = world.getBlockState(pos);
-
-                int currentValue = blockState.get(intProperty);
-                int value = shouldWrap ? ModUtils.wrapIncrement(currentValue, min, max) : MathHelper.clamp(
-                        currentValue + 1, min, max);
-
-                world.setBlockState(pos, blockState.with(intProperty, value));
-                world.updateNeighborsAlways(pos, block);
-            }
-        };
+        return PropertyIncrementInteraction.create(this, sound, intProperty, shouldWrap, max, min);
     }
 }
