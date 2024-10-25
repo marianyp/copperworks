@@ -16,6 +16,14 @@ repositories {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
     }
+
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 fabricApi {
@@ -34,6 +42,9 @@ dependencies {
     modCompileOnlyApi("mezz.jei:jei-${project.minecraft_version}-fabric-api:${jei_version}")
     // at runtime, use the full JEI jar for Fabric
     modRuntimeOnly("mezz.jei:jei-${project.minecraft_version}-fabric:${jei_version}")
+
+    modImplementation "maven.modrinth:Wd844r7Q:${structurized_reborn_version}"
+    include("maven.modrinth:Wd844r7Q:${structurized_reborn_version}")
 }
 
 processResources {

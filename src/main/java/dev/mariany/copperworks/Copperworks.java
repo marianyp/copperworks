@@ -19,6 +19,7 @@ import dev.mariany.copperworks.screen.ModScreenHandlers;
 import dev.mariany.copperworks.sound.ModSoundEvents;
 import dev.mariany.copperworks.world.chunk.ChunkLoadingManager;
 import dev.mariany.copperworks.world.poi.ModPointOfInterestTypes;
+import dev.mariany.copperworks.world.village.ModVillageAdditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -52,6 +53,8 @@ public class Copperworks implements ModInitializer {
 
         Packets.register();
         ServerboundPackets.init();
+
+        ModVillageAdditions.registerVillageStructures();
 
         ServerLifecycleEvents.SERVER_STARTED.register(ChunkLoadingManager::onServerStart);
         ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);

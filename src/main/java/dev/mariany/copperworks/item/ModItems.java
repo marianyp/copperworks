@@ -27,7 +27,7 @@ public class ModItems {
     public static final Item RADIO = registerItem("radio", new RadioItem(new Item.Settings().maxCount(1)));
     public static final Item COPPER_UPGRADE_SMITHING_TEMPLATE = registerItem("copper_upgrade_smithing_template",
             new CopperSmithingTemplateItem(64));
-    public static final Item WRENCH = registerItem("wrench", new WrenchItem(new Item.Settings().maxDamage(133)));
+    public static final Item WRENCH = registerItem("wrench", new WrenchItem(new Item.Settings().maxDamage(200)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Copperworks.id(name), item);
