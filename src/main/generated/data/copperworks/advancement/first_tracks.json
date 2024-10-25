@@ -1,11 +1,11 @@
 {
-  "parent": "copperworks:surprisingly_light",
+  "parent": "copperworks:root",
   "criteria": {
-    "has_copper_drill": {
+    "has_wooden_rail": {
       "conditions": {
         "items": [
           {
-            "items": "copperworks:copper_drill"
+            "items": "copperworks:wooden_rail"
           }
         ]
       },
@@ -14,19 +14,19 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.copperworks.multipurpose.description"
+      "translate": "advancements.copperworks.first_tracks.description"
     },
     "icon": {
       "count": 1,
-      "id": "copperworks:copper_drill"
+      "id": "copperworks:wooden_rail"
     },
     "title": {
-      "translate": "advancements.copperworks.multipurpose.title"
+      "translate": "advancements.copperworks.first_tracks.title"
     }
   },
   "requirements": [
     [
-      "has_copper_drill"
+      "has_wooden_rail"
     ]
   ],
   "sends_telemetry_event": true

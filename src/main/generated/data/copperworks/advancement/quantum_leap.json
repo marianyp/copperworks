@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "use_stasis_chamber": {
+      "trigger": "copperworks:use_stasis_chamber"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.quantum_leap.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_stasis_chamber_charged"
+    },
+    "title": {
+      "translate": "advancements.copperworks.quantum_leap.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_stasis_chamber"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

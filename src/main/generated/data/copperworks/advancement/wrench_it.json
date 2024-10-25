@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "use_wrench": {
+      "trigger": "copperworks:use_wrench"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.wrench_it.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:wrench"
+    },
+    "title": {
+      "translate": "advancements.copperworks.wrench_it.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_wrench"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

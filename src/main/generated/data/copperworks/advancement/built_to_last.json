@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:first_tracks",
+  "criteria": {
+    "upgraded_wooden_rail": {
+      "trigger": "copperworks:upgrade_wooden_rail"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.built_to_last.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_rail"
+    },
+    "title": {
+      "translate": "advancements.copperworks.built_to_last.title"
+    }
+  },
+  "requirements": [
+    [
+      "upgraded_wooden_rail"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

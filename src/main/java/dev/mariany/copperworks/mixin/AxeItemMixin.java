@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.mixin;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.util.ModConstants;
 import net.minecraft.block.Block;
@@ -8,6 +9,7 @@ import net.minecraft.block.Oxidizable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -40,6 +42,9 @@ public class AxeItemMixin {
             if (world.getBlockState(raycast.getBlockPos()).getBlock() instanceof Oxidizable) {
                 ItemStack patinaStack = new ItemStack(ModBlocks.PATINA, MathHelper.nextBetween(random, 1, 3));
                 Block.dropStack(world, pos.offset(raycast.getSide()), patinaStack);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    ModCriteria.SCRAPED_PATINA.trigger(serverPlayer);
+                }
             }
         }
     }

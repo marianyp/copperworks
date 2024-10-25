@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "collect_partial_dragon_breath": {
+      "trigger": "copperworks:collect_partial_dragon_breath"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.dragons_essence.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:dragon_breath"
+    },
+    "title": {
+      "translate": "advancements.copperworks.dragons_essence.title"
+    }
+  },
+  "requirements": [
+    [
+      "collect_partial_dragon_breath"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

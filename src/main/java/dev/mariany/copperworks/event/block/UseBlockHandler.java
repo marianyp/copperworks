@@ -1,11 +1,13 @@
 package dev.mariany.copperworks.event.block;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.item.ModItems;
 import dev.mariany.copperworks.item.custom.PartialDragonBreathItem;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.GlassBottleItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class UseBlockHandler {
     @FunctionalInterface
-    public interface QuadFunction<P1, P2, P3, P4, R> {
+    interface QuadFunction<P1, P2, P3, P4, R> {
         R apply(P1 one, P2 two, P3 three, P4 four);
     }
 
@@ -48,6 +50,9 @@ public class UseBlockHandler {
                 player.giveItemStack(ModItems.PARTIAL_DRAGON_BREATH.getDefaultStack());
                 world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
                 world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    ModCriteria.COLLECT_PARTIAL_DRAGON_BREATH.trigger(serverPlayer);
+                }
                 return ActionResult.SUCCESS;
             }
         }

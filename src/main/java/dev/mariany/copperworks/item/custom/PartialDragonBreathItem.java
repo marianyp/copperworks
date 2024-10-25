@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.util.ModConstants;
 import net.minecraft.block.BlockState;
@@ -7,6 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CryingObsidianBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -73,6 +75,10 @@ public class PartialDragonBreathItem extends Item {
                 }
             } else {
                 player.setStackInHand(hand, Items.DRAGON_BREATH.getDefaultStack().copyWithCount(amount));
+            }
+
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ModCriteria.COLLECT_PARTIAL_DRAGON_BREATH.trigger(serverPlayer);
             }
         }
     }

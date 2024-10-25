@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "scraped_patina": {
+      "trigger": "copperworks:scraped_patina"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.patina.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:patina"
+    },
+    "title": {
+      "translate": "advancements.copperworks.patina.title"
+    }
+  },
+  "requirements": [
+    [
+      "scraped_patina"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -148,6 +148,9 @@ public class RocketBootsItem extends ArmorItem {
 
         if (isOutOfBounds(entity)) {
             resetThrust(entity, bootsStack);
+            if (entity instanceof ServerPlayerEntity serverPlayer) {
+                ModCriteria.REACH_OUT_OF_BOUNDS.trigger(serverPlayer);
+            }
             return false;
         }
 

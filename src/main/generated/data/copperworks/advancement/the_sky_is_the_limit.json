@@ -1,0 +1,27 @@
+{
+  "parent": "copperworks:skybound",
+  "criteria": {
+    "reach_out_of_bounds": {
+      "trigger": "copperworks:reach_out_of_bounds"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.the_sky_is_the_limit.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:feather"
+    },
+    "title": {
+      "translate": "advancements.copperworks.the_sky_is_the_limit.title"
+    }
+  },
+  "requirements": [
+    [
+      "reach_out_of_bounds"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

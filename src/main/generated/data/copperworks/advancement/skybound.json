@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:multipurpose",
+  "criteria": {
+    "use_rocket_boots": {
+      "trigger": "copperworks:use_rocket_boots"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.skybound.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:rocket_boots"
+    },
+    "title": {
+      "translate": "advancements.copperworks.skybound.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_rocket_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

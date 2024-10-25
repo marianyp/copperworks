@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.custom.ComparatorMirrorBlock;
 import dev.mariany.copperworks.block.custom.MufflerBlock;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
@@ -78,6 +80,9 @@ public class WrenchItem extends Item {
             damage(itemStack, player, hand);
             world.playSoundFromEntity(null, player, ModSoundEvents.WRENCH, SoundCategory.NEUTRAL, 0.24F,
                     MathHelper.nextBetween(world.random, 0.8F, 1F));
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ModCriteria.USE_WRENCH.trigger(serverPlayer);
+            }
             return ActionResult.success(world.isClient);
         }
 
