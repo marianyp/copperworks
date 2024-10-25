@@ -1,0 +1,33 @@
+{
+  "parent": "copperworks:electrifying_beginnings",
+  "criteria": {
+    "has_deactivated_redstone_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:deactivated_redstone_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.nullified.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:deactivated_redstone_block"
+    },
+    "title": {
+      "translate": "advancements.copperworks.nullified.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_deactivated_redstone_block"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

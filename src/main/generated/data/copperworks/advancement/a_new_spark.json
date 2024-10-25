@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:brace_yourself",
+  "criteria": {
+    "upgrade_item": {
+      "trigger": "copperworks:upgraded_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.a_new_spark.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:redstone_block"
+    },
+    "title": {
+      "translate": "advancements.copperworks.a_new_spark.title"
+    }
+  },
+  "requirements": [
+    [
+      "upgrade_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

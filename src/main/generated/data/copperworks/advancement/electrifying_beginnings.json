@@ -1,0 +1,33 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "has_copper_battery": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:copper_battery"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.electrifying_beginnings.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_battery"
+    },
+    "title": {
+      "translate": "advancements.copperworks.electrifying_beginnings.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_battery"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

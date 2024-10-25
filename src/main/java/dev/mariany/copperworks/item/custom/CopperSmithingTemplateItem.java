@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.item.custom;
 
 import dev.mariany.copperworks.Copperworks;
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.mixin.ItemAccessor;
 import net.minecraft.block.BlockState;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.item.SmithingTemplateItem;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
@@ -79,6 +81,10 @@ public class CopperSmithingTemplateItem extends SmithingTemplateItem {
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(player, newBlockState));
             world.playSoundAtBlockCenter(blockPos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 0.33F,
                     MathHelper.nextBetween(world.random, 0.7F, 1F), false);
+
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ModCriteria.UPGRADE_WOODEN_RAIL.trigger(serverPlayer);
+            }
 
             return ActionResult.success(world.isClient);
         }

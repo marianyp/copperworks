@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:wireless_possibilities",
+  "criteria": {
+    "bound_relay": {
+      "trigger": "copperworks:bound_relay"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.no_strings_attached.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_relay_bound"
+    },
+    "title": {
+      "translate": "advancements.copperworks.no_strings_attached.title"
+    }
+  },
+  "requirements": [
+    [
+      "bound_relay"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

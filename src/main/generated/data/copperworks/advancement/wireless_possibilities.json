@@ -1,0 +1,33 @@
+{
+  "parent": "copperworks:electrifying_beginnings",
+  "criteria": {
+    "has_copper_relay_charged": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:copper_relay_charged"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.wireless_possibilities.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_relay_charged"
+    },
+    "title": {
+      "translate": "advancements.copperworks.wireless_possibilities.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_relay_charged"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

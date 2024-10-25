@@ -1,0 +1,33 @@
+{
+  "parent": "copperworks:brace_yourself",
+  "criteria": {
+    "has_copper_drill": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:copper_drill"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.multipurpose.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_drill"
+    },
+    "title": {
+      "translate": "advancements.copperworks.multipurpose.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_drill"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

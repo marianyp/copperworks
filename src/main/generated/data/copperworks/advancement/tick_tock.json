@@ -1,0 +1,33 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "has_copper_clock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:copper_clock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.tick_tock.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_clock"
+    },
+    "title": {
+      "translate": "advancements.copperworks.tick_tock.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_clock"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

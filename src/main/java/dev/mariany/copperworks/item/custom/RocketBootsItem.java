@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.item.ModArmorMaterials;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.util.ModUtils;
@@ -12,6 +13,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -29,9 +31,9 @@ public class RocketBootsItem extends ArmorItem {
     private static final float WIND_UP = 0.2F;
 
     public RocketBootsItem(Settings settings) {
-        super(ModArmorMaterials.ROCKET_BOOTS, Type.BOOTS,
-                settings.component(CopperworksComponents.CHARGE, 0).component(CopperworksComponents.MAX_CHARGE, MAX_CHARGE)
-                        .component(CopperworksComponents.CHARGE_RATE, CHARGE_RATE));
+        super(ModArmorMaterials.ROCKET_BOOTS, Type.BOOTS, settings.component(CopperworksComponents.CHARGE, 0)
+                .component(CopperworksComponents.MAX_CHARGE, MAX_CHARGE)
+                .component(CopperworksComponents.CHARGE_RATE, CHARGE_RATE));
     }
 
     public static boolean isHalting(LivingEntity entity, ItemStack boots) {
@@ -136,7 +138,8 @@ public class RocketBootsItem extends ArmorItem {
     }
 
     private boolean applyThrust(ItemStack bootsStack, LivingEntity entity) {
-        float currentThrust = MathHelper.clamp(bootsStack.getOrDefault(CopperworksComponents.THRUST, 0F), MIN_SPEED, MAX_SPEED);
+        float currentThrust = MathHelper.clamp(bootsStack.getOrDefault(CopperworksComponents.THRUST, 0F), MIN_SPEED,
+                MAX_SPEED);
 
         if (isHalting(entity, bootsStack)) {
             resetThrust(entity, bootsStack);
@@ -186,6 +189,9 @@ public class RocketBootsItem extends ArmorItem {
                     if (applyThrust(stack, livingEntity) && !world.isClient) {
                         entity.fallDistance = 0;
                         decrementChargeAndDamage(stack, livingEntity);
+                        if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
+                            ModCriteria.USE_ROCKET_BOOTS.trigger(serverPlayer);
+                        }
                     }
                 }
             }

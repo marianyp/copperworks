@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.event.entity;
 
 import com.google.common.collect.Lists;
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.entity.villager.ModVillagers;
 import dev.mariany.copperworks.event.server.ServerWorldTickHandler;
@@ -22,6 +23,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -49,9 +51,6 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
     private static final int MIN_ENCHANT_LEVEL = 25;
     private static final int ENCHANTABILITY = 15;
     private static final float REPUTATION_MULTIPLIER = 0.02F;
-
-    // TODO: Implement advancement for upgrading item
-    private static final int ADVANCEMENT_RADIUS = 20;
 
     @Override
     public void onServerWorldTick(ServerWorld world) {
@@ -229,7 +228,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
 
     private boolean giveToPlayer(VillagerEntity villager, ItemStack upgradedItem) {
         ServerWorld world = (ServerWorld) villager.getWorld();
-        PlayerEntity player = ModUtils.getItemStackOwner(world, upgradedItem);
+        ServerPlayerEntity player = (ServerPlayerEntity) ModUtils.getItemStackOwner(world, upgradedItem);
 
         if (player == null || player.isSpectator()) {
             return false;
@@ -244,6 +243,7 @@ public class VillagerTickHandler implements ServerWorldTickHandler {
         if (isCloseEnough(villager, player)) {
             LookTargetUtil.give(villager, upgradedItem, player.getPos());
             resetPlayerReputation(player, villager);
+            ModCriteria.UPGRADED_ITEM.trigger(player);
             return true;
         }
 

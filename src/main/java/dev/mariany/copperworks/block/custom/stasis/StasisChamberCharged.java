@@ -1,6 +1,7 @@
 package dev.mariany.copperworks.block.custom.stasis;
 
 import com.mojang.serialization.MapCodec;
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.ModProperties;
 import dev.mariany.copperworks.block.entity.custom.StasisChamberBlockEntity;
@@ -127,6 +128,10 @@ public class StasisChamberCharged extends AbstractStasisChamber implements Chunk
                         displayParticles(world, pos);
                         world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_PLAYER_TELEPORT,
                                 SoundCategory.PLAYERS);
+
+                        if (owner instanceof ServerPlayerEntity serverPlayer) {
+                            ModCriteria.USE_STASIS_CHAMBER.trigger(serverPlayer);
+                        }
                     }
                 }
             }

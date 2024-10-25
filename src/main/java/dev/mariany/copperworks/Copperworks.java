@@ -1,5 +1,6 @@
 package dev.mariany.copperworks;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.attachment.ModAttachmentTypes;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.ModBlockEntities;
@@ -37,6 +38,7 @@ public class Copperworks implements ModInitializer {
     public void onInitialize() {
         BatteryInteractionLoader.register();
 
+        ModCriteria.registerModCriteria();
         ModArmorMaterials.registerModArmorMaterials();
         CopperworksComponents.registerModComponents();
         ModAttachmentTypes.registerAttachmentTypes();

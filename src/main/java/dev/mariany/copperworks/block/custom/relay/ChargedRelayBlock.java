@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.block.custom.relay;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.entity.custom.relay.BoundRelayBlockEntity;
 import dev.mariany.copperworks.item.ModItems;
@@ -97,6 +98,7 @@ public class ChargedRelayBlock extends AbstractRelayBlock {
             if (state.getBlock().equals(this)) {
                 createBoundRelay(thisWorld, thisBlockPos, otherPos);
                 createBoundRelay(otherWorld, otherBlockPos, thisPos);
+                ModCriteria.BOUND_RELAY.trigger(serverPlayer);
                 return true;
             }
         }

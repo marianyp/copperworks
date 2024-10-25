@@ -1,0 +1,44 @@
+{
+  "parent": "copperworks:root",
+  "criteria": {
+    "has_sticky_copper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:sticky_copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sticky_copper_honey": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:sticky_copper_honey"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.sticky_fingers.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:sticky_copper"
+    },
+    "title": {
+      "translate": "advancements.copperworks.sticky_fingers.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_sticky_copper",
+      "has_sticky_copper_honey"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

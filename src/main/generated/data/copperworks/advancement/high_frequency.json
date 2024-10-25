@@ -1,0 +1,26 @@
+{
+  "parent": "copperworks:wireless_possibilities",
+  "criteria": {
+    "triggered_radio_bound_relay": {
+      "trigger": "copperworks:triggered_radio_bound_relay"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.high_frequency.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:radio"
+    },
+    "title": {
+      "translate": "advancements.copperworks.high_frequency.title"
+    }
+  },
+  "requirements": [
+    [
+      "triggered_radio_bound_relay"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

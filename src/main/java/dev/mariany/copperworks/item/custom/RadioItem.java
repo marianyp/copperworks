@@ -1,5 +1,6 @@
 package dev.mariany.copperworks.item.custom;
 
+import dev.mariany.copperworks.advancement.criterion.ModCriteria;
 import dev.mariany.copperworks.block.ModBlocks;
 import dev.mariany.copperworks.block.custom.relay.ChargedRelayBlock;
 import dev.mariany.copperworks.block.custom.relay.bound.radio.RadioBoundRelayBlock;
@@ -108,7 +109,7 @@ public class RadioItem extends AbstractBindingItem {
         if (world instanceof ServerWorld serverWorld) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) user;
 
-            int result = triggerRelay(serverWorld, radioStack);
+            int result = triggerRelay(serverWorld, user, radioStack);
 
             switch (result) {
                 case SUCCESS -> playUsedSound(serverPlayer);
@@ -131,7 +132,7 @@ public class RadioItem extends AbstractBindingItem {
         return TypedActionResult.pass(radioStack);
     }
 
-    public int triggerRelay(ServerWorld world, ItemStack radioStack) {
+    public int triggerRelay(ServerWorld world, PlayerEntity player, ItemStack radioStack) {
         GlobalPos globalPos = getBoundPos(radioStack);
 
         if (globalPos == null) {
@@ -158,6 +159,9 @@ public class RadioItem extends AbstractBindingItem {
         if (!blockState.get(Properties.POWERED)) {
             boundWorld.getBlockTickScheduler().clearNextTicks(new BlockBox(boundBlockPos));
             boundWorld.scheduleBlockTick(boundBlockPos, blockState.getBlock(), 0);
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ModCriteria.TRIGGERED_RADIO_BOUND_RELAY.trigger(serverPlayer);
+            }
         }
 
         return SUCCESS;

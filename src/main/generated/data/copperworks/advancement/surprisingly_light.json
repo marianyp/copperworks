@@ -1,0 +1,33 @@
+{
+  "parent": "copperworks:brace_yourself",
+  "criteria": {
+    "has_copper_broadsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "copperworks:copper_broadsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.copperworks.surprisingly_light.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "copperworks:copper_broadsword"
+    },
+    "title": {
+      "translate": "advancements.copperworks.surprisingly_light.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_broadsword"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
