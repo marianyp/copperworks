@@ -10,6 +10,7 @@ import net.minecraft.registry.tag.TagKey;
 public class CopperworksTags {
     public static class Blocks {
         public static TagKey<Block> DRILLABLE = createTag("mineable/drill");
+        public static TagKey<Block> WRENCH_BLACKLIST = createTag("wrench_blacklist");
 
         private static TagKey<Block> createTag(String name) {
             return TagKey.of(RegistryKeys.BLOCK, Copperworks.id(name));

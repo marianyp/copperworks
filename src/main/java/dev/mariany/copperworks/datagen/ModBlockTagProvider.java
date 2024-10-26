@@ -61,5 +61,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         for (TagKey<Block> blockTagKey : DRILLABLE) {
             getOrCreateTagBuilder(CopperworksTags.Blocks.DRILLABLE).forceAddTag(blockTagKey);
         }
+
+        addWrenchBlacklist();
+    }
+
+    private void addWrenchBlacklist() {
+        getOrCreateTagBuilder(CopperworksTags.Blocks.WRENCH_BLACKLIST).forceAddTag(BlockTags.BEDS);
     }
 }

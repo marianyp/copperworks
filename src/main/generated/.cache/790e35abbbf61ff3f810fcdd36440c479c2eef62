@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-25T12:29:42.6840145	Copperworks/Model Definitions
+// 1.21.1	2024-10-26T15:40:40.1918615	Copperworks/Model Definitions
 5ffddc3adeca06f9215170a314c1e4d51ceb7f49 assets\copperworks\models\block\copper_relay_bound.json
 eb56c9eb1522874e9b8ae5a158af0c665c86f4a4 assets\copperworks\blockstates\copper_relay_charged.json
 96b7bd862ff7e029a6533dc20114c8101365ac80 assets\copperworks\models\block\wooden_rail_corner.json
@@ -20,9 +20,9 @@ f144384765ee93be6e36c616d834b09cdbc9d8f6 assets\copperworks\models\block\muffler
 d768aa6652d190be7b2cbf058352169ee49b81f2 assets\copperworks\blockstates\copper_relay_radio_bound.json
 c663d00d1e9cc9a2d318fc89f561860fedb6c4db assets\copperworks\models\block\copper_rail_raised_sw.json
 4e498ca8584b0c7c96a9d12f457cdddb4638ba86 assets\copperworks\models\item\wrench.json
+900c950cc500a61e6957b1c3f41faf8d10b523a7 assets\copperworks\models\block\copper_rail_raised_ne.json
 941c7c702d4614f008071184e0a031eeabc80371 assets\copperworks\models\block\sticky_copper_honey.json
 65c338816f23df132dad059da7b87c18b0521fb2 assets\copperworks\models\block\comparator_mirror_locked.json
-900c950cc500a61e6957b1c3f41faf8d10b523a7 assets\copperworks\models\block\copper_rail_raised_ne.json
 0614e8018317e9a21e3a7e2ec54803bcea356c1a assets\copperworks\blockstates\comparator_mirror.json
 3ef64c425705743a628c9a888f320d4ff564340c assets\copperworks\models\item\copper_rail.json
 4662c5b523c9ad8fcedcf86c85530b558dadc52f assets\copperworks\models\item\copper_clock.json

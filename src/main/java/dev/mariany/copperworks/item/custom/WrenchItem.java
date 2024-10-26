@@ -7,6 +7,7 @@ import dev.mariany.copperworks.block.custom.MufflerBlock;
 import dev.mariany.copperworks.block.entity.custom.EnhancedSculkSensorBlockEntity;
 import dev.mariany.copperworks.item.component.CopperworksComponents;
 import dev.mariany.copperworks.sound.ModSoundEvents;
+import dev.mariany.copperworks.tag.CopperworksTags;
 import dev.mariany.copperworks.util.ModConstants;
 import dev.mariany.copperworks.util.ModUtils;
 import net.minecraft.block.*;
@@ -76,7 +77,15 @@ public class WrenchItem extends Item {
         Direction side = context.getSide();
         BlockState blockState = world.getBlockState(blockPos);
 
-        if (wrench(world, player, itemStack, blockState, blockPos, side)) {
+        boolean wrenched = wrench(world, player, itemStack, blockState, blockPos, side);
+
+        if (!wrenched) {
+            Direction playerFacing = player == null ? Direction.NORTH : player.getFacing().getOpposite();
+            Direction otherSide = side.getAxis().isVertical() ? playerFacing : Direction.UP;
+            wrenched = wrench(world, player, itemStack, blockState, blockPos, otherSide);
+        }
+
+        if (wrenched) {
             damage(itemStack, player, hand);
             world.playSoundFromEntity(null, player, ModSoundEvents.WRENCH, SoundCategory.NEUTRAL, 0.24F,
                     MathHelper.nextBetween(world.random, 0.8F, 1F));
@@ -105,6 +114,10 @@ public class WrenchItem extends Item {
 
     private boolean wrench(World world, @Nullable PlayerEntity player, ItemStack itemStack, BlockState blockState,
                            BlockPos blockPos, Direction side) {
+        if (blockState.isIn(CopperworksTags.Blocks.WRENCH_BLACKLIST)) {
+            return false;
+        }
+
         Block block = blockState.getBlock();
 
         if (block instanceof ComparatorMirrorBlock) {
@@ -227,6 +240,14 @@ public class WrenchItem extends Item {
         // Trapdoors
         if (state.contains(TrapdoorBlock.HALF)) {
             return Optional.of(state.cycle(TrapdoorBlock.HALF));
+        }
+
+        // Banners, Signs, Skulls
+        if (state.contains(Properties.ROTATION)) {
+            int currentRotation = state.get(Properties.ROTATION);
+            int maxRotation = Properties.ROTATION.getValues().stream().max(Integer::compare).orElse(0);
+            int newRotation = ModUtils.wrapIncrement(currentRotation, 0, maxRotation, clockwise ? 1 : -1);
+            return Optional.of(state.with(Properties.ROTATION, newRotation));
         }
 
         return Optional.empty();

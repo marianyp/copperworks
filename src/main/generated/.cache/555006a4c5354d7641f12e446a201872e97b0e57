@@ -1,7 +1,8 @@
-// 1.21.1	2024-10-25T12:29:42.6870212	Copperworks/Tags for minecraft:block
+// 1.21.1	2024-10-26T15:40:40.1948702	Copperworks/Tags for minecraft:block
 c5bc897289c41ba5ed0fbf8b706ef47e0f93f38b data\minecraft\tags\block\rails.json
 ac90524d77b5b0e8bc920866039715e8a6c803b0 data\minecraft\tags\block\mineable\hoe.json
 a589874601abf932f0e16de0f3fcb6b5adbe3ba2 data\minecraft\tags\block\needs_stone_tool.json
 35e634887d3e279af5e5b4301e39aed1e23d0589 data\minecraft\tags\block\mineable\axe.json
 69a3b407ab428fb387ef79c49f96810719c87ae3 data\minecraft\tags\block\mineable\pickaxe.json
+efb3ca1f32daa2cf5586ec3e635381b706ee9e0f data\copperworks\tags\block\wrench_blacklist.json
 c2f6fb7224bd1e2fdb87249751113c4d66dbc21f data\copperworks\tags\block\mineable\drill.json
