@@ -8,9 +8,10 @@
     "uhmbyee / Mariany Pinkston"
   ],
   "contact": {
-    "homepage": "https://www.mariany.dev/"
+    "homepage": "https://www.mariany.dev/",
+    "sources": "https://github.com/marianyp/copperworks"
   },
-  "license": "CC0-1.0",
+  "license": "ARR",
   "icon": "assets/copperworks/icon.png",
   "environment": "*",
   "entrypoints": {

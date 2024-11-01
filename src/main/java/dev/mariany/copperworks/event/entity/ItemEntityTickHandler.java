@@ -8,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.TypeFilter;
-import net.minecraft.world.World;
 
 public class ItemEntityTickHandler implements ServerWorldTickHandler {
     @Override
@@ -24,15 +23,12 @@ public class ItemEntityTickHandler implements ServerWorldTickHandler {
     }
 
     private void handleLastThrown(ItemEntity itemEntity) {
-        World world = itemEntity.getWorld();
         ItemStack itemStack = itemEntity.getStack();
 
         // Only works for item stacks with a max size of 1 to avoid inventory stacking issues
         if (itemStack.getMaxCount() == 1 && itemStack.isIn(CopperworksTags.Items.ENGINEER_CAN_UPGRADE)) {
-            boolean justCreated = itemEntity.age == 1 || !itemStack.contains(CopperworksComponents.LAST_THROWN);
-            if (justCreated) {
-                PlayerEntity player = world.getClosestPlayer(itemEntity, 3);
-                if (player != null) {
+            if (!itemStack.contains(CopperworksComponents.LAST_THROWN)) {
+                if (itemEntity.getOwner() instanceof PlayerEntity player) {
                     itemStack.set(CopperworksComponents.LAST_THROWN, player.getUuid());
                     itemEntity.setStack(itemStack);
                 }
