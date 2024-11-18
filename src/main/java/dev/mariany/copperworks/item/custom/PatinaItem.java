@@ -51,6 +51,7 @@ public class PatinaItem extends BlockItem {
             BlockState patinaState = ModBlocks.PATINA.getDefaultState();
             if (belowState.isReplaceable() && patinaState.canPlaceAt(world, belowPos)) {
                 world.setBlockState(belowPos, patinaState);
+                itemStack.decrementUnlessCreative(1, player);
                 playSound(world, belowPos);
                 return ActionResult.success(world.isClient);
             }

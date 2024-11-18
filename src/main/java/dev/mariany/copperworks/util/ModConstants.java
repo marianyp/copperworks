@@ -10,6 +10,6 @@ public final class ModConstants {
 
     public static final int MAX_MUFFLER_RANGE = 8;
 
-    public static final float COLLECT_DRAGON_BREATH_CHANCE = 0.5F;
+    public static final float COLLECT_DRAGON_BREATH_CHANCE = 0.75F;
     public static final float HARVEST_PATINA_CHANCE = 0.5F;
 }
