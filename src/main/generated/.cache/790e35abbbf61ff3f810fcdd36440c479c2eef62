@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-26T15:40:40.1918615	Copperworks/Model Definitions
+// 1.21.1	2024-12-06T04:11:28.3691114	Copperworks/Model Definitions
 5ffddc3adeca06f9215170a314c1e4d51ceb7f49 assets\copperworks\models\block\copper_relay_bound.json
 eb56c9eb1522874e9b8ae5a158af0c665c86f4a4 assets\copperworks\blockstates\copper_relay_charged.json
 96b7bd862ff7e029a6533dc20114c8101365ac80 assets\copperworks\models\block\wooden_rail_corner.json
@@ -33,9 +33,9 @@ bf53d402ff592ddcf06c51795f97b38ec11da582 assets\copperworks\models\item\copper_p
 35f5b5a784ce034cab07175bdbc2c83171f87af2 assets\copperworks\models\item\wooden_rail.json
 6efe288b0191adac4cffcf30dd22ab1560862d1c assets\copperworks\blockstates\sticky_copper_honey.json
 068c98a76b871ac81a6af9e4eedd31891beb312e assets\copperworks\models\block\copper_rail_corner.json
-c5e9091bd2446d1d8a5669363af6f126f56d7d84 assets\copperworks\blockstates\copper_relay_bound.json
-1e517f36f16f85ab91a221879560e744ab49d57d assets\copperworks\models\block\wooden_rail_raised_sw.json
 bf709c2e967725875818586dfcf264ba67ccf05c assets\copperworks\models\block\copper_relay.json
+1e517f36f16f85ab91a221879560e744ab49d57d assets\copperworks\models\block\wooden_rail_raised_sw.json
+c5e9091bd2446d1d8a5669363af6f126f56d7d84 assets\copperworks\blockstates\copper_relay_bound.json
 0cbed4461fbdbf80a5ed2317123f735fbc61bdf9 assets\copperworks\models\block\copper_clock.json
 43c6adeb71dc680392e2d07e6fc68ce58dbec961 assets\copperworks\models\item\copper_lever.json
 cf928f271caea855819a1e1c52ef77913f36c112 assets\copperworks\models\item\sticky_copper_honey.json

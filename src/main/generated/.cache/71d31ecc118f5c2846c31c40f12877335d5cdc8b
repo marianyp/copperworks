@@ -1,0 +1,5 @@
+// 1.21.1	2024-12-06T04:11:28.3716474	Copperworks/Copperworks/Recipe Overrides
+6c14bd653c3bd014b5212ba91a7757e71791b549 data\minecraft\recipe\iron_trapdoor.json
+bdf4f13e580cb38087c48fa1784bfc6d58f7a67d data\minecraft\advancement\recipes\redstone\iron_trapdoor.json
+2c0e48e1eb13577ad4aed9538507198d13d3084c data\minecraft\recipe\iron_bars.json
+a876281f6287540d9bd123b7a36587ecdd9ee71e data\minecraft\advancement\recipes\decorations\iron_bars.json
