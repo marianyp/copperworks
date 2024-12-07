@@ -31,9 +31,14 @@ public class RocketBootsItem extends ArmorItem {
     private static final float WIND_UP = 0.2F;
 
     public RocketBootsItem(Settings settings) {
-        super(ModArmorMaterials.ROCKET_BOOTS, Type.BOOTS, settings.component(CopperworksComponents.CHARGE, 0)
-                .component(CopperworksComponents.MAX_CHARGE, MAX_CHARGE)
-                .component(CopperworksComponents.CHARGE_RATE, CHARGE_RATE));
+        this(settings, 0, MAX_CHARGE, CHARGE_RATE);
+    }
+
+    public RocketBootsItem(Settings settings, int initialCharge, int maxCharge, int chargeRate) {
+        super(ModArmorMaterials.ROCKET_BOOTS, Type.BOOTS,
+                settings.component(CopperworksComponents.CHARGE, initialCharge)
+                        .component(CopperworksComponents.MAX_CHARGE, maxCharge)
+                        .component(CopperworksComponents.CHARGE_RATE, chargeRate));
     }
 
     public static boolean isHalting(LivingEntity entity, ItemStack boots) {
@@ -89,16 +94,9 @@ public class RocketBootsItem extends ArmorItem {
     }
 
     private void decrementChargeAndDamage(ItemStack stack, LivingEntity entity) {
-        Random random = entity.getRandom();
         if (entity.age % 15 == 0) {
-            int currentCharge = stack.getOrDefault(CopperworksComponents.CHARGE, 0);
-
-            if (random.nextBoolean()) {
-                if (entity.getRandom().nextBoolean() && currentCharge > 0) {
-                    ModUtils.decrementCharge(entity, stack);
-                } else {
-                    stack.damage(1, entity, EquipmentSlot.FEET);
-                }
+            if (MathHelper.nextFloat(entity.getRandom(), 0, 1) <= 0.25F) {
+                ModUtils.decrementCharge(entity, stack);
             }
         }
     }
