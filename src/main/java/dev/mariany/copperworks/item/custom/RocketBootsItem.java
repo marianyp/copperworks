@@ -42,7 +42,7 @@ public class RocketBootsItem extends ArmorItem {
     }
 
     public static boolean isHalting(LivingEntity entity, ItemStack boots) {
-        return ModUtils.itemHasSomeCharge(boots) && entity.isSneaking();
+        return ModUtils.itemHasSomeCharge(boots) && !entity.isOnGround() && entity.isSneaking();
     }
 
     private static boolean isOutOfBounds(Entity entity) {

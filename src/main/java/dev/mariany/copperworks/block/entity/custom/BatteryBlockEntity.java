@@ -236,17 +236,17 @@ public class BatteryBlockEntity extends BlockEntity implements SingleStackInvent
 
     private void playChargeSound(@NotNull World world, BlockPos pos) {
         world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.CHARGE,
-                SoundCategory.BLOCKS, 0.5F + world.random.nextFloat(), 0.7F + 0.5F * this.getChargeProgress(), false);
+                SoundCategory.BLOCKS, 0.5F + world.random.nextFloat(), 0.7F + 0.5F * this.getChargeProgress(), true);
     }
 
     private void playDoneChargingSound(@NotNull World world, BlockPos pos) {
         world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.DONE_CHARGING,
-                SoundCategory.BLOCKS, 0.2F, 1F, false);
+                SoundCategory.BLOCKS, 0.2F, 1F, true);
     }
 
     private void playOutOfChargeSound(@NotNull World world, BlockPos pos) {
-        world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.OUT_OF_CHARGE,
-                SoundCategory.BLOCKS, 0.375F, 1F);
+        world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSoundEvents.OUT_OF_CHARGE,
+                SoundCategory.BLOCKS, 0.375F, 1F, true);
     }
 
     private boolean chargeItem(ItemStack itemStack) {
